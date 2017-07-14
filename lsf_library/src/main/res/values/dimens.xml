@@ -1,0 +1,31 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- 通用Spacing 使用4dp的倍数一般情况下UI设计人员应该考虑整体的Spacing有几种，然后在每个具体的界面需要用到哪个层级的Spacing。一些特殊的Spacing可以在下面继续定义 -->
+    <dimen name="spacing_1x">4dp</dimen>
+    <dimen name="spacing_2x">8dp</dimen>
+    <dimen name="spacing_3x">12dp</dimen>
+    <dimen name="spacing_4x">16dp</dimen>
+    <dimen name="spacing_5x">20dp</dimen>
+    <dimen name="spacing_6x">24dp</dimen>
+    <dimen name="spacing_8x">32dp</dimen>
+    <dimen name="spacing_10x">40dp</dimen>
+    <dimen name="spacing_12x">48dp</dimen>
+    <dimen name="spacing_16x">64dp</dimen>
+    <dimen name="spacing_20x">80dp</dimen>
+
+    <!--
+      begin meta
+                            元大小：被抽象到主题中，不能直接引用，可以通过相应的?attr/xx引用。
+                            详情见    attrs.xm中<declare-styleable name="Theme">定义的attr
+-->
+    <dimen name="meta_text_size_xxlarge">26.0sp</dimen>
+    <dimen name="meta_text_size_xlarge">22.0sp</dimen>
+    <dimen name="meta_text_size_large">19.0sp</dimen>
+    <dimen name="meta_text_size_medium">16.0sp</dimen>
+    <dimen name="meta_text_size_small">14.0sp</dimen>
+    <dimen name="meta_text_size_xsmall">12.0sp</dimen>
+
+</resources>

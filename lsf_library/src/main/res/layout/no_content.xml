@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+ 	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/white"
+	android:gravity="center"
+	android:visibility="gone"
+	>
+	<TextView 
+	 	android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="抱歉还没有数据额~"
+		android:drawableTop="@mipmap/no_content"
+		android:gravity="center"
+		android:layout_gravity="center"
+		android:id="@+id/tv_no_content"
+		android:textColor="@color/black"
+		android:padding="16dp"
+		/>
+</LinearLayout>

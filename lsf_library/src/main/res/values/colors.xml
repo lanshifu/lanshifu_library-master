@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FA7C20</color>
+    <color name="colorPrimaryDark">#FA7C20</color>
+    <color name="colorAccent">#FA7C20</color>
+
+
+    <!--白天主题-->
+    <color name="day_backgroup_color">#FFFFFFFF</color>
+    <color name="day_one_text_color">#FF000000</color>
+    <color name="day_two_text_color">#c9000000</color>
+    <color name="day_three_text_color">#8A9599</color>
+    <!--夜间主题-->
+    <color name="night_backgroup_color">#3F3F3F</color>
+    <color name="night_one_text_color">#FFbbbbbb</color>
+    <color name="night_two_text_color">#8A9599</color>
+    <color name="night_there_text_color">#8A9599</color>
+    <!-- app主色调-->
+    <color name="main_color">#FA7C20</color>
+    <color name="orange">#FA8C20</color>
+    <color name="wheel_divider_line_color">#FF000000</color>
+    <color name="wheel_item_text_color_selected">#FF0288ce</color>
+    <color name="wheel_item_text_color_no_select">#FFbbbbbb</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="white_alpha_half">#99FFFFFF</color>
+    <color name="gray">#FFF0F0F0</color>
+    <color name="gray_deep">#c9000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="role_right_gray">#929292</color>
+    <color name="role_yellow_gray">#33CC99</color>
+    <color name="tv_right_gray">#929292</color>
+    <color name="bg_white_gray">#f2f2f2</color>
+    <color name="tv_talk_content">#FFB3B3B3</color>
+    <color name="line_recent_contact">#FFEEEEEE</color>
+    <color name="light_gray">#808080</color>
+    <color name="light_white">#33ffffff</color>
+    <color name="chat_tip_color">#FFcccccc</color>
+    <color name="blue">#5CA3E5</color>
+    <color name="main_blue">#3598db</color>
+    <color name="blue_check">#3493d4</color>
+    <color name="toast_white">#ffffff</color>
+    <color name="toast_stroke_gray">#99d4d4d4</color>
+
+
+    <!-- 半透明 -->
+    <color name="translucent">#e0000000</color>
+
+    <!-- 黄色 -->
+    <color name="yellow">#ffffff00</color>
+
+
+    <!-- 日历 -->
+    <color name="calendar_active_month_bg">#ffffffff</color>
+    <color name="calendar_bg">#ffffffff</color>
+    <color name="calendar_divider">#00000000</color>
+    <color name="calendar_inactive_month_bg">#ffffffff</color>
+    <color name="calendar_selected_day_bg">#8ec31f</color>
+    <color name="calendar_highlighted_day_bg">#8ec31f</color>
+    <color name="calendar_selected_range_bg">#eef6de</color>
+    <color name="calendar_text_inactive">#9a9a9a</color>
+    <color name="calendar_text_active">#4c4c4c</color>
+    <color name="calendar_text_selected">#ffffffff</color>
+    <color name="calendar_text_unselectable">#9a9a9a</color>
+    <color name="calendar_text_today_color">#9a9a9a</color>
+
+
+
+    <color name="colorPrimary_Blue">#2A98FF</color>
+    <color name="colorPrimaryDark_Blue">#0A6CD7</color>
+    <color name="colorAccent_Blue">#0B7DE8</color>
+</resources>

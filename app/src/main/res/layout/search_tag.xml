@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:background="@drawable/search_item_bg"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:paddingLeft="@dimen/spacing_2x"
+    android:paddingRight="@dimen/spacing_2x"
+    android:paddingBottom="@dimen/spacing_1x"
+    android:paddingTop="@dimen/spacing_1x"
+    android:text="123345"/>
