@@ -7,7 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
@@ -19,18 +19,18 @@ import library.lanshifu.com.myapplication.multList.MultListActivity;
 public class MainActivity extends BaseToolBarActivity {
 
 
-    @BindView(R.id.btn_single)
+    @Bind(R.id.btn_single)
     Button btnSingle;
-    @BindView(R.id.btn_multi)
+    @Bind(R.id.btn_multi)
     Button btnMulti;
-    @BindView(R.id.btn_base)
+    @Bind(R.id.btn_base)
     Button btnBase;
-    @BindView(R.id.btn_mult)
+    @Bind(R.id.btn_mult)
     Button btnMult;
-    @BindView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Button toolbar;
-    @BindView(R.id.popmenu)
-
+    @Bind(R.id.popmenu)
+    Button popmenu;
     private PopMenu popMenu;
 
 
@@ -58,7 +58,6 @@ public class MainActivity extends BaseToolBarActivity {
     }
 
 
-
     private void initPopuMenu() {
         popMenu = new PopMenu.Builder(this)
                 .columnCount(5)
@@ -81,7 +80,6 @@ public class MainActivity extends BaseToolBarActivity {
                 })
                 .build();
     }
-
 
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu})
@@ -146,4 +144,6 @@ public class MainActivity extends BaseToolBarActivity {
                 break;
         }
     }
+
+
 }

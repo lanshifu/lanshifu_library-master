@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.comm.BaseAppCompatActivity;
@@ -19,9 +19,9 @@ import library.lanshifu.com.myapplication.multList.bean.Man;
 public class MultListActivity extends BaseAppCompatActivity {
 
 
-    @BindView(R.id.reclclerview)
+    @Bind(R.id.reclclerview)
     RecyclerView reclclerview;
-    @BindView(R.id.activity_mult_list)
+    @Bind(R.id.activity_mult_list)
     LinearLayout activityMultList;
 
     @Override

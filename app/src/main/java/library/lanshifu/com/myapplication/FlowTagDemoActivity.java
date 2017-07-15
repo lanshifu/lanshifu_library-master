@@ -1,12 +1,14 @@
 package library.lanshifu.com.myapplication;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.commwidget.flowtaglayout.FlowTagAdapter;
 import library.lanshifu.com.lsf_library.commwidget.flowtaglayout.FlowTagLayout;
@@ -16,12 +18,11 @@ import library.lanshifu.com.lsf_library.commwidget.flowtaglayout.OnTagSelectList
 public class FlowTagDemoActivity extends BaseToolBarActivity {
 
 
-
-    @BindView(R.id.flowtag1)
+    @Bind(R.id.flowtag1)
     FlowTagLayout flowtag1;
-    @BindView(R.id.flowtag2)
+    @Bind(R.id.flowtag2)
     FlowTagLayout flowtag2;
-    @BindView(R.id.flowtag3)
+    @Bind(R.id.flowtag3)
     FlowTagLayout flowtag3;
 
     @Override

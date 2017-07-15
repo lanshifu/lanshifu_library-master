@@ -7,12 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
@@ -24,15 +23,13 @@ import library.lanshifu.com.myapplication.comm.BaseAppCompatActivity;
 public class Main2Activity extends BaseAppCompatActivity {
 
 
-
-    LinearLayout activityMain2;
-    @BindView(R.id.dialog)
+    @Bind(R.id.dialog)
     Button dialog;
-    @BindView(R.id.add)
+    @Bind(R.id.add)
     Button add;
-    @BindView(R.id.delete)
+    @Bind(R.id.delete)
     Button delete;
-    @BindView(R.id.reclclerview)
+    @Bind(R.id.reclclerview)
     RecyclerView reclclerview;
     private CommonAdapter adapter;
 
