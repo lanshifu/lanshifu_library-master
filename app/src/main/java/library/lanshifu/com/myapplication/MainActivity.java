@@ -2,11 +2,13 @@ package library.lanshifu.com.myapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenu;
@@ -28,8 +30,6 @@ public class MainActivity extends BaseToolBarActivity {
     @BindView(R.id.toolbar)
     Button toolbar;
     @BindView(R.id.popmenu)
-    Button popmenu;
-
 
     private PopMenu popMenu;
 
@@ -57,7 +57,34 @@ public class MainActivity extends BaseToolBarActivity {
         return "doSomeThing";
     }
 
-    @OnClick({R.id.btn_single, R.id.btn_base, R.id.btn_multi, R.id.toolbar, R.id.btn_mult, R.id.popmenu})
+
+
+    private void initPopuMenu() {
+        popMenu = new PopMenu.Builder(this)
+                .columnCount(5)
+                .addMenuItem(new PopMenuItem(this, "流布局", R.mipmap.icon_menu1))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu2))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu3))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu4))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
+                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
+                .setOnPopMenuItemListener(new PopMenu.OnPopMenuItemClickListener() {
+                    @Override
+                    public void onItemClick(PopMenu popMenu, int position) {
+                        showShortToast("菜单" + position);
+                        if (position == 0) {
+                            startActivity(new Intent(MainActivity.this, FlowTagDemoActivity.class));
+                        }
+                    }
+                })
+                .build();
+    }
+
+
+
+    @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_single:
@@ -119,29 +146,4 @@ public class MainActivity extends BaseToolBarActivity {
                 break;
         }
     }
-
-
-    private void initPopuMenu() {
-        popMenu = new PopMenu.Builder(this)
-                .columnCount(5)
-                .addMenuItem(new PopMenuItem(this, "流布局", R.mipmap.icon_menu1))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu2))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu3))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu4))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
-                .addMenuItem(new PopMenuItem(this, "菜单1", R.mipmap.icon_menu5))
-                .setOnPopMenuItemListener(new PopMenu.OnPopMenuItemClickListener() {
-                    @Override
-                    public void onItemClick(PopMenu popMenu, int position) {
-                        showShortToast("菜单" + position);
-                        if (position == 0) {
-                            startActivity(new Intent(MainActivity.this, FlowTagDemoActivity.class));
-                        }
-                    }
-                })
-                .build();
-    }
-
 }
