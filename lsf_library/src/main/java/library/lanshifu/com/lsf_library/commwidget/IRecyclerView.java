@@ -40,8 +40,8 @@ public class IRecyclerView extends FrameLayout {
 
         View view  = LayoutInflater.from(context).inflate(R.layout.irecycler_view, null);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout)view. findViewById(R.id.swipeRefreshLayout);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.mrecyclerView);
+        mSwipeRefreshLayout = view. findViewById(R.id.swipeRefreshLayout);
+        mRecyclerView = view.findViewById(R.id.mrecyclerView);
         loadMoreView = view.findViewById(R.id.loadMoreView);
 
         addListener();

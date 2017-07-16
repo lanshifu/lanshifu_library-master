@@ -235,7 +235,7 @@ public class ViewHolder extends RecyclerView.ViewHolder
 
     public ViewHolder setChecked(int viewId, boolean checked)
     {
-        Checkable view = (Checkable) getView(viewId);
+        Checkable view = getView(viewId);
         view.setChecked(checked);
         return this;
     }

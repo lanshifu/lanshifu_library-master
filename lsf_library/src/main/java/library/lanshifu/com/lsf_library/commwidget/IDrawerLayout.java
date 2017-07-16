@@ -44,9 +44,9 @@ public class IDrawerLayout extends FrameLayout {
         this.mContext = context;
 
         View rootView = LayoutInflater.from(context).inflate(R.layout.base_drawer_layout, null);
-        mDrawerLayout = (DrawerLayout) rootView.findViewById(R.id.drawerLayout);
-        mContent = (FrameLayout) rootView.findViewById(R.id.content);
-        mNavigationView = (NavigationView) rootView.findViewById(R.id.navigationView);
+        mDrawerLayout = rootView.findViewById(R.id.drawerLayout);
+        mContent = rootView.findViewById(R.id.content);
+        mNavigationView = rootView.findViewById(R.id.navigationView);
 
         addView(rootView);
     }
@@ -139,6 +139,22 @@ public class IDrawerLayout extends FrameLayout {
 
     public void closeDrawer() {
         mDrawerLayout.closeDrawer(mNavigationView);
+    }
+
+    public void openDrawer(){
+        mDrawerLayout.openDrawer(mNavigationView);
+    }
+
+    public boolean isDrawerOpen(){
+       return mDrawerLayout.isDrawerOpen(mNavigationView);
+    }
+
+    public void switchDrawer(){
+        if(mDrawerLayout.isDrawerOpen(mNavigationView)){
+            mDrawerLayout.closeDrawer(mNavigationView);
+        }else {
+            mDrawerLayout.openDrawer(mNavigationView);
+        }
     }
 
     class GirlNotFoundException extends Exception {

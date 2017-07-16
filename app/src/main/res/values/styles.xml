@@ -1,39 +1,39 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BaseAppTheme_Tran" parent="Base.Theme.AppCompat">
 
-    <style name="AppTheme_Blue" parent="AppTheme">
-        <!-- 用于换肤 -->
-        <item name="isLightTheme">false</item>
-        <!--ToolBar的颜色-->
-        <item name="colorPrimary">@color/colorPrimary_Blue</item>
-        <!-- 状态栏的颜色-->
-        <item name="colorPrimaryDark">@color/colorPrimary_Blue</item>
-        <!-- CheckBos的底色或者是EditText的指针颜色等-->
-        <item name="colorAccent">@color/colorAccent_Blue</item>
-        <!-- 箭头的三个点的样式 -->
-        <item name="colorControlNormal">@android:color/white</item>
-        <!-- 头部标题的颜色 -->
-        <item name="titleTextAppearance">@style/TextAppearance.AppTheme_Blue.Title</item>
-        <!-- ToolBar菜单颜色 -->
-        <item name="actionMenuTextColor">@color/white</item>
-        <!-- ToolBar菜单字体大小 -->
-        <!--<item name="android:textSize">18sp</item>-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="TextAppearance.AppTheme_Blue.Title" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textColor">@android:color/white</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+    <style name="AnimationFade">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 
-    <style name="AppTheme_Blue.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme_Blue.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="CustomPopWindowStyle">
+        <item name="android:windowEnterAnimation">@anim/popwindow_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/popwindow_anim_out</item>
+    </style>
 
 </resources>

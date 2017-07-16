@@ -32,10 +32,7 @@ public class CacheUtil {
             return false;
         }
         fileSize = getDirSize(file);
-        if (fileSize == 0) {
-            return false;
-        }
-        return true;
+        return fileSize != 0;
     }
 
     public static long getDirSize(File dir) {

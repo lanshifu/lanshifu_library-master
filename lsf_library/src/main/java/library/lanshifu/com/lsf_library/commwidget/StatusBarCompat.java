@@ -31,7 +31,7 @@ public class StatusBarCompat {
     }
     public static void setStatusBarColor(Activity activity, int statusColor) {
         Window window = activity.getWindow();
-        ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
+        ViewGroup mContentView = activity.findViewById(Window.ID_ANDROID_CONTENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //First translucent status bar.
@@ -88,7 +88,7 @@ public class StatusBarCompat {
      */
     public static void translucentStatusBar(Activity activity, boolean hideStatusBarBackground) {
         Window window = activity.getWindow();
-        ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
+        ViewGroup mContentView = activity.findViewById(Window.ID_ANDROID_CONTENT);
 
         //set child View not fill the system window
         View mChildView = mContentView.getChildAt(0);

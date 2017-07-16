@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <library.lanshifu.com.lsf_library.commwidget.IDrawerLayout
-        android:background="@color/white"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/iDrawerLayout"
-       />
-
-
+        android:background="@drawable/menu_pop_bg"
+        android:padding="10dp" />
 </LinearLayout>

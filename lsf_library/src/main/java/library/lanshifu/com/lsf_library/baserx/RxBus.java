@@ -93,7 +93,7 @@ public class RxBus {
             return getInstance();
         List<Subject> subjects = subjectMapper.get(tag);
         if (null != subjects) {
-            subjects.remove((Subject<?, ?>) observable);
+            subjects.remove(observable);
             if (isEmpty(subjects)) {
                 subjectMapper.remove(tag);
                 L.d("unregister"+ tag + "  size:" + subjects.size());

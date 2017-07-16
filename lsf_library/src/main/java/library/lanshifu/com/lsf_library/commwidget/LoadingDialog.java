@@ -26,7 +26,7 @@ public class LoadingDialog {
      */
     public static Dialog showDialogForLoading(Activity context, String msg, boolean cancelable) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
-        TextView loadingText = (TextView)view.findViewById(R.id.id_tv_loading_dialog_text);
+        TextView loadingText = view.findViewById(R.id.id_tv_loading_dialog_text);
         loadingText.setText(msg);
 
         mLoadingDialog = new Dialog(context, R.style.CustomProgressDialog);
@@ -39,7 +39,7 @@ public class LoadingDialog {
 
     public static Dialog showDialogForLoading(Activity context) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
-        TextView loadingText = (TextView)view.findViewById(R.id.id_tv_loading_dialog_text);
+        TextView loadingText = view.findViewById(R.id.id_tv_loading_dialog_text);
         loadingText.setText("加载中...");
 
         mLoadingDialog = new Dialog(context, R.style.CustomProgressDialog);

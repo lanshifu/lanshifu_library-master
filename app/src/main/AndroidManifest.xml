@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="library.lanshifu.com.lsf_library.baseapp.BaseApplication"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,7 +30,8 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme_Blue" />
         <activity android:name=".ToolBarDemoActivity" />
-        <activity android:name=".FlowTagDemoActivity"></activity>
+        <activity android:name=".FlowTagDemoActivity" />
+        <activity android:name=".popu.PopuDemoActivity"></activity>
     </application>
 
 </manifest>

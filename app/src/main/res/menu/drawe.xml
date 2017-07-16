@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:mContext="com.example.lwx385269.myapp2.MainActivity" >
+
+<group android:checkableBehavior="single">
+
+    <item android:id="@+id/first"
+        android:checked="true"
+        android:title="首页"/>
+
+  <item android:id="@+id/other"
+        android:title="其他主件"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+  <item android:id="@+id/about"
+        android:title="关于作者"
+        android:orderInCategory="100"/>
+
+</group>
+
+
+</menu>

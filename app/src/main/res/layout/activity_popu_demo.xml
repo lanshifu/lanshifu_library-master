@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="弹一个"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="再弹一个"/>
+
+
+
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:hint="结果"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:id="@+id/showDown"
+        android:background="@color/green"
+        android:text="button下方弹窗"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary_Blue"
+        android:id="@+id/showUp"
+        android:text="button上方弹窗"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorAccent"
+        android:id="@+id/showPopu"
+        android:text="popu菜单弹窗"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button android:layout_marginBottom="10dp"
+        android:background="@color/yellow"
+        android:id="@+id/showList"
+        android:text="list弹窗"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/showColorChange"
+        android:text="弹窗背景变暗"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/showAnim"
+        android:text="弹窗动画"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

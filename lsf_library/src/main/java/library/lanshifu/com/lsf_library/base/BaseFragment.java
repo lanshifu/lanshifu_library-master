@@ -13,6 +13,8 @@ import library.lanshifu.com.lsf_library.basemvp.BaseModle;
 import library.lanshifu.com.lsf_library.basemvp.BasePresenter;
 import library.lanshifu.com.lsf_library.baserx.RxManager;
 import library.lanshifu.com.lsf_library.commwidget.LoadingDialog;
+import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.lsf_library.utils.TUtil;
 
 /**
@@ -34,7 +36,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle>
         if(mRootView ==null){
             mRootView = inflater.inflate(getLayoutId(),container,false);
         }
-        ButterKnife.bind(mRootView);
+        ButterKnife.bind(this,mRootView);
         mRxManage = new RxManager();
         mPresenter = TUtil.getT(this,0);
         mModle = TUtil.getT(this,1);
@@ -50,7 +52,6 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle>
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initPresenter();
         initView();
     }
@@ -94,7 +95,17 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle>
         startActivity(intent);
     }
 
+    protected void showShortToast(String text){
+        T.showShort(text);
+    }
 
+    protected void loge(String text){
+        L.e(text);
+    }
+
+    protected void loge(String tag,String text){
+        L.e(tag,text);
+    }
 
     /**
      * 开启浮动加载进度条

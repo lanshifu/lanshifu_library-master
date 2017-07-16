@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import library.lanshifu.com.lsf_library.R;
@@ -24,6 +25,7 @@ public  abstract class BaseToolBarActivity extends BaseActivity {
     private Menu mTBMenu;
     private TextView mToolBarTitle;
     private Toolbar mToolbar;
+    protected ImageView mIv_menu;
 
     @Override
     public int getLayoutId() {
@@ -33,6 +35,8 @@ public  abstract class BaseToolBarActivity extends BaseActivity {
     @Override
     protected void doAfterSetContentView() {
         mToolBarTitle = (TextView) findViewById(R.id.comm_toolbar_title);// 自定义的标题TextView
+        // 自定义的标题TextView
+        mIv_menu = (ImageView) findViewById(R.id.iv_menu);
         FrameLayout container =  (FrameLayout) findViewById(R.id.comm_container);
         mToolbar = (Toolbar) findViewById(R.id.comm_toolbar);
 
