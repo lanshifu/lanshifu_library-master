@@ -19,13 +19,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
+import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.utils.Dictitem;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.widget.popu.CustomPopWindow;
 import library.lanshifu.com.myapplication.widget.popu.ListPopWindow;
 
-public class PopuDemoActivity extends AppCompatActivity {
+public class PopuDemoActivity extends BaseToolBarActivity {
 
     @Bind(R.id.btn1)
     Button btn1;
@@ -48,13 +49,16 @@ public class PopuDemoActivity extends AppCompatActivity {
     private CustomPopWindow mCustomPopWindow;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_popu_demo);
-        ButterKnife.bind(this);
+    protected int getLayoutid() {
+        return R.layout.activity_popu_demo;
+    }
 
+    @Override
+    protected void onViewCreate() {
 
     }
+
+
 
     @OnClick({R.id.tv_result, R.id.showDown, R.id.showUp, R.id.showPopu, R.id.showList, R.id.showColorChange, R.id.showAnim})
     public void onViewClicked(View view) {
@@ -142,6 +146,7 @@ public class PopuDemoActivity extends AppCompatActivity {
 
     }
 
+
     private void showPopListView(){
 //        View contentView = LayoutInflater.from(this).inflate(R.layout.pop_list,null);
 //        //处理popWindow 显示内容
@@ -171,7 +176,6 @@ public class PopuDemoActivity extends AppCompatActivity {
                 .build()
                 .showAsDropDown(showList);
     }
-
 
     private void handleListView(View contentView){
         RecyclerView recyclerView = (RecyclerView) contentView.findViewById(R.id.recyclerView);
@@ -207,6 +211,7 @@ public class PopuDemoActivity extends AppCompatActivity {
 
         return data;
     }
+
 
     /**
      * 处理弹出显示内容、点击事件等逻辑
@@ -246,8 +251,4 @@ public class PopuDemoActivity extends AppCompatActivity {
         contentView.findViewById(R.id.menu4).setOnClickListener(listener);
         contentView.findViewById(R.id.menu5).setOnClickListener(listener);
     }
-
-
-
-
 }

@@ -12,6 +12,7 @@ import library.lanshifu.com.lsf_library.base.BaseFragment;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenu;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenuItem;
 import library.lanshifu.com.lsf_library.utils.T;
+import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.multList.MultListActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 
@@ -58,7 +59,7 @@ public class MainFragment extends BaseFragment {
                 .columnCount(5)
                 .addMenuItem(new PopMenuItem(getActivity(), "流布局", R.mipmap.icon_menu1))
                 .addMenuItem(new PopMenuItem(getActivity(), "popu", R.mipmap.icon_menu2))
-                .addMenuItem(new PopMenuItem(getActivity(), "菜单3", R.mipmap.icon_menu3))
+                .addMenuItem(new PopMenuItem(getActivity(), "7.0适配", R.mipmap.icon_menu3))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单4", R.mipmap.icon_menu4))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单5", R.mipmap.icon_menu5))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单6", R.mipmap.icon_menu5))
@@ -72,6 +73,8 @@ public class MainFragment extends BaseFragment {
                             startActivity(new Intent(getActivity(), FlowTagDemoActivity.class));
                         } if (position == 1) {
                             startActivity(new Intent(getActivity(), PopuDemoActivity.class));
+                        }if (position == 2) {
+                            startActivity(new Intent(getActivity(), FileProviderDemoActivity.class));
                         }
                     }
                 })

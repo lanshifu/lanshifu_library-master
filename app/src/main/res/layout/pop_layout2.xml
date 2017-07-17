@@ -7,7 +7,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:background="@mipmap/pop_bg2"
+      android:background="@color/gray"
       android:paddingTop="10dp"
       android:paddingLeft="20dp"
       >

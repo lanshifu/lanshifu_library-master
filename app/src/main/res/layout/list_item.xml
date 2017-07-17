@@ -45,13 +45,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/delete"
-            android:padding="@dimen/spacing_2x"
-            android:layout_gravity="center"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/delete"/>
+
 
     </LinearLayout>
 

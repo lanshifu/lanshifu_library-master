@@ -26,6 +26,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     })
     compile project(':lsf_library')
+    compile project(':fileprovdider7')
     testCompile 'junit:junit:4.12'
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
