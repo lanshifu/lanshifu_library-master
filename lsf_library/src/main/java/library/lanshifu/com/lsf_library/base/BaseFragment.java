@@ -21,7 +21,7 @@ import library.lanshifu.com.lsf_library.utils.TUtil;
 
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle> extends Fragment{
 
-    private View mRootView;
+    protected View mRootView;
     private RxManager mRxManage;
     private P mPresenter;
     private M mModle;
@@ -34,7 +34,7 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle>
         if(mRootView ==null){
             mRootView = inflater.inflate(getLayoutId(),container,false);
         }
-        ButterKnife.bind(mRootView);
+        ButterKnife.bind(this,mRootView);
         mRxManage = new RxManager();
         mPresenter = TUtil.getT(this,0);
         mModle = TUtil.getT(this,1);
