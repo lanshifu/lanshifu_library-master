@@ -27,7 +27,8 @@
         <activity android:name=".ToolBarDemoActivity" />
         <activity android:name=".FlowTagDemoActivity" />
         <activity android:name=".popu.PopuDemoActivity" />
-        <activity android:name=".fileprovider.FileProviderDemoActivity"></activity>
+        <activity android:name=".fileprovider.FileProviderDemoActivity" />
+        <activity android:name=".smartrefresh.SmartRefreshDemoActivity"></activity>
     </application>
 
 </manifest>
