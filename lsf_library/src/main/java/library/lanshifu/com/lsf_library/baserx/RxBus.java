@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import library.lanshifu.com.lsf_library.utils.L;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -67,7 +66,6 @@ public class RxBus {
         }
         Subject<T, T> subject;
         subjectList.add(subject = PublishSubject.create());
-        L.e("register" + tag + "  size:" + subjectList.size());
         return subject;
     }
 
@@ -96,7 +94,6 @@ public class RxBus {
             subjects.remove(observable);
             if (isEmpty(subjects)) {
                 subjectMapper.remove(tag);
-                L.d("unregister"+ tag + "  size:" + subjects.size());
             }
         }
         return getInstance();
@@ -113,12 +110,10 @@ public class RxBus {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public void post(@NonNull Object tag, @NonNull Object content) {
-        L.d("post"+ "eventName: " + tag);
         List<Subject> subjectList = subjectMapper.get(tag);
         if (!isEmpty(subjectList)) {
             for (Subject subject : subjectList) {
                 subject.onNext(content);
-                L.d("onEvent"+ "eventName: " + tag);
             }
         }
     }

@@ -1,6 +1,5 @@
 package library.lanshifu.com.myapplication.multList;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.LinearLayout;
@@ -9,27 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
+import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
-import library.lanshifu.com.myapplication.comm.BaseAppCompatActivity;
 import library.lanshifu.com.myapplication.multList.bean.Cat;
 import library.lanshifu.com.myapplication.multList.bean.ChatMessage;
 import library.lanshifu.com.myapplication.multList.bean.Man;
 
-public class MultListActivity extends BaseAppCompatActivity {
+public class MultListActivity extends BaseToolBarActivity {
 
-
-    @Bind(R.id.reclclerview)
-    RecyclerView reclclerview;
-    @Bind(R.id.activity_mult_list)
-    LinearLayout activityMultList;
 
     @Override
-    protected int getContentView() {
+    protected int getLayoutid() {
         return R.layout.activity_mult_list;
     }
 
     @Override
+    protected void onViewCreate() {
+        initView();
+    }
+
+    @Bind(R.id.reclclerview)
+    RecyclerView reclclerview;
+
+    @Bind(R.id.activity_mult_list)
+    LinearLayout activityMultList;
+
+
     protected void initView() {
 
 
@@ -57,9 +61,5 @@ public class MultListActivity extends BaseAppCompatActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
+
 }

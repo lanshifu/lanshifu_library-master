@@ -31,13 +31,13 @@
             android:id="@+id/btn_base"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="列表" />
+            android:text="辅助功能查看类名" />
 
         <Button
             android:id="@+id/btn_mult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="多种类型列表" />
+            android:text="wifi密码查看" />
 
         <Button
             android:id="@+id/toolbar"

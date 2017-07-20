@@ -4,4 +4,9 @@
 
 
     <color name="windowBackground">#FFEEEEEE</color>
+
+    <color name="dDVTransparentGray">#99000000</color>
+    <color name="dDVColorPrimary">@color/colorPrimary</color>
+    <color name="ColorPrimar">@color/colorPrimary</color>
+
 </resources>

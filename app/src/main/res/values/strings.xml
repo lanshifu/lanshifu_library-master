@@ -91,4 +91,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="desc">查看当前类名（myapp）</string>
+    <string name="accessibility_service_label">查看当前类名</string>
 </resources>

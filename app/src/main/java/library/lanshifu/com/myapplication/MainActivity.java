@@ -78,7 +78,7 @@ public class MainActivity extends BaseToolBarActivity {
             }
         });
 
-
+//横屏 被覆盖 谷歌输入法
         iDrawerLayout.switchContentFragment(new MainFragment());
     }
 

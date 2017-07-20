@@ -1,13 +1,16 @@
 package library.lanshifu.com.myapplication.fileprovider;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.lanshifu.fileprovdider7.FileProvider7;
 
@@ -17,7 +20,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
@@ -29,6 +31,10 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
     @Bind(R.id.imageview)
     ImageView imageview;
     private String mCurrentPhotoPath;
+    private String cuttedPicturePath;
+    private static final int REQUEST_CUT_PHOTO = 1;
+    private static final int REQUEST_CODE_LOCAL = 2;
+    private String picturePath;
 
     @Override
     protected int getLayoutid() {
@@ -41,7 +47,7 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
     }
 
 
-    @OnClick({R.id.bt_photo, R.id.bt_install})
+    @OnClick({R.id.bt_photo, R.id.bt_install, R.id.bt_selectpic})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_photo:
@@ -50,22 +56,26 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
             case R.id.bt_install:
                 install();
                 break;
+            case R.id.bt_selectpic:
+                selectPicFromLocal();
+                break;
         }
     }
 
     private void install() {
 
-    File file = new File(Environment.getExternalStorageDirectory(),
-            "111.apk");
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    // 仅需改变这一行
+        File file = new File(Environment.getExternalStorageDirectory(),
+                "111.apk");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        // 仅需改变这一行
         FileProvider7.setIntentDataAndType(this,
-    intent, "application/vnd.android.package-archive", file, true);
-    startActivity(intent);
-}
+                intent, "application/vnd.android.package-archive", file, true);
+        startActivity(intent);
+    }
+
     private void takePhoto() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
             String filename = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA)
                     .format(new Date()) + ".png";
             File file = new File(Environment.getExternalStorageDirectory(), filename);
@@ -73,18 +83,133 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
             // 仅需改变这一行
             Uri fileUri = FileProvider7.getUriForFile(this, file);
 
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-            startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PHOTO);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            }
+            intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
         }
+    }
+
+    /**
+     * 从图库获取图片
+     */
+    public void selectPicFromLocal() {
+        Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+        } else {
+            intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        }
+        startActivityForResult(intent, REQUEST_CODE_LOCAL);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_TAKE_PHOTO) {
-            imageview.setImageBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath));
+        if (resultCode != RESULT_OK) {
+            return;
         }
+
+        if (requestCode == REQUEST_CODE_TAKE_PHOTO) {
+            if (data != null) {
+                cutPicture(mCurrentPhotoPath);
+            }
+
+        } else if (requestCode == REQUEST_CUT_PHOTO) {
+
+            showShortToast("裁剪成功");
+        } else if (requestCode == REQUEST_CODE_LOCAL) {
+            showShortToast("获取照片成功");
+            if (data != null) {
+                Uri selectedImage = data.getData();
+                if (selectedImage != null) {
+                    sendPicByUri(selectedImage);
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据图库图片uri发送图片
+     *
+     * @param selectedImage
+     */
+    private void sendPicByUri(Uri selectedImage) {
+        Cursor cursor = getContentResolver().query(selectedImage, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex("_data");
+            picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            cursor = null;
+
+            if (picturePath == null || picturePath.equals("null")) {
+                Toast toast = Toast.makeText(this, "找不到图片", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
+            }
+        } else {
+            File file = new File(selectedImage.getPath());
+            if (!file.exists()) {
+                Toast toast = Toast.makeText(this, "找不到图片", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                return;
+
+            }
+            picturePath = file.getAbsolutePath();
+        }
+
+        cutPicture(picturePath);
+    }
+
+
+    private void cutPicture(String path) {
+
+//        Intent intent = new Intent("com.android.camera.action.CROP");
+//        intent.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+//        // aspectX aspectY 是宽高的比例
+//        intent.putExtra("aspectX", 1);
+//        intent.putExtra("aspectY", 1);
+//
+//        // outputX,outputY 是剪裁图片的宽高
+//        intent.putExtra("outputX", 0);
+//        intent.putExtra("outputY", 0);
+//
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            File outputImage = new File(path, "output_image" + System.currentTimeMillis() + ".jpg");
+//            cuttedPicturePath = outputImage.getAbsolutePath();
+//            intent.putExtra("scale", true);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+//        } else {
+//            intent.putExtra("crop", "true");// crop为true是设置在开启的intent中设置显示的view可以剪裁
+//            intent.putExtra("return-data", true);
+//        }
+//        startActivityForResult(intent, REQUEST_CUT_PHOTO);
+
+        File outputImage = new File(path, "output_image" + System.currentTimeMillis() + ".jpg");
+
+        File file = new File(path);
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        intent.setDataAndType(Uri.fromFile(new File(path)), "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("scale", true);
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputImage);
+        intent.putExtra("outputFormat",
+                Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
+        startActivityForResult(intent, REQUEST_CUT_PHOTO);
     }
 
 

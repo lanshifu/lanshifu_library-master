@@ -36,4 +36,9 @@
         <item name="android:windowExitAnimation">@anim/popwindow_anim_out</item>
     </style>
 
+    <declare-styleable name="DropDownView">
+        <attr name="containerBackgroundColor" format="color" />
+        <attr name="overlayColor" format="color"/>
+    </declare-styleable>
+
 </resources>

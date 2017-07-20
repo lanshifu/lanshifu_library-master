@@ -2,7 +2,12 @@ package library.lanshifu.com.myapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.util.Config;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,6 +21,7 @@ import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.multList.MultListActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
+import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
 
 /**
  * Created by Administrator on 2017/7/15.
@@ -57,12 +63,12 @@ public class MainFragment extends BaseFragment {
 
     private void initPopuMenu() {
         popMenu = new PopMenu.Builder(getActivity())
-                .columnCount(5)
+                .columnCount(4)
                 .addMenuItem(new PopMenuItem(getActivity(), "流布局", R.mipmap.icon_menu1))
                 .addMenuItem(new PopMenuItem(getActivity(), "popu", R.mipmap.icon_menu2))
                 .addMenuItem(new PopMenuItem(getActivity(), "7.0适配", R.mipmap.icon_menu3))
                 .addMenuItem(new PopMenuItem(getActivity(), "刷新控件", R.mipmap.icon_menu4))
-                .addMenuItem(new PopMenuItem(getActivity(), "菜单5", R.mipmap.icon_menu5))
+                .addMenuItem(new PopMenuItem(getActivity(), "可下拉布局", R.mipmap.icon_menu5))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单6", R.mipmap.icon_menu5))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单7", R.mipmap.icon_menu5))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单8", R.mipmap.icon_menu5))
@@ -78,6 +84,8 @@ public class MainFragment extends BaseFragment {
                             startActivity(new Intent(getActivity(), FileProviderDemoActivity.class));
                         }if (position == 3) {
                             startActivity(new Intent(getActivity(), SmartRefreshDemoActivity.class));
+                        }if (position == 4) {
+                            startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
                         }
                     }
                 })
@@ -130,14 +138,16 @@ public class MainFragment extends BaseFragment {
 
 
             case R.id.btn_base:
-                startActivity(new Intent(getContext(), Main2Activity.class));
+                //打开辅助功能
+//                startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
+                requestAlertWindowPermission();
                 break;
             case R.id.toolbar:
                 startActivity(new Intent(getContext(), ToolBarDemoActivity.class));
                 break;
 
             case R.id.btn_mult:
-                startActivity(new Intent(getContext(), MultListActivity.class));
+                startActivity(new Intent(getContext(), WifiPassWorldActivity.class));
                 break;
 
             case R.id.popmenu:
@@ -148,6 +158,38 @@ public class MainFragment extends BaseFragment {
                     popMenu.show();
                 }
                 break;
+        }
+    }
+
+
+
+    private static final int REQUEST_CODE = 1;
+    private  void requestAlertWindowPermission() {
+
+        //修改
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Settings.canDrawOverlays(getActivity())) {
+                    Log.i("111", "onActivityResult success");
+                    String settings = Settings.ACTION_ACCESSIBILITY_SETTINGS;
+                    startActivity(new Intent(settings));
+
+                    //联系人 一段时间
+//                    intent = new Intent(this,WindowService.class);
+//                    startService(intent);
+                }
+            }
         }
     }
 }

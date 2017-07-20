@@ -154,7 +154,7 @@ public class PopMenu {
 
         mGridLayout = new GridLayout(mActivity);
         mGridLayout.setColumnCount(mColumnCount);
-        mGridLayout.setBackgroundColor(Color.parseColor("#50ffffff"));
+        mGridLayout.setBackgroundColor(Color.parseColor("#80ffffff"));
 
         int hPadding = dp2px(mActivity, mHorizontalPadding);
         int vPadding = dp2px(mActivity, mVerticalPadding);
