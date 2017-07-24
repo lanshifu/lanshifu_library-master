@@ -120,8 +120,8 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
             }
 
         } else if (requestCode == REQUEST_CUT_PHOTO) {
-
             showShortToast("裁剪成功");
+
         } else if (requestCode == REQUEST_CODE_LOCAL) {
             showShortToast("获取照片成功");
             if (data != null) {

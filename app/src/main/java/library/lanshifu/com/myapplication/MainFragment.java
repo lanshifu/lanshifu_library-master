@@ -6,10 +6,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
-import android.util.Config;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.security.Provider;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -17,10 +18,11 @@ import library.lanshifu.com.lsf_library.base.BaseFragment;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenu;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenuItem;
 import library.lanshifu.com.lsf_library.utils.T;
+import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
-import library.lanshifu.com.myapplication.multList.MultListActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
+import library.lanshifu.com.myapplication.voice.VoiceListActivity;
 import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
 
 /**
@@ -78,13 +80,17 @@ public class MainFragment extends BaseFragment {
                         showShortToast("菜单" + position);
                         if (position == 0) {
                             startActivity(new Intent(getActivity(), FlowTagDemoActivity.class));
-                        } if (position == 1) {
+                        }
+                        if (position == 1) {
                             startActivity(new Intent(getActivity(), PopuDemoActivity.class));
-                        }if (position == 2) {
+                        }
+                        if (position == 2) {
                             startActivity(new Intent(getActivity(), FileProviderDemoActivity.class));
-                        }if (position == 3) {
+                        }
+                        if (position == 3) {
                             startActivity(new Intent(getActivity(), SmartRefreshDemoActivity.class));
-                        }if (position == 4) {
+                        }
+                        if (position == 4) {
                             startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
                         }
                     }
@@ -93,13 +99,13 @@ public class MainFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu, R.id.activity_main})
+    @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
+            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
 
-
-          case R.id.btn_single:
+            case R.id.btn_single:
                 String[] str = new String[]{"1", "2", "1", "2", "1", "2", "1", "2"};
                 new AlertDialog.Builder(getContext())
                         .setTitle("单选框")
@@ -158,21 +164,37 @@ public class MainFragment extends BaseFragment {
                     popMenu.show();
                 }
                 break;
+
+            case R.id.pagerfragment:
+                startActivity(new Intent(getContext(), PagerFragmentDemoActivity.class));
+                break;
+            case R.id.bt_contentprovider:
+                startActivity(new Intent(getContext(), ProviderActivity.class));
+                break;
+
+            case R.id.bt_voice:
+                startActivity(new Intent(getContext(), VoiceListActivity.class));
+                break;
         }
+
     }
 
 
-
     private static final int REQUEST_CODE = 1;
-    private  void requestAlertWindowPermission() {
+
+    private void requestAlertWindowPermission() {
 
         //修改
+        //6.0以下系统，取消请求权限
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            String settings = Settings.ACTION_ACCESSIBILITY_SETTINGS;
+            startActivity(new Intent(settings));
+            return;
+        }
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
         intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
         startActivityForResult(intent, REQUEST_CODE);
     }
-
-
 
 
     @Override

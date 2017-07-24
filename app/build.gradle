@@ -6,13 +6,15 @@ android {
     defaultConfig {
         applicationId "library.lanshifu.com.myapplication"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

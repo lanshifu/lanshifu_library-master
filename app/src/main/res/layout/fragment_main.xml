@@ -7,7 +7,6 @@
     android:orientation="vertical">
 
 
-
     <library.lanshifu.com.lsf_library.commwidget.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,6 +49,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="菜单" />
+
+        <Button
+            android:id="@+id/pagerfragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pager_碎布" />
+        <Button
+            android:id="@+id/bt_contentprovider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="内容提供者" />
+
+       <Button
+            android:id="@+id/bt_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="录音" />
 
     </library.lanshifu.com.lsf_library.commwidget.FlowLayout>
 

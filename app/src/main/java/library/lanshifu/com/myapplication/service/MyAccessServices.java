@@ -33,7 +33,7 @@ public class MyAccessServices extends AccessibilityService{
         if(mRxManager ==null){
             mRxManager = new RxManager();
         }
-        mRxManager.post("packagename","类名："+className);
+        mRxManager.post("packagename",""+pkgName+"\n类名："+className);
 
     }
 
