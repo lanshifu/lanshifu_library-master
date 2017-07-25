@@ -67,33 +67,58 @@ public class ProviderActivity extends BaseActivity {
                 break;
             case R.id.button2:
                 saveCompany();
+                button2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        queryCompany();
+                    }
+                },1000);
                 break;
         }
     }
 
     private void queryPostCode() {
         String tel = editText2.getText().toString();
-        Uri uri = Uri.parse("content://com.lanshifu.userinfo_provider/user_info/"+tel);
+        Uri uri = Uri.parse("content://com.lanshifu.userinfo_provider/user_info/");
         Cursor cursor = getContentResolver().query(uri,null,null,null,null);
         if(cursor.moveToFirst()){
-            showShortToast("电话来自"+cursor.getString(2));
+            tvLog.setText("结果是：\r\n");
+            while (cursor.moveToNext()){
+                tvLog.append("\r\n："+cursor.getString(2));
+            }
         }
+        cursor.close();
+
+    }
+
+    private void queryCompany(){
+        String _id = editText6.getText().toString();
+        Uri uri = Uri.parse("content://com.lanshifu.userinfo_provider/company/");
+        Cursor cursor = getContentResolver().query(uri,null,null,null,null);
+        if(cursor.moveToFirst()){
+            showShortToast("地址是"+cursor.getString(2));
+            tvLog.setText("结果是：");
+            while (cursor.moveToNext()){
+                tvLog.append("\r\n地址："+cursor.getString(2));
+            }
+        }
+        cursor.close();
 
     }
 
     private void saveCompany() {
         ContentValues newRecord = new ContentValues();
-        newRecord.put(UserInfoDbHelper.ADDR_COLUMN,editText6.getText().toString());
+        newRecord.put(UserInfoDbHelper.COMP_ID_COLUMN,editText4.getText().toString());
         newRecord.put(UserInfoDbHelper.BUSINESS_COLUMN,editText5.getText().toString());
-        newRecord.put(UserInfoDbHelper.ID_COLUMN,editText4.getText().toString());
+        newRecord.put(UserInfoDbHelper.ADDR_COLUMN,editText6.getText().toString());
         getContentResolver().insert(UserInfoProvider.COMPANY_URI,newRecord);
     }
 
     private void saveUserInfo() {
         ContentValues newRecord = new ContentValues();
-        newRecord.put(UserInfoDbHelper.DESC_COLUMN,editText.getText().toString());
-        newRecord.put(UserInfoDbHelper.TEL_COLUMN,editText2.getText().toString());
         newRecord.put(UserInfoDbHelper.ID_COLUMN,editText3.getText().toString());
+        newRecord.put(UserInfoDbHelper.TEL_COLUMN,editText2.getText().toString());
+        newRecord.put(UserInfoDbHelper.DESC_COLUMN,editText.getText().toString());
         getContentResolver().insert(UserInfoProvider.POST_CODE_URI,newRecord);
     }
 }

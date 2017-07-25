@@ -61,7 +61,8 @@
 
         <provider
             android:name=".contentprovider.UserInfoProvider"
-            android:authorities="com.lanshifu.userinfo_provider" />
+            android:authorities="com.lanshifu.userinfo_provider"
+            android:exported="true"/>
 
     </application>
 

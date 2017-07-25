@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import library.lanshifu.com.lsf_library.utils.T;
+
 /**
  * Created by Administrator on 2017/7/24.
  */
@@ -39,9 +41,9 @@ public class UserInfoProvider extends ContentProvider {
 
     static {
         uriMatcher.addURI(AUTHORITY,"user_info",USER_INFO);
-        uriMatcher.addURI(AUTHORITY,"user_info/*",USER_INFO);
-        uriMatcher.addURI(AUTHORITY,"company",USER_INFO);
-        uriMatcher.addURI(AUTHORITY,"company/#",USER_INFO);
+        uriMatcher.addURI(AUTHORITY,"user_info/*",USER_INFO_ITEM);
+        uriMatcher.addURI(AUTHORITY,"company",COMPANY);
+        uriMatcher.addURI(AUTHORITY,"company/#",COMPANY_ITEM);
     }
 
 
@@ -64,7 +66,7 @@ public class UserInfoProvider extends ContentProvider {
             case USER_INFO_ITEM:
                 String tel = uri.getPathSegments().get(1);
                 cursor = mDatabase.query(UserInfoDbHelper.TABLE_USER_INFO,projection,
-                        "tel_num = ?",new String[]{tel},null,null,sortOrder);
+                        "tel = ?",new String[]{tel},null,null,sortOrder);
 
                 break;
 
@@ -78,8 +80,9 @@ public class UserInfoProvider extends ContentProvider {
                         "id = ?",new String[]{cid},null,null,sortOrder);
 
                 break;
-            default:
-                throw new RuntimeException("错误的uri");
+
+                default:
+                    T.showLong("错误的uri:"+uri);
 
         }
 
@@ -126,7 +129,9 @@ public class UserInfoProvider extends ContentProvider {
         if (newId > 0) {
             return newUri;
         }
-        throw new RuntimeException("failed to insert:uri = "+uri);
+
+        T.showLong("failed to insert:uri = "+uri);
+        return null;
 
 
     }
