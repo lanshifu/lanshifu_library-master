@@ -645,6 +645,7 @@ public class VoiceManager {
                 if (release) {
                     mr.release();
                 }
+                mr = null;
                 result = true;
             }
             if(mThread!=null){

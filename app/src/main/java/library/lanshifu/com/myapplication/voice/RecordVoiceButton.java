@@ -1,9 +1,13 @@
 package library.lanshifu.com.myapplication.voice;
 
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,7 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.tbruyelle.rxpermissions.RxPermissions;
+
+import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
+import rx.functions.Action1;
 
 /**
  * 录音控件button
@@ -95,6 +103,26 @@ public class RecordVoiceButton extends AppCompatButton implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
+
+        RxPermissions.getInstance(mContext).request(Manifest.permission.RECORD_AUDIO)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean aBoolean) {
+                        if(aBoolean){
+                            T.showShort("有权限");
+                            startRecord();
+                        }else {
+
+                            T.showShort("权限拒绝");
+                        }
+
+                    }
+                });
+
+
+    }
+
+    private void startRecord() {
         startRecordDialog();
         voiceManager.setVoiceRecordListener(new VoiceManager.VoiceRecordCallBack() {
             @Override

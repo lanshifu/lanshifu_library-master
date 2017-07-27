@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/fileprovdider7/fileprovdider7.iml" filepath="$PROJECT_DIR$/fileprovdider7/fileprovdider7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/lanshifu_library-master.iml" filepath="$PROJECT_DIR$/lanshifu_library-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/lsf_library/lsf_library.iml" filepath="$PROJECT_DIR$/lsf_library/lsf_library.iml" />
     </modules>

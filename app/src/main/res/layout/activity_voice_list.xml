@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     tools:mContext=".MainActivity">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:layout_above="@+id/button_rec"></ListView>
+        android:layout_above="@+id/button_rec">
+
+    </android.support.v7.widget.RecyclerView>
 
     <library.lanshifu.com.myapplication.voice.RecordVoiceButton
         android:id="@+id/button_rec"

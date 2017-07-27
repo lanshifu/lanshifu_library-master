@@ -1,14 +1,20 @@
 package library.lanshifu.com.myapplication;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.security.Provider;
 
@@ -20,10 +26,12 @@ import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenuItem;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
+import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
 import library.lanshifu.com.myapplication.voice.VoiceListActivity;
 import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
+import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2017/7/15.
@@ -64,6 +72,7 @@ public class MainFragment extends BaseFragment {
 
 
     private void initPopuMenu() {
+
         popMenu = new PopMenu.Builder(getActivity())
                 .columnCount(4)
                 .addMenuItem(new PopMenuItem(getActivity(), "流布局", R.mipmap.icon_menu1))
@@ -100,7 +109,8 @@ public class MainFragment extends BaseFragment {
 
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
-            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice})
+            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider,R.id.bt_voice,
+            R.id.bt_photopicker})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -175,6 +185,9 @@ public class MainFragment extends BaseFragment {
             case R.id.bt_voice:
                 startActivity(new Intent(getContext(), VoiceListActivity.class));
                 break;
+           case R.id.bt_photopicker:
+                startActivity(new Intent(getContext(), PhotoPickerActivity.class));
+                break;
         }
 
     }
@@ -183,17 +196,29 @@ public class MainFragment extends BaseFragment {
     private static final int REQUEST_CODE = 1;
 
     private void requestAlertWindowPermission() {
+        final String settings = Settings.ACTION_ACCESSIBILITY_SETTINGS;
 
-        //修改
-        //6.0以下系统，取消请求权限
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            String settings = Settings.ACTION_ACCESSIBILITY_SETTINGS;
-            startActivity(new Intent(settings));
-            return;
-        }
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-        startActivityForResult(intent, REQUEST_CODE);
+        RxPermissions.getInstance(getActivity()).request(Manifest.permission.SYSTEM_ALERT_WINDOW)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean aBoolean) {
+                        if(aBoolean){
+
+                            showShortToast("有权限");
+                            startActivity(new Intent(settings));
+                        }else {
+                            showShortToast("没有权限，请求");
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                            intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                            startActivityForResult(intent, REQUEST_CODE);
+                        }
+
+                    }
+                });
+
+
+
+
     }
 
 

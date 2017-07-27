@@ -3,7 +3,7 @@
 buildscript {
     repositories {
         jcenter()
-        mavenLocal()
+//        mavenLocal()
     }
     dependencies {
 //        classpath 'com.android.tools.build:gradle:2.3.2'
@@ -24,11 +24,9 @@ allprojects {
             maven { url 'http://localhost:8081/nexus/content/repositories/lanshifu/' }
         }
         jcenter()
-        mavenLocal()
+//        mavenLocal()
     }
-    dependencies{
 
-    }
 }
 
 task clean(type: Delete) {
