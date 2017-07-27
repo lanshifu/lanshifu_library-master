@@ -18,19 +18,19 @@ public class UserInfoDbHelper extends SQLiteOpenHelper {
     public static final String TEL_COLUMN = "tel";
     public static final String DESC_COLUMN = "desc";
     public static final String COMP_ID_COLUMN = "comp_id";
-    public static final String ID_COLUMN = "id";
+    public static final String ID_COLUMN = "user_id";
     public static final String BUSINESS_COLUMN = "business";
     public static final String ADDR_COLUMN = "addr";
 
     private static final String POSTCODE_TABLE_SQL = "CREATE TABLE " + TABLE_USER_INFO + "("
-            + TEL_COLUMN + " TEXT , "
-            + COMP_ID_COLUMN + " TEXT ,"
-            + DESC_COLUMN + " TEXT "
+            + ID_COLUMN + " TEXT ,"
+            + TEL_COLUMN + " TEXT ,"
+            + DESC_COLUMN + " TEXT"
             + ")";
 
     private static final String COMPANY_TABLE_SQL = "CREATE TABLE " + TABLE_COMPANY + "("
-            + ID_COLUMN + " TEXT PRIMARY KEY ,"
-            + BUSINESS_COLUMN + " TEXT ,"
+            + COMP_ID_COLUMN + " TEXT PRIMARY KEY,"
+            + BUSINESS_COLUMN + " TEXT,"
             + ADDR_COLUMN + " TEXT"
             + ")";
 
