@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import library.lanshifu.com.lsf_library.R;
-import library.lanshifu.com.lsf_library.base.adapter.BasePagerFragmentAdapter;
+import library.lanshifu.com.lsf_library.base.adapter.BaseFragmentPagerAdapter;
 
 /**
  * Created by Administrator on 2017/7/23.
  */
 
-public abstract class BasePagerFragmentActivity extends BaseActivity {
+public abstract class BasePagerFragment extends BaseFragment {
 
 
     FragmentManager fm;
@@ -32,19 +32,22 @@ public abstract class BasePagerFragmentActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tablayout = (TabLayout) findViewById(R.id.tablayout);
-        viewpager = (ViewPager) findViewById(R.id.viewpager);
+        tablayout = mRootView.findViewById(R.id.tablayout);
+        viewpager = mRootView.findViewById(R.id.viewpager);
 
-        fm = getSupportFragmentManager();
+        fm = getActivity().getSupportFragmentManager();
         tablayout.setupWithViewPager(viewpager);
 
 
-        viewpager.setAdapter(new BasePagerFragmentAdapter(fm, initTitleList(), initFragmentList()));
+        viewpager.setAdapter(new BaseFragmentPagerAdapter(fm, initTitleList(), initFragmentList()));
         tablayout.setupWithViewPager(viewpager);
 
     }
 
+    @Override
+    protected void initPresenter() {
 
+    }
 
     protected abstract List<Fragment> initFragmentList();
 

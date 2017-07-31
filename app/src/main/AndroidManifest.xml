@@ -38,7 +38,7 @@
         <activity android:name=".smartrefresh.SmartRefreshDemoActivity" />
         <activity android:name=".DropDownDemoActivity" />
         <activity android:name=".wifi.WifiPassWorldActivity" />
-        <activity android:name=".PagerFragmentDemoActivity" />
+        <activity android:name=".viewpager.ViewPagerDemoActivity" />
 
         <service android:name=".window.WindowService" />
 
@@ -61,12 +61,13 @@
         <provider
             android:name=".contentprovider.UserInfoProvider"
             android:authorities="com.lanshifu.userinfo_provider"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <activity android:name=".imagepicker.PhotoPickerActivity"/>
+        <activity android:name=".imagepicker.PhotoPickerActivity" />
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
-            android:theme="@style/ImagePickerThemeFullScreen"/>
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity android:name=".viewpager.CardSlideViewActivity"></activity>
     </application>
 
 </manifest>

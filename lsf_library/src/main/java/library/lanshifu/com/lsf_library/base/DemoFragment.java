@@ -21,12 +21,9 @@ import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 
 public class DemoFragment extends BaseFragment {
 
-
-    private RecyclerView recyclerview;
-
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_recyclerview;
+        return R.layout.layout_item ;
     }
 
     @Override
@@ -37,16 +34,7 @@ public class DemoFragment extends BaseFragment {
     @Override
     protected void initView() {
 
-        recyclerview = mRootView.findViewById(R.id.recyclerview);
 
-        recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerview.setAdapter(new CommonAdapter<String>(getActivity(),R.layout.layout_item,getData()) {
-            @Override
-            protected void convert(ViewHolder holder, String s, int position) {
-
-            }
-
-        });
 
     }
 
@@ -64,9 +52,4 @@ public class DemoFragment extends BaseFragment {
 
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }

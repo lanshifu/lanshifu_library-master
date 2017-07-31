@@ -72,6 +72,12 @@
             android:layout_height="wrap_content"
             android:text="图片选择" />
 
+   <Button
+            android:id="@+id/bt_slid_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卡片pager" />
+
     </library.lanshifu.com.lsf_library.commwidget.FlowLayout>
 
 

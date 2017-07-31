@@ -3,20 +3,15 @@ package library.lanshifu.com.myapplication;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
-
-import java.security.Provider;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -29,6 +24,8 @@ import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
+import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
+import library.lanshifu.com.myapplication.viewpager.ViewPagerDemoActivity;
 import library.lanshifu.com.myapplication.voice.VoiceListActivity;
 import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
 import rx.functions.Action1;
@@ -110,7 +107,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider,R.id.bt_voice,
-            R.id.bt_photopicker})
+            R.id.bt_photopicker,R.id.bt_slid_pager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -176,7 +173,7 @@ public class MainFragment extends BaseFragment {
                 break;
 
             case R.id.pagerfragment:
-                startActivity(new Intent(getContext(), PagerFragmentDemoActivity.class));
+                startActivity(new Intent(getContext(), ViewPagerDemoActivity.class));
                 break;
             case R.id.bt_contentprovider:
                 startActivity(new Intent(getContext(), ProviderActivity.class));
@@ -187,6 +184,9 @@ public class MainFragment extends BaseFragment {
                 break;
            case R.id.bt_photopicker:
                 startActivity(new Intent(getContext(), PhotoPickerActivity.class));
+                break;
+            case R.id.bt_slid_pager:
+                startActivity(new Intent(getContext(), CardSlideViewActivity.class));
                 break;
         }
 

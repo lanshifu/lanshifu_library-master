@@ -12,14 +12,14 @@ import java.util.List;
  * Created by Administrator on 2017/7/23.
  */
 
-public class BasePagerFragmentAdapter extends FragmentPagerAdapter {
+public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
 
     List<String> titleList;
     List<Fragment> fragmentList;
 
 
 
-    public BasePagerFragmentAdapter(FragmentManager fm, List<String> titleList, List<Fragment> fragmentList) {
+    public BaseFragmentPagerAdapter(FragmentManager fm, List<String> titleList, List<Fragment> fragmentList) {
         super(fm);
         this.titleList = titleList;
         this.fragmentList = fragmentList;
