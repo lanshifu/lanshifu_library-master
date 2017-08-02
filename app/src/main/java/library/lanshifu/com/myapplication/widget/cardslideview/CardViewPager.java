@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.viewpager.transformer.CardTransformer;
 
 /**
  * description

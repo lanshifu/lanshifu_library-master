@@ -25,6 +25,7 @@ import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
+import library.lanshifu.com.myapplication.viewpager.TabActivity;
 import library.lanshifu.com.myapplication.viewpager.ViewPagerDemoActivity;
 import library.lanshifu.com.myapplication.voice.VoiceListActivity;
 import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
@@ -173,7 +174,7 @@ public class MainFragment extends BaseFragment {
                 break;
 
             case R.id.pagerfragment:
-                startActivity(new Intent(getContext(), ViewPagerDemoActivity.class));
+                startActivity(new Intent(getContext(), TabActivity.class));
                 break;
             case R.id.bt_contentprovider:
                 startActivity(new Intent(getContext(), ProviderActivity.class));

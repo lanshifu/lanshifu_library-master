@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    List<String> titleList;
-    List<Fragment> fragmentList;
+    private List<String> titleList;
+    private List<Fragment> fragmentList;
 
 
 
@@ -46,4 +47,6 @@ public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return titleList.get(position);
     }
+
+
 }

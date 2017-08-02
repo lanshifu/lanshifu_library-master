@@ -1,5 +1,6 @@
 package library.lanshifu.com.myapplication.viewpager;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,11 +11,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
-import library.lanshifu.com.lsf_library.base.BaseActivity;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.viewpager.adapter.ImagePagerAdapter;
+import library.lanshifu.com.myapplication.viewpager.transformer.CardTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.DepthPageTransformer;
+import library.lanshifu.com.myapplication.viewpager.transformer.RotateDownPageTransformer;
+import library.lanshifu.com.myapplication.viewpager.transformer.ZoomOutPageTransformer;
 
 public class ViewPagerDemoActivity extends BaseToolBarActivity {
 
@@ -94,8 +99,7 @@ public class ViewPagerDemoActivity extends BaseToolBarActivity {
     protected void initView() {
 
 
-        viewpager.setPageTransformer(true,new DepthPageTransformer());
-
+        viewpager.setPageTransformer(true, new DepthPageTransformer());
         setAdapter();
 
     }
@@ -116,14 +120,35 @@ public class ViewPagerDemoActivity extends BaseToolBarActivity {
             public void bindView(View view, List<String> mData, int position) {
                 ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
                 Glide.with(mContext).load(mData.get(position)).into(imageView);
-                // 正常地
+                //
 
             }
-
 
         });
     }
 
 
 
+
+    @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn1:
+                viewpager.setPageTransformer(true, new RotateDownPageTransformer());
+                setAdapter();
+                break;
+            case R.id.btn2:
+                viewpager.setPageTransformer(true, new ZoomOutPageTransformer());
+                setAdapter();
+                break;
+            case R.id.btn3:
+                viewpager.setPageTransformer(true, new CardTransformer());
+                setAdapter();
+                break;
+            case R.id.btn4:
+                viewpager.setPageTransformer(true, new DepthPageTransformer());
+                setAdapter();
+                break;
+        }
+    }
 }

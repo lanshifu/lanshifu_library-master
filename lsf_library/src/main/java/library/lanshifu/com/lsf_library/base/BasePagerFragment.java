@@ -36,8 +36,6 @@ public abstract class BasePagerFragment extends BaseFragment {
         viewpager = mRootView.findViewById(R.id.viewpager);
 
         fm = getActivity().getSupportFragmentManager();
-        tablayout.setupWithViewPager(viewpager);
-
 
         viewpager.setAdapter(new BaseFragmentPagerAdapter(fm, initTitleList(), initFragmentList()));
         tablayout.setupWithViewPager(viewpager);
