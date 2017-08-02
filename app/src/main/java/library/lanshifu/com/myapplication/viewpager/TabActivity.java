@@ -4,7 +4,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 
 import library.lanshifu.com.lsf_library.base.BaseTabActivity;
-import library.lanshifu.com.lsf_library.base.DemoFragment;
+import library.lanshifu.com.myapplication.ui.DemoFragment;
+import library.lanshifu.com.myapplication.viewpager.transformer.CardTransformer;
 
 /**
  * Created by lanxiaobin on 2017/8/1.
@@ -14,7 +15,7 @@ public class TabActivity extends BaseTabActivity {
 
 
     @Override
-    protected void initView() {
+    protected void onViewCreate() {
 
         setTBTitle("标题");
 
@@ -32,5 +33,8 @@ public class TabActivity extends BaseTabActivity {
         });
 
         getViewPager().setOffscreenPageLimit(1);
+        getViewPager().setPageTransformer(true, new CardTransformer());
     }
+
+
 }

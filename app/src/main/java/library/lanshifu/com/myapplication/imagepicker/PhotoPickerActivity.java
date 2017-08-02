@@ -76,7 +76,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
         adapter = new CommonAdapter<ImageItem>(this, R.layout.list_item_image, selImageList) {
             @Override
             protected void convert(ViewHolder holder, ImageItem imageItem, final int position) {
-                if (isEmpty(imageItem.name)) {
+                if (isEmpty(imageItem.path)) {
                     //add
                     holder.setImageResource(R.id.iv_img, R.drawable.selector_image_add);
                     holder.setOnClickListener(R.id.iv_img, new View.OnClickListener() {

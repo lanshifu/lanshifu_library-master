@@ -107,8 +107,8 @@ public class MainFragment extends BaseFragment {
 
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
-            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider,R.id.bt_voice,
-            R.id.bt_photopicker,R.id.bt_slid_pager})
+            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
+            R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -183,11 +183,14 @@ public class MainFragment extends BaseFragment {
             case R.id.bt_voice:
                 startActivity(new Intent(getContext(), VoiceListActivity.class));
                 break;
-           case R.id.bt_photopicker:
+            case R.id.bt_photopicker:
                 startActivity(new Intent(getContext(), PhotoPickerActivity.class));
                 break;
             case R.id.bt_slid_pager:
                 startActivity(new Intent(getContext(), CardSlideViewActivity.class));
+                break;
+            case R.id.btn_viewpager:
+                startActivity(new Intent(getContext(), ViewPagerDemoActivity.class));
                 break;
         }
 
@@ -203,11 +206,11 @@ public class MainFragment extends BaseFragment {
                 .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(Boolean aBoolean) {
-                        if(aBoolean){
+                        if (aBoolean) {
 
                             showShortToast("有权限");
                             startActivity(new Intent(settings));
-                        }else {
+                        } else {
                             showShortToast("没有权限，请求");
                             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                             intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
@@ -216,8 +219,6 @@ public class MainFragment extends BaseFragment {
 
                     }
                 });
-
-
 
 
     }

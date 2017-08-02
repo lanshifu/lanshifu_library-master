@@ -36,13 +36,15 @@
             android:id="@+id/btn_mult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:text="wifi密码查看" />
 
         <Button
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="basetoolbar" />
+            android:textAllCaps="false"
+            android:text="tabActivity" />
 
         <Button
             android:id="@+id/popmenu"
@@ -54,7 +56,8 @@
             android:id="@+id/pagerfragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="pager_碎布" />
+            android:textAllCaps="false"
+            android:text="pagerfragment" />
         <Button
             android:id="@+id/bt_contentprovider"
             android:layout_width="wrap_content"
@@ -76,7 +79,15 @@
             android:id="@+id/bt_slid_pager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+             android:textAllCaps="false"
             android:text="卡片pager" />
+
+  <Button
+            android:id="@+id/btn_viewpager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:textAllCaps="false"
+            android:text="viewpager切换" />
 
     </library.lanshifu.com.lsf_library.commwidget.FlowLayout>
 
