@@ -36,15 +36,15 @@
             android:id="@+id/btn_mult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="wifi密码查看" />
+            android:text="wifi密码查看"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="tabActivity" />
+            android:text="tabActivity"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/popmenu"
@@ -56,38 +56,46 @@
             android:id="@+id/pagerfragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="pagerfragment" />
+            android:text="pagerfragment"
+            android:textAllCaps="false" />
+
         <Button
             android:id="@+id/bt_contentprovider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="内容提供者" />
 
-       <Button
+        <Button
             android:id="@+id/bt_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="录音" />
-   <Button
+
+        <Button
             android:id="@+id/bt_photopicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="图片选择" />
 
-   <Button
+        <Button
             android:id="@+id/bt_slid_pager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:textAllCaps="false"
-            android:text="卡片pager" />
+            android:text="卡片pager"
+            android:textAllCaps="false" />
 
-  <Button
+        <Button
             android:id="@+id/btn_viewpager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:textAllCaps="false"
-            android:text="viewpager切换" />
+            android:text="viewpager切换"
+            android:textAllCaps="false" />
+ <Button
+            android:id="@+id/btn_databinding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mvvm"
+            android:textAllCaps="false" />
 
     </library.lanshifu.com.lsf_library.commwidget.FlowLayout>
 

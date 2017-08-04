@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding{
+        enabled true
+    }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -24,9 +28,6 @@ dependencies {
     compile project(':imagepicker')
     compile project(':fileprovdider7')
     //If you use the special Header
-
-
-
 
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'

@@ -20,6 +20,7 @@ import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenu;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenuItem;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
+import library.lanshifu.com.myapplication.databinding.DataBindingDemoActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
@@ -108,7 +109,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
-            R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager})
+            R.id.bt_photopicker, R.id.bt_slid_pager,R.id.btn_viewpager,R.id.btn_databinding})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -191,6 +192,9 @@ public class MainFragment extends BaseFragment {
                 break;
             case R.id.btn_viewpager:
                 startActivity(new Intent(getContext(), ViewPagerDemoActivity.class));
+                break;
+           case R.id.btn_databinding:
+                startActivity(new Intent(getContext(), DataBindingDemoActivity.class));
                 break;
         }
 
