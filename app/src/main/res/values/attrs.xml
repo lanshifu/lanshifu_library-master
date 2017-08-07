@@ -52,5 +52,4 @@
         <attr name="card_loop" format="boolean" />
     </declare-styleable>
 
-
 </resources>

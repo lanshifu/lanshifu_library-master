@@ -47,6 +47,7 @@
             android:theme="@style/ImagePickerThemeFullScreen" />
         <activity android:name=".viewpager.CardSlideViewActivity" />
         <activity android:name=".viewpager.TabActivity" />
+        <activity android:name=".twolist.TwoListActivity" />
 
         <service android:name=".window.WindowService" />
         <service

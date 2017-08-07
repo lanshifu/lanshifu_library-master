@@ -23,6 +23,7 @@ import butterknife.Bind;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
+import library.lanshifu.com.lsf_library.commwidget.autoscrolltoplayout.AutoScrollToTopLayout;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 
@@ -33,6 +34,9 @@ public class SmartRefreshDemoActivity extends BaseToolBarActivity {
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     private CommonAdapter<String> adapter;
+
+    @Bind(R.id.scrollToTopLayout)
+    AutoScrollToTopLayout scrollToTopLayout;
 
 
     @Override
@@ -93,42 +97,43 @@ public class SmartRefreshDemoActivity extends BaseToolBarActivity {
 
         //触发自动刷新
         refreshLayout.autoRefresh();
+        scrollToTopLayout.bindScrollBack();
 
     }
 
     private List<String> initData(int size) {
         List<String> list = new ArrayList<>();
-        if(size <= 0){
+        if (size <= 0) {
             return list;
         }
         for (int i = 0; i < size; i++) {
-            list.add("数据"+i);
+            list.add("数据" + i);
         }
         return list;
 
     }
 
     private void initToolBar() {
-        addTBMore(new String[]{"样式1","样式2","样式3","样式4","样式5"});
+        addTBMore(new String[]{"样式1", "样式2", "样式3", "样式4", "样式5"});
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         String title = item.getTitle().toString();
-       if("样式1".equals(title)){
+        if ("样式1".equals(title)) {
             refreshLayout.setRefreshHeader(new MaterialHeader(this));
-           refreshLayout.setRefreshFooter(new BallPulseFooter(this));
-       }else if("样式2".equals(title)){
-           refreshLayout.setRefreshHeader(new WaterDropHeader(this));
-           refreshLayout.setRefreshFooter(new BallPulseFooter(this));
-       }else if("样式3".equals(title)){
-           refreshLayout.setRefreshHeader(new CircleHeader(this));
-       }else if("样式4".equals(title)){
-           refreshLayout.setRefreshHeader(new DeliveryHeader(this));
-       }else if("样式5".equals(title)){
-           refreshLayout.setRefreshHeader(new WaveSwipeHeader(this));
-       }
+            refreshLayout.setRefreshFooter(new BallPulseFooter(this));
+        } else if ("样式2".equals(title)) {
+            refreshLayout.setRefreshHeader(new WaterDropHeader(this));
+            refreshLayout.setRefreshFooter(new BallPulseFooter(this));
+        } else if ("样式3".equals(title)) {
+            refreshLayout.setRefreshHeader(new CircleHeader(this));
+        } else if ("样式4".equals(title)) {
+            refreshLayout.setRefreshHeader(new DeliveryHeader(this));
+        } else if ("样式5".equals(title)) {
+            refreshLayout.setRefreshHeader(new WaveSwipeHeader(this));
+        }
 
         return super.onOptionsItemSelected(item);
     }

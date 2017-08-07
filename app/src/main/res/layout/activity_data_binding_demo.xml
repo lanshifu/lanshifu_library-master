@@ -18,6 +18,13 @@
             android:layout_height="wrap_content"
             android:text="@{user.lastName}" />
 
+        <ImageView
+            android:background="@color/colorPrimary"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="16dp"
+            android:src="@{user.icon}"/>
+
     </LinearLayout>
 
 

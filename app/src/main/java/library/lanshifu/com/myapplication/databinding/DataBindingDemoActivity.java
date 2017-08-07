@@ -17,6 +17,7 @@ public class DataBindingDemoActivity extends AppCompatActivity {
 
         ActivityDataBindingDemoBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding_demo);
         User user = new User("name","lastname");
+        user.setIcon(R.mipmap.icon_menu6);
         binding.setUser(user);
 
 

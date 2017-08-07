@@ -8,6 +8,24 @@ public class User {
     private final String firstName;
     private final String lastName;
     private String displayName;
+    private int icon;
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     private int age;
 
     public User(String firstName, String lastName) {
