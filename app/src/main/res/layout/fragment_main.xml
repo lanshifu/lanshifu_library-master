@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/comm_titlebar"/>
 
     <library.lanshifu.com.lsf_library.commwidget.FlowLayout
         android:layout_width="match_parent"

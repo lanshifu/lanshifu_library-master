@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.commwidget.IDrawerLayout;
+import library.lanshifu.com.myapplication.fragment.HomeFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -54,41 +55,10 @@ public class MainActivity extends BaseActivity {
         });
 
         //横屏 被覆盖 谷歌输入法
-        iDrawerLayout.switchContentFragment(new MainFragment());
+        iDrawerLayout.switchContentFragment(new HomeFragment());
     }
 
 
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        ButterKnife.bind(this);
-//        iDrawerLayout.inflateMenu(R.menu.drawe);
-////        iDrawerLayout.addNavigationViewHeader(R.layout.header);
-//        iDrawerLayout.setOnNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                iDrawerLayout.closeDrawer();
-//
-//                switch (item.getItemId()) {
-//                    case R.id.first:
-//                        return true;
-//
-//                    case R.id.other:
-//                        return true;
-//
-//                    case R.id.about:
-//                        return true;
-//
-//                }
-//                return false;
-//            }
-//        });
-//
-//    //横屏 被覆盖 谷歌输入法
-//        iDrawerLayout.switchContentFragment(new MainFragment());
-//    }
 
 
     private String doSomeThing() {
