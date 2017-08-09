@@ -47,7 +47,6 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
 
     @Override
     protected void onViewCreate() {
-
         imagePicker = ImagePicker.getInstance();
 
         initImagePicker();

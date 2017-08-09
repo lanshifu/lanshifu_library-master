@@ -3,16 +3,23 @@ package library.lanshifu.com.myapplication.fileprovider;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lanshifu.fileprovdider7.FileProvider7;
+import com.lzy.imagepicker.util.BitmapUtil;
+import com.tbruyelle.rxpermissions.Permission;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -23,6 +30,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
+import rx.functions.Action1;
 
 public class FileProviderDemoActivity extends BaseToolBarActivity {
 
@@ -35,6 +43,7 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
     private static final int REQUEST_CUT_PHOTO = 1;
     private static final int REQUEST_CODE_LOCAL = 2;
     private String picturePath;
+    private String cutPicPath;
 
     @Override
     protected int getLayoutid() {
@@ -51,7 +60,14 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_photo:
-                takePhoto();
+                RxPermissions.getInstance(this).request("android.permission.CAMERA")
+                        .subscribe(new Action1<Boolean>() {
+                            @Override
+                            public void call(Boolean aBoolean) {
+                                takePhoto();
+                            }
+                        });
+
                 break;
             case R.id.bt_install:
                 install();
@@ -120,7 +136,15 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
             }
 
         } else if (requestCode == REQUEST_CUT_PHOTO) {
+            Loge( "onActivityResult: data="+data);
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap photo = extras.getParcelable("data");
+                Drawable drawable = new BitmapDrawable(this.getResources(), photo);
+                    imageview.setImageDrawable(drawable);
+            }
             showShortToast("裁剪成功");
+
 
         } else if (requestCode == REQUEST_CODE_LOCAL) {
             showShortToast("获取照片成功");
@@ -171,28 +195,9 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
 
     private void cutPicture(String path) {
 
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(Uri.fromFile(new File(path)), "image/*");
-//        // aspectX aspectY 是宽高的比例
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//
-//        // outputX,outputY 是剪裁图片的宽高
-//        intent.putExtra("outputX", 0);
-//        intent.putExtra("outputY", 0);
-//
-//        if (Build.VERSION.SDK_INT >= 23) {
-//            File outputImage = new File(path, "output_image" + System.currentTimeMillis() + ".jpg");
-//            cuttedPicturePath = outputImage.getAbsolutePath();
-//            intent.putExtra("scale", true);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
-//        } else {
-//            intent.putExtra("crop", "true");// crop为true是设置在开启的intent中设置显示的view可以剪裁
-//            intent.putExtra("return-data", true);
-//        }
-//        startActivityForResult(intent, REQUEST_CUT_PHOTO);
 
-        File outputImage = new File(path, "output_image" + System.currentTimeMillis() + ".jpg");
+        cutPicPath = path+ "output_image" + System.currentTimeMillis() + ".jpg";
+        File outputImage = new File(cutPicPath);
 
         File file = new File(path);
         Intent intent = new Intent("com.android.camera.action.CROP");

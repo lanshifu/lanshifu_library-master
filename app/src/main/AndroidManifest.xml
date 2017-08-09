@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.AccessibilityService" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApp"
@@ -68,8 +69,10 @@
             android:authorities="com.lanshifu.userinfo_provider"
             android:exported="true" />
 
-        <activity android:name=".databinding.DataBindingDemoActivity"
-            android:theme="@style/Base.Theme.AppCompat"></activity>
+        <activity
+            android:name=".databinding.DataBindingDemoActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".ui.SmileFaceActivity"></activity>
     </application>
 
 </manifest>

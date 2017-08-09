@@ -26,6 +26,7 @@ import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
 import library.lanshifu.com.myapplication.twolist.TwoListActivity;
+import library.lanshifu.com.myapplication.ui.SmileFaceActivity;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
 import library.lanshifu.com.myapplication.viewpager.TabActivity;
 import library.lanshifu.com.myapplication.viewpager.ViewPagerDemoActivity;
@@ -64,9 +65,33 @@ public class MainFragment extends BaseFragment {
 
     }
 
+    class  Parent{
+
+        void say(){
+            loge("我是父亲");
+        }
+        void sleep(){
+            loge("i am sleep");
+        }
+
+    }
+
+    class Child extends Parent{
+        @Override
+        void say() {
+            super.say();
+            if(true){
+                loge("我是儿子");
+            }
+
+        }
+    }
+
     @Override
     protected void initView() {
-
+        Parent child = new Child();
+        child.say();
+        child.sleep();
 
     }
 
@@ -111,7 +136,7 @@ public class MainFragment extends BaseFragment {
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
             R.id.bt_photopicker, R.id.bt_slid_pager,R.id.btn_viewpager,R.id.btn_databinding
-            ,R.id.btn_twolist})
+            ,R.id.btn_twolist,R.id.btn_face})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -200,6 +225,9 @@ public class MainFragment extends BaseFragment {
                 break;
            case R.id.btn_twolist:
                 startActivity(new Intent(getContext(), TwoListActivity.class));
+                break;
+           case R.id.btn_face:
+                startActivity(new Intent(getContext(), SmileFaceActivity.class));
                 break;
         }
 

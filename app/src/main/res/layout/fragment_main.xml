@@ -106,6 +106,13 @@
             android:text="列表悬停"
             android:textAllCaps="false" />
 
+     <Button
+            android:id="@+id/btn_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="笑脸点赞"
+            android:textAllCaps="false" />
+
     </library.lanshifu.com.lsf_library.commwidget.FlowLayout>
 
 
