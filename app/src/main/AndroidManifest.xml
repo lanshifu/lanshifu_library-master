@@ -14,6 +14,9 @@
     <uses-permission android:name="android.permission.AccessibilityService" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApp"
@@ -21,6 +24,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
+
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24579256-1" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="6425f777e15a0f933785bc2499331c0a" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCrQv1DZ1yeMstlL//dg8BUSbAaNUqVIwljxDUfFfo2XxPElBPdw9W2+4fALDOzx161X2JC9cK2luDpbn70SPf4IBHCTkzMkV/mpNUKvkEi78NPmSbgMHkZkdAdFWEcspF0DFWisQe+R+XEdo9/LU0SYgsEjwv7WM2HVE2z3+3CXAOTIuYI37UGsy9Z+4HNpFWDHKUxpTb+o4GH+Do+FSzCGuoCy0jaOQa+ukKp2O+Iun1LYiRZxtZ1Jz+HvNZM46sgnyLQKL3oE6bmT0cUniDm042TwtRdsmOUyW9aupeBQfGwv+4f645YZTECkjNN9ORgsSrtMMOHoI96c0W6iWDjAgMBAAECggEAEBuY3oIWP/rfDoFZO2hs6oCTw6NHhIdrFqsZo/bZNcvzfAXBaJZGv5MgzX5azont6nkyMMIUsj+2n734ytkiGYBKq0/aAVObBYJzVzNVxQdwA0iQU327piAExvd/zscszxFp7IdiBw+UGMpd7MRB/3yhNKiPo/BSRGw1crmZDzKYWHUWH0QfZcyXGTQCTWV01NU3OoT7Sw/EJ0vA2IG/kCKLIykee54PJ5lmgjMGY7Km7SZeEP8r//GBjGM9MRgZX5YCEGR89DfI9TBEM0Lapwvx0Eh6BKb9JSrxKv63SJEmnsFMWsAKujKqWb/o4Yq8W+QTvTgvM11LtzJYc1O1gQKBgQD4/1Ozu6B+1fRwxJz+pBdJ5o+c8bH7Qtlw3maLjDMaq73A6+ESxDgpsA73WqWDGpApyqhGhzhmpt3CG1xj9Q1df+P6oAnBQu4c3Dl50NwyjhvwkwehxePaSmNon5KzRYySMrqR4oaZd9CfwBa8qrsFnVm5i3QHsiwh0VQJ1M5LcQKBgQCwE//DpbLkC14FnGIwCn7VBvPckddqPzvk2BaTxYtZnAH81EmqV+7OiRSyUvVEnPg2muuSGHGn07TpU5deZOhO+E4cIJC6KllSWMcqpaUcneJFnHZTcGSjsrjTe93e8m3Od+Cu9+/xS6x3fjGYIn6RPUKGwhfrXVM9y8G4QZd/kwKBgECw/YstzTYG2npN6sgR0+ckWt2YwfgY1yuG7LeG1mQwiJ1N620Xw8u47TqAt43HYfsppuykBxhMdEMRHsDtkupe5tlfqQkoHXssEFbA1+TenQ209X+nTVqShx9Qjim7gRkeyvBKHVRUF8TZgE7GQM7locEeJSg2t1aV7zKasnpRAoGAWTY4zzMEGWDdCXC7muWmb16vbeECyNUzDnahsctUGFnf8+7HSCR3XXO85cD8fgAeDuSdWI9D/qlYLyPoPK5ZubE7OisRyREt4ngSqTv2FTK1c1mb5hi7FOm3lYdb2drw4byBPYVnr9UMlBp/HDrV79ae/1IV9m15gITdKPMqxDsCgYEAvM5nB7T87hDCQcmBZXwQF3Sg+cnVPdAAR76uDMwkttpINWJiAx0z9DO9MXn1zXzwU1VQknLTLFjt4uoc66pFAwjk0t/yXWOyMq1BbZ58u6Gns5VUluIJuX95S23NEbaiCtVAvqiE1XXASj+QZHsTpIswdkZ7UTOfPs4zhcIOcsg=" />
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat">
@@ -60,7 +74,7 @@
 
                 <mate-data
                     android:name="android.accessibilityservice"
-                    android:resource="@xml/accessibility" />
+                    android:resource="@xml/accessibility" ></mate-data>
             </intent-filter>
         </service>
 

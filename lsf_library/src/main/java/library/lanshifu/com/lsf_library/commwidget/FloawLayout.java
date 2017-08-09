@@ -1,16 +1,18 @@
 package library.lanshifu.com.lsf_library.commwidget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 /**
- * Created by lWX385269 on 2017/1/3.
+ * Created by Administrator on 2017/8/9.
  */
 
-class FlowLayout extends FrameLayout {
+public class FloawLayout extends FrameLayout{
 
     private int mWidth;
     private int mHeight;
@@ -18,18 +20,18 @@ class FlowLayout extends FrameLayout {
     private int widthSpace = 16;
     private int heightSpace = 16;
 
-    public FlowLayout(Context context) {
-        this(context, null);
+    public FloawLayout(@NonNull Context context) {
+        super(context);
     }
 
-    public FlowLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+    public FloawLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FloawLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
     }
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -126,6 +128,5 @@ class FlowLayout extends FrameLayout {
 
 
     }
-
 
 }
