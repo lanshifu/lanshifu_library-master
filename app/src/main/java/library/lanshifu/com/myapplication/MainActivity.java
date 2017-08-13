@@ -1,5 +1,6 @@
 package library.lanshifu.com.myapplication;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,13 +8,16 @@ import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.commwidget.IDrawerLayout;
@@ -23,6 +27,7 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.iDrawerLayout)
     IDrawerLayout iDrawerLayout;
+    private long firstTime = 0;
 
 
     @Override
@@ -59,7 +64,13 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void doBeforeSetcontentView() {
+        super.doBeforeSetcontentView();
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
 
     private String doSomeThing() {
         return "doSomeThing";
@@ -70,5 +81,34 @@ public class MainActivity extends BaseActivity {
 
     public void switchDrawer(){
         iDrawerLayout.switchDrawer();
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        exit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    /**
+     * 退出提示
+     */
+    public void exit() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstTime  > 1200) {//如果两次按键时间间隔大于1秒，则不退出
+            Toast.makeText(this, "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            firstTime = secondTime;//更新firstTime
+        } else {
+            this.finish();
+        }
     }
 }

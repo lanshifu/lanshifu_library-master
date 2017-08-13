@@ -36,6 +36,11 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle>
         if(mRootView ==null){
             mRootView = inflater.inflate(getLayoutId(),container,false);
         }
+        //缓存的rootView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
+        ViewGroup parent = (ViewGroup) mRootView.getParent();
+        if (parent != null) {
+            parent.removeView(mRootView);
+        }
         ButterKnife.bind(this,mRootView);
         mRxManage = new RxManager();
         mPresenter = TUtil.getT(this,0);

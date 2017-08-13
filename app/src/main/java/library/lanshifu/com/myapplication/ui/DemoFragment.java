@@ -2,6 +2,7 @@ package library.lanshifu.com.myapplication.ui;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
 
 /**
@@ -20,7 +22,7 @@ public class DemoFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_recyclerview;
+        return R.layout.demo_fragment;
     }
 
     @Override
@@ -38,11 +40,11 @@ public class DemoFragment extends BaseFragment {
 
             @Override
             protected void convert(ViewHolder holder, String s, int position) {
-// expected
 
             }
         });
 
+        L.e("initView");
 
     }
 

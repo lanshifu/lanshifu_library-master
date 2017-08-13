@@ -37,7 +37,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat">
+            android:theme="@style/Theme.AppCompat"
+            android:configChanges="orientation|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,6 +64,9 @@
         <activity android:name=".viewpager.CardSlideViewActivity" />
         <activity android:name=".viewpager.TabActivity" />
         <activity android:name=".twolist.TwoListActivity" />
+        <activity android:name=".live.LiveActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <service android:name=".window.WindowService" />
         <service

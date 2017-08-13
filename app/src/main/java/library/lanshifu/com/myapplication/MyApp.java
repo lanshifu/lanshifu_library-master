@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.facebook.stetho.Stetho;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
@@ -46,11 +47,13 @@ public class MyApp extends BaseApplication{
 
 
         });
+
+        Stetho.initializeWithDefaults(this);
     }
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        initHotFix();
+//        initHotFix();
     }
 
     private void initHotFix() {

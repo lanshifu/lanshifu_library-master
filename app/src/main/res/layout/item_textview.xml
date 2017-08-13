@@ -9,7 +9,9 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="@dimen/spacing_2x"
+        android:layout_margin="@dimen/spacing_2x"
         android:text="text"
+        android:textSize="30sp"
         android:id="@+id/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

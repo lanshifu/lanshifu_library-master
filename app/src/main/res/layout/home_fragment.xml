@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.app.FragmentTabHost
+    <library.lanshifu.com.myapplication.widget.FragmentTabHost
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main_tabHost">
@@ -38,5 +38,5 @@
             </TabWidget>
 
         </LinearLayout>
-    </android.support.v4.app.FragmentTabHost>
+    </library.lanshifu.com.myapplication.widget.FragmentTabHost>
 </LinearLayout>

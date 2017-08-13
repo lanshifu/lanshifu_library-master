@@ -174,7 +174,9 @@ public class AutoScrollToTopLayout extends FrameLayout {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (myScrollLitener != null) myScrollLitener.onScroll(recyclerView, dy, 0, 0);
+                if (myScrollLitener != null && dy < 0){
+                    myScrollLitener.onScroll(recyclerView, dy, 0, 0);}
+
             }
         });
     }
@@ -313,13 +315,13 @@ public class AutoScrollToTopLayout extends FrameLayout {
             }
         }
 
-        void onScroll(View scrollview, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        void onScroll(View scrollview, int dy, int visibleItemCount, int totalItemCount) {
             if (scrollState == 0) return;
-            scrollDistance = getScrollDistance(firstVisibleItem);
+            scrollDistance = getScrollDistance(dy);
             String logTarget = scrollview.getClass().getSimpleName() + "@" + Integer.toHexString(System.identityHashCode(scrollview));
             if (scrollDistance >= showScrollDistance) {
                 if (DEBUG) {
-                    Log.d(TAG, logTarget + " show()!!! scrollState=" + scrollState + ",scrollDistance=" + scrollDistance + ",firstVisibleItem=" + firstVisibleItem);
+                    Log.d(TAG, logTarget + " show()!!! scrollState=" + scrollState + ",scrollDistance=" + scrollDistance + ",firstVisibleItem=" + dy);
                 }
                 if (dismissRunable != null) {
                     removeCallbacks(dismissRunable);

@@ -103,7 +103,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModle>
     /**
      * 设置layout前配置
      */
-    private void doBeforeSetcontentView() {
+    protected void doBeforeSetcontentView() {
 
         //设置昼夜主题
         initTheme();
