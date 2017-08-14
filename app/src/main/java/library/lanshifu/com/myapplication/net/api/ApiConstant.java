@@ -7,6 +7,7 @@ package library.lanshifu.com.myapplication.net.api;
 public class ApiConstant {
 
     public static final String BASE_URL_WEATHER = "http://www.weather.com.cn/";
+    public static final String BASE_URL_WECHAT = "http://v.juhe.cn/";
 
 
     public static final int SUCCESS = 0;

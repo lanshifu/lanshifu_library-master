@@ -12,6 +12,7 @@ import library.lanshifu.com.myapplication.MyApp;
 import library.lanshifu.com.myapplication.net.api.APIException;
 import library.lanshifu.com.myapplication.net.api.ApiConstant;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
+import library.lanshifu.com.myapplication.net.api.WechatApi;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -48,7 +49,7 @@ public class RetrofitHelper {
 
             HttpLoggingInterceptor loggingInterceptor = null;
             //打印请求log日志
-            if (Config.DEBUG) {
+            if (true) {
                 loggingInterceptor = new HttpLoggingInterceptor();
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             }
@@ -75,6 +76,11 @@ public class RetrofitHelper {
 
     public static WeatherApi getWeatherService() {
         return createApi(WeatherApi.class, ApiConstant.BASE_URL_WEATHER);
+
+    }
+
+    public static WechatApi getWechatApi() {
+        return createApi(WechatApi.class, ApiConstant.BASE_URL_WECHAT);
 
     }
 

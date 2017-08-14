@@ -4,10 +4,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -20,12 +18,17 @@ import java.util.List;
 import butterknife.Bind;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
-import library.lanshifu.com.lsf_library.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
 import library.lanshifu.com.lsf_library.commwidget.Indicator;
 import library.lanshifu.com.lsf_library.commwidget.autoscrolltoplayout.AutoScrollToTopLayout;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.model.WechatItem;
+import library.lanshifu.com.myapplication.net.RetrofitHelper;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/8/12.
@@ -51,6 +54,13 @@ public class RoundFragment extends BaseFragment {
     private int[] imgRes = new int[]{R.mipmap.banner01, R.mipmap.banner02, R.mipmap.banner03};
     private Handler mHandler = new Handler();
     private FragmentManager fragmentManager;
+
+
+    public static final String WECHAT_APPKEY = "26ce25ffcfc907a26263e2b0e3e23676";
+    //每页请求的 item 数量
+    public final int mPs = 21;
+    public int mPageMark = 1;
+    private NewListAdapter newListAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -85,13 +95,15 @@ public class RoundFragment extends BaseFragment {
 
     private void initList() {
 
-        final CommonAdapter<String> adapter = new CommonAdapter<String>(getActivity(), R.layout.list_item, initData(0)) {
+        final CommonAdapter<String> adapter = new CommonAdapter<String>(getActivity(), R.layout.list_item, new ArrayList<String>()) {
             @Override
             protected void convert(ViewHolder holder, String s, int position) {
                 holder.setText(R.id.title, s);
 
             }
         };
+
+        newListAdapter = new NewListAdapter(getActivity(), new ArrayList<WechatItem.ResultBean.ListBean>());
 
 //        final HeaderAndFooterWrapper headerAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
 //
@@ -107,39 +119,24 @@ public class RoundFragment extends BaseFragment {
 //        t1.setText("Header 1");
 //        headerAndFooterWrapper.addHeaderView(headView);
 
-        reclclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        reclclerview.setAdapter(adapter);
+        reclclerview.setLayoutManager(new GridLayoutManager(getContext().getApplicationContext(), 2));
+        reclclerview.setAdapter(newListAdapter);
 
         //开启自动加载功能（非必须）
         refreshLayout.setEnableAutoLoadmore(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(final RefreshLayout refreshLayout) {
-                ((View) refreshLayout).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.refresh(initData(20));
-                        refreshLayout.finishRefresh();
-                        refreshLayout.setLoadmoreFinished(false);
-                    }
-                }, 2000);
+                refreshLayout.setLoadmoreFinished(false);
+                mPageMark = 1;
+                requestData();
             }
         });
 
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(final RefreshLayout refreshLayout) {
-                ((View) refreshLayout).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.addAll(initData(10));
-                        refreshLayout.finishLoadmore();
-                        if (adapter.getItemCount() > 30) {
-                            T.showShort("数据全部加载完毕");
-                            refreshLayout.setLoadmoreFinished(true);//将不会再次触发加载更多事件
-                        }
-                    }
-                }, 2000);
+                requestData();
             }
         });
 
@@ -173,4 +170,50 @@ public class RoundFragment extends BaseFragment {
 
     }
 
+    private void requestData() {
+        RetrofitHelper.getWechatApi().getWechat(WECHAT_APPKEY, mPageMark, mPs)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mObserver);
+    }
+
+    Observer<WechatItem> mObserver = new Observer<WechatItem>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            T.showShort("出错了" + e);
+            L.e("" + e);
+            refreshLayout.finishRefresh();
+            refreshLayout.finishLoadmore();
+
+        }
+
+        @Override
+        public void onNext(WechatItem wechatItem) {
+            setNewDataAddList(wechatItem);
+            refreshLayout.finishRefresh();
+            refreshLayout.finishLoadmore();
+
+        }
+    };
+
+    private void setNewDataAddList(WechatItem wechatItem) {
+        mPageMark++;
+        List<WechatItem.ResultBean.ListBean> newData = wechatItem.getResult().getList();
+        L.e("数据+"+newData.size());
+        if (newData != null && newData.size() > 0) {
+            if (mPageMark == 2) {
+                newListAdapter.refresh(newData);
+            } else {
+                newListAdapter.addAll(newData);
+            }
+        } else {
+            refreshLayout.setLoadmoreFinished(true);//将不会再次触发加载更多事件
+        }
+
+    }
 }
