@@ -5,7 +5,7 @@
     <ImageView
         android:id="@+id/img_wechat_style"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:src="@drawable/ic_image_loading"
         android:scaleType="centerCrop"/>
 

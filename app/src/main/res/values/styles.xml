@@ -8,6 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+   <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">false</item>
+       <item name="android:windowBackground">@color/colorPrimary</item>
+       <item name="android:windowFullscreen">true</item>
+
+    </style>
+
+
+
     <style name="BaseAppTheme_Tran" parent="Base.Theme.AppCompat">
 
         <item name="android:windowBackground">@android:color/transparent</item>

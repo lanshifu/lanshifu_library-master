@@ -1,4 +1,4 @@
-package library.lanshifu.com.myapplication;
+package library.lanshifu.com.myapplication.fragment;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -19,6 +19,10 @@ import library.lanshifu.com.lsf_library.base.BaseFragment;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenu;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenuItem;
 import library.lanshifu.com.lsf_library.utils.T;
+import library.lanshifu.com.myapplication.DropDownDemoActivity;
+import library.lanshifu.com.myapplication.FlowTagDemoActivity;
+import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.ToolBarDemoActivity;
 import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.databinding.DataBindingDemoActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;

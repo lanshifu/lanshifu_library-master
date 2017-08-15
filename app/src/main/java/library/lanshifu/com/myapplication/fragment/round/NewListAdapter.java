@@ -3,17 +3,19 @@ package library.lanshifu.com.myapplication.fragment.round;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.MultiItemTypeAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ItemViewDelegate;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.model.NewBean;
 import library.lanshifu.com.myapplication.model.WechatItem;
 import library.lanshifu.com.myapplication.utils.PixelUtil;
 
@@ -47,13 +49,13 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
             }
 
             @Override
-            public boolean isForViewType( WechatItem.ResultBean.ListBean item, int position)
+            public boolean isForViewType(WechatItem.ResultBean.ListBean item, int position)
             {
                 return item.getItemType() == 1;
             }
 
             @Override
-            public void convert(ViewHolder holder, WechatItem.ResultBean.ListBean item, int position)
+            public void convert(ViewHolder holder, final WechatItem.ResultBean.ListBean item, int position)
             {
                 holder.setText(R.id.title_wechat_style1, TextUtils.isEmpty(item.getTitle()) ? "微信精选" : item.getTitle());
 
@@ -66,6 +68,12 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
                             .crossFade(1000)
                             .into((ImageView) holder.getView(R.id.img_wechat_style));
                 }
+                holder.setOnClickListener(R.id.img_wechat_style, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        L.e("uri = "+item.getUrl());
+                    }
+                });
 
             }
         });
@@ -80,13 +88,13 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
             }
 
             @Override
-            public boolean isForViewType( WechatItem.ResultBean.ListBean item, int position)
+            public boolean isForViewType(WechatItem.ResultBean.ListBean item, int position)
             {
                 return item.getItemType() != 1;
             }
 
             @Override
-            public void convert(ViewHolder helper, WechatItem.ResultBean.ListBean item, int position)
+            public void convert(ViewHolder helper, final WechatItem.ResultBean.ListBean item, int position)
             {
                 helper.setText(R.id.title_wechat_style2, TextUtils.isEmpty(item.getTitle()) ? "微信精选" : item.getTitle());
                 if (!isNotLoad) {
@@ -98,6 +106,12 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
                             .crossFade(1000)
                             .into((ImageView) helper.getView(R.id.img_wechat_style));
                 }
+                helper.setOnClickListener(R.id.img_wechat_style, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        L.e("uri = "+item.getUrl());
+                    }
+                });
             }
         });
 

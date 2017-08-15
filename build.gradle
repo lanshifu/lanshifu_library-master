@@ -24,6 +24,7 @@ allprojects {
 //            maven { url 'http://localhost:8081/nexus/content/repositories/lanshifu/' }
 //        }
         jcenter()
+        maven { url "https://jitpack.io" }
 //        mavenLocal()
     }
 

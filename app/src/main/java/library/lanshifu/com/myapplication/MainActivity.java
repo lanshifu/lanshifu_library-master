@@ -29,6 +29,11 @@ public class MainActivity extends BaseActivity {
     IDrawerLayout iDrawerLayout;
     private long firstTime = 0;
 
+    @Override
+    protected void doBeforeSetcontentView() {
+        super.doBeforeSetcontentView();
+        setTheme(R.style.AppTheme);
+    }
 
     @Override
     public int getLayoutId() {
@@ -64,13 +69,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @Override
-    protected void doBeforeSetcontentView() {
-        super.doBeforeSetcontentView();
-
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-    }
 
     private String doSomeThing() {
         return "doSomeThing";

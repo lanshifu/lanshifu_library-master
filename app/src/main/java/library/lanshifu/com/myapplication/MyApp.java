@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.facebook.stetho.Stetho;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
@@ -18,17 +17,36 @@ import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
 
+import org.litepal.LitePalApplication;
+
 import library.lanshifu.com.lsf_library.baseapp.BaseApplication;
+import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.lsf_library.utils.T;
 
 /**
  * Created by Administrator on 2017/7/15.
  */
 
-public class MyApp extends BaseApplication{
+public class MyApp extends LitePalApplication{
+
+    private static MyApp instance;
+    protected static Context context;
+
+    public static Context getContext() {
+        return context;
+
+    }
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        context = getApplicationContext();
+        instance = this;
+
+        T.init(context);
+        L.init(true,"lanshifu");
 
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
             @NonNull
@@ -48,12 +66,16 @@ public class MyApp extends BaseApplication{
 
         });
 
-        Stetho.initializeWithDefaults(this);
     }
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 //        initHotFix();
+    }
+
+    public static MyApp getInstance(){
+        return instance;
+
     }
 
     private void initHotFix() {

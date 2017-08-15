@@ -12,6 +12,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +26,10 @@ import library.lanshifu.com.lsf_library.commwidget.autoscrolltoplayout.AutoScrol
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.model.NewBean;
 import library.lanshifu.com.myapplication.model.WechatItem;
+import library.lanshifu.com.myapplication.net.MyObserver;
 import library.lanshifu.com.myapplication.net.RetrofitHelper;
-import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -140,13 +143,22 @@ public class RoundFragment extends BaseFragment {
             }
         });
 
-        //触发自动刷新
-        refreshLayout.autoRefresh();
+        if (!queryDB()) {
+            //触发自动刷新
+            refreshLayout.autoRefresh();
+        } else {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.autoRefresh();
+                }
+            }, 1000);
+        }
         scrollToTopLayout.bindScrollBack();
     }
 
 
-    private void antoScroll() {
+     private void antoScroll() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -158,62 +170,79 @@ public class RoundFragment extends BaseFragment {
     }
 
 
-    private List<String> initData(int size) {
-        List<String> list = new ArrayList<>();
-        if (size <= 0) {
-            return list;
-        }
-        for (int i = 0; i < size; i++) {
-            list.add("数据" + i);
-        }
-        return list;
-
-    }
-
     private void requestData() {
         RetrofitHelper.getWechatApi().getWechat(WECHAT_APPKEY, mPageMark, mPs)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mObserver);
+                .subscribe(new MyObserver<WechatItem>() {
+                    @Override
+                    public void _onNext(WechatItem wechatItem) {
+                        setNewDataAddList(wechatItem);
+                        refreshLayout.finishRefresh();
+                        refreshLayout.finishLoadmore();
+                    }
+
+                    @Override
+                    public void _onError(String e) {
+                        T.showShort("出错了" + e);
+                        L.e(e);
+                        refreshLayout.finishRefresh();
+                        refreshLayout.finishLoadmore();
+                    }
+                });
     }
 
-    Observer<WechatItem> mObserver = new Observer<WechatItem>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            T.showShort("出错了" + e);
-            L.e("" + e);
-            refreshLayout.finishRefresh();
-            refreshLayout.finishLoadmore();
-
-        }
-
-        @Override
-        public void onNext(WechatItem wechatItem) {
-            setNewDataAddList(wechatItem);
-            refreshLayout.finishRefresh();
-            refreshLayout.finishLoadmore();
-
-        }
-    };
 
     private void setNewDataAddList(WechatItem wechatItem) {
         mPageMark++;
         List<WechatItem.ResultBean.ListBean> newData = wechatItem.getResult().getList();
-        L.e("数据+"+newData.size());
+
         if (newData != null && newData.size() > 0) {
+            newData.get(0).setItemType(1);
+            L.e("数据+" + newData.size());
             if (mPageMark == 2) {
                 newListAdapter.refresh(newData);
+                DataSupport.deleteAll(NewBean.class);
             } else {
                 newListAdapter.addAll(newData);
             }
+            savaToDB(newData);
         } else {
             refreshLayout.setLoadmoreFinished(true);//将不会再次触发加载更多事件
         }
 
     }
+
+    private void savaToDB(List<WechatItem.ResultBean.ListBean> newData) {
+        for (WechatItem.ResultBean.ListBean listBean : newData) {
+            NewBean newBean = new NewBean(listBean.getId(), listBean.getTitle(), listBean.getSource(), listBean.getFirstImg(),
+                    listBean.getMark(), listBean.getUrl(), listBean.getItemType(), listBean.getSpansize());
+            newBean.save();
+        }
+    }
+
+    private boolean queryDB() {
+        List<NewBean> newBeanList = DataSupport.findAll(NewBean.class);
+        if (newBeanList == null || newBeanList.size() == 0) {
+            return false;
+        }
+        List<WechatItem.ResultBean.ListBean> listBeanList = new ArrayList<>();
+        for (NewBean newBean : newBeanList) {
+            WechatItem.ResultBean.ListBean listBean = new WechatItem.ResultBean.ListBean();
+            listBean.setUrl(newBean.getUrl());
+            listBean.setId(newBean.getId());
+            listBean.setItemType(newBean.getItemType());
+            listBean.setFirstImg(newBean.getFirstImg());
+            listBean.setTitle(newBean.getTitle());
+            listBean.setSource(newBean.getSource());
+            listBean.setMark(newBean.getMark());
+            listBean.setSpansize(newBean.getSpansize());
+            listBeanList.add(listBean);
+        }
+        newListAdapter.refresh(listBeanList);
+        return true;
+    }
+
+
+
 }

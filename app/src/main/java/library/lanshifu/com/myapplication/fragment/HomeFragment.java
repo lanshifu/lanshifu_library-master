@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
-import library.lanshifu.com.myapplication.MainFragment;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.databinding.User;
 import library.lanshifu.com.myapplication.live.LiveListFragment;
