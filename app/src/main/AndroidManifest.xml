@@ -60,7 +60,8 @@
         <activity android:name=".viewpager.ViewPagerDemoActivity" />
         <activity android:name=".contentprovider.ProviderActivity" />
         <activity android:name=".voice.VoiceListActivity" />
-        <activity android:name=".imagepicker.PhotoPickerActivity" />
+        <activity android:name=".imagepicker.PhotoPickerActivity"
+                  android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen" />

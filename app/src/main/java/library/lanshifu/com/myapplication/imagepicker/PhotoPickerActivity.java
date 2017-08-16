@@ -202,7 +202,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
 
     @OnClick(R.id.bt_commit)
     public void onViewClicked() {
-        if(selImageList ==null ||selImageList.size() == 0){
+        if(selImageList ==null ||selImageList.size() == 1){
             showShortToast("请先选择图片");
             return;
         }
