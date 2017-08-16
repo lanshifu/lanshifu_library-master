@@ -3,6 +3,7 @@ package library.lanshifu.com.myapplication.imagepicker;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.UploadBatchListener;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
 
 import static android.text.TextUtils.isEmpty;
@@ -47,6 +54,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
 
     @Override
     protected void onViewCreate() {
+        Bmob.initialize(this, "767611a082094fedc64a0633a4a8caa4");
         imagePicker = ImagePicker.getInstance();
 
         initImagePicker();
@@ -95,8 +103,8 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
                             //打开预览
                             Intent intentPreview = new Intent(PhotoPickerActivity.this, ImagePreviewDelActivity.class);
 
-                            ArrayList<ImageItem> list= new ArrayList<>(selImageList);
-                            list.remove(list.size()-1);
+                            ArrayList<ImageItem> list = new ArrayList<>(selImageList);
+                            list.remove(list.size() - 1);
                             intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, list);
                             intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
                             intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
@@ -163,6 +171,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             //添加图片返回
             if (data != null && requestCode == REQUEST_CODE_SELECT) {
@@ -189,4 +198,58 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
     }
 
 
+
+
+    @OnClick(R.id.bt_commit)
+    public void onViewClicked() {
+        if(selImageList ==null ||selImageList.size() == 0){
+            showShortToast("请先选择图片");
+            return;
+        }
+        uploadPictures();
+    }
+
+    private void uploadPictures() {
+
+        //selImageList
+        final String[] filePaths = new String[selImageList.size()];
+        for (int i = 0; i < selImageList.size(); i++) {
+            ImageItem imageItem = selImageList.get(i);
+            filePaths[i] = imageItem.path;
+        }
+
+        startProgressDialog();
+        BmobFile.uploadBatch(filePaths, new UploadBatchListener() {
+            @Override
+            public void onSuccess(List<BmobFile> files,List<String> urls) {
+                //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
+                //2、urls-上传文件的完整url地址
+                if(urls.size()==filePaths.length){//如果数量相等，则代表文件全部上传完成
+                    //do something
+                    stopProgressDialog();
+                    for (BmobFile file : files) {
+                        String filename = file.getFilename();
+                        String fileUrl = file.getFileUrl();
+                        L.e("filename = "+filename+",fileUrl="+fileUrl);
+                    }
+                }
+            }
+
+            @Override
+            public void onProgress(int curIndex, int curPercent, int total,int totalPercent) {
+                //1、curIndex--表示当前第几个文件正在上传
+                //2、curPercent--表示当前上传文件的进度值（百分比）
+                //3、total--表示总的上传文件数
+                //4、totalPercent--表示总的上传进度（百分比）
+            }
+
+            @Override
+            public void onError(int statuscode, String errormsg) {
+                stopProgressDialog();
+                showLongToast("错误码"+statuscode +",错误描述："+errormsg);
+
+            }
+        });
+
+    }
 }
