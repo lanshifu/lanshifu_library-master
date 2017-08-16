@@ -94,6 +94,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     /**

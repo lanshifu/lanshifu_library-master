@@ -1,6 +1,7 @@
 package library.lanshifu.com.myapplication.fragment.round;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.model.NewBean;
 import library.lanshifu.com.myapplication.model.WechatItem;
+import library.lanshifu.com.myapplication.ui.NewsDetailActivity;
 import library.lanshifu.com.myapplication.utils.PixelUtil;
 
 /**
@@ -71,7 +73,7 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
                 holder.setOnClickListener(R.id.img_wechat_style, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        L.e("uri = "+item.getUrl());
+                        toDetailActivity(item);
                     }
                 });
 
@@ -109,7 +111,7 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
                 helper.setOnClickListener(R.id.img_wechat_style, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        L.e("uri = "+item.getUrl());
+                        toDetailActivity(item);
                     }
                 });
             }
@@ -130,6 +132,12 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
 
     }
 
+
+    private void toDetailActivity(WechatItem.ResultBean.ListBean listBean){
+        Intent intent = new Intent(mContext, NewsDetailActivity.class);
+        intent.putExtra("listBean",listBean);
+         mContext.startActivity(intent);
+    }
 
 
 }

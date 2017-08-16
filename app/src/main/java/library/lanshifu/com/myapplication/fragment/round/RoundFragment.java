@@ -186,8 +186,8 @@ public class RoundFragment extends BaseFragment {
                     public void _onError(String e) {
                         T.showShort("出错了" + e);
                         L.e(e);
-                        refreshLayout.finishRefresh();
-                        refreshLayout.finishLoadmore();
+                        refreshLayout.finishRefresh(false);
+                        refreshLayout.finishLoadmore(false);
                     }
                 });
     }

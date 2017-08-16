@@ -219,7 +219,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
         }
 
         startProgressDialog();
-        BmobFile.uploadBatch(filePaths, new UploadBatchListener() {
+        BmobFile.uploadBatch(this,filePaths, new UploadBatchListener() {
             @Override
             public void onSuccess(List<BmobFile> files,List<String> urls) {
                 //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
@@ -229,7 +229,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
                     stopProgressDialog();
                     for (BmobFile file : files) {
                         String filename = file.getFilename();
-                        String fileUrl = file.getFileUrl();
+                        String fileUrl = file.getFileUrl(PhotoPickerActivity.this);
                         L.e("filename = "+filename+",fileUrl="+fileUrl);
                     }
                 }
