@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +25,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
@@ -46,6 +50,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
     private int maxImgCount = 8;               //允许选择图片最大数
     private CommonAdapter<ImageItem> adapter;
 
+    static Handler handler = new Handler();
 
     @Override
     protected int getLayoutid() {
@@ -59,6 +64,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
 
         initImagePicker();
         initWidget();
+
     }
 
     private void initImagePicker() {
@@ -212,16 +218,34 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
     private void uploadPictures() {
 
         //selImageList
-        final String[] filePaths = new String[selImageList.size()];
-        for (int i = 0; i < selImageList.size(); i++) {
+        final String[] filePaths = new String[selImageList.size()-1];
+        List<BmobObject> pictureBeanList = new ArrayList<>();
+        for (int i = 0; i < selImageList.size()-1; i++) {
             ImageItem imageItem = selImageList.get(i);
             filePaths[i] = imageItem.path;
+            pictureBeanList.add(new PictureBean(imageItem.name,imageItem.path,"",i+""));
+            Loge("file: "+imageItem.path);
         }
+
+        //批量写
+        new BmobObject().insertBatch(this, pictureBeanList, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                Loge("onSuccess");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Loge("onFailure:"+s);
+
+            }
+        });
 
         startProgressDialog();
         BmobFile.uploadBatch(this,filePaths, new UploadBatchListener() {
             @Override
             public void onSuccess(List<BmobFile> files,List<String> urls) {
+                Loge("onSuccess");
                 //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
                 //2、urls-上传文件的完整url地址
                 if(urls.size()==filePaths.length){//如果数量相等，则代表文件全部上传完成
@@ -241,11 +265,13 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
                 //2、curPercent--表示当前上传文件的进度值（百分比）
                 //3、total--表示总的上传文件数
                 //4、totalPercent--表示总的上传进度（百分比）
+                Loge("onProgress:"+totalPercent);
             }
 
             @Override
             public void onError(int statuscode, String errormsg) {
                 stopProgressDialog();
+                Loge("错误码"+statuscode +",错误描述："+errormsg);
                 showLongToast("错误码"+statuscode +",错误描述："+errormsg);
 
             }

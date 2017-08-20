@@ -1,7 +1,10 @@
 package library.lanshifu.com.myapplication.fragment.round;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +17,12 @@ import java.util.List;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.MultiItemTypeAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ItemViewDelegate;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
-import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
-import library.lanshifu.com.myapplication.model.NewBean;
 import library.lanshifu.com.myapplication.model.WechatItem;
 import library.lanshifu.com.myapplication.ui.NewsDetailActivity;
 import library.lanshifu.com.myapplication.utils.PixelUtil;
+import library.lanshifu.com.myapplication.widget.transition.EasyTransition;
+import library.lanshifu.com.myapplication.widget.transition.EasyTransitionOptions;
 
 /**
  * Created by Administrator on 2017/8/15.
@@ -57,7 +60,7 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
             }
 
             @Override
-            public void convert(ViewHolder holder, final WechatItem.ResultBean.ListBean item, int position)
+            public void convert(final ViewHolder holder, final WechatItem.ResultBean.ListBean item, int position)
             {
                 holder.setText(R.id.title_wechat_style1, TextUtils.isEmpty(item.getTitle()) ? "微信精选" : item.getTitle());
 
@@ -68,12 +71,12 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
                             .placeholder(R.drawable.ic_image_loading)
                             .error(R.mipmap.ic_launcher)
                             .crossFade(1000)
-                            .into((ImageView) holder.getView(R.id.img_wechat_style));
+                            .into((ImageView) holder.getView(R.id.ivImage));
                 }
-                holder.setOnClickListener(R.id.img_wechat_style, new View.OnClickListener() {
+                holder.setOnClickListener(R.id.ivImage, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        toDetailActivity(item);
+                        toDetailActivity(item, holder.getView(R.id.ivImage));
                     }
                 });
 
@@ -96,7 +99,7 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
             }
 
             @Override
-            public void convert(ViewHolder helper, final WechatItem.ResultBean.ListBean item, int position)
+            public void convert(final ViewHolder helper, final WechatItem.ResultBean.ListBean item, int position)
             {
                 helper.setText(R.id.title_wechat_style2, TextUtils.isEmpty(item.getTitle()) ? "微信精选" : item.getTitle());
                 if (!isNotLoad) {
@@ -106,12 +109,12 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
                             .error(R.mipmap.ic_launcher)
                             .override(imgWidth / 2, imgHeight / 2)
                             .crossFade(1000)
-                            .into((ImageView) helper.getView(R.id.img_wechat_style));
+                            .into((ImageView) helper.getView(R.id.ivImage));
                 }
-                helper.setOnClickListener(R.id.img_wechat_style, new View.OnClickListener() {
+                helper.setOnClickListener(R.id.ivImage, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        toDetailActivity(item);
+                        toDetailActivity(item,helper.getView(R.id.ivImage));
                     }
                 });
             }
@@ -133,10 +136,16 @@ public class NewListAdapter extends MultiItemTypeAdapter<WechatItem.ResultBean.L
     }
 
 
-    private void toDetailActivity(WechatItem.ResultBean.ListBean listBean){
+    private void toDetailActivity(WechatItem.ResultBean.ListBean listBean, View view){
         Intent intent = new Intent(mContext, NewsDetailActivity.class);
         intent.putExtra("listBean",listBean);
-         mContext.startActivity(intent);
+        // ready for transition options
+        EasyTransitionOptions options =
+                EasyTransitionOptions.makeTransitionOptions(
+                        (Activity) mContext,
+                        view);
+        // start transition
+        EasyTransition.startActivity(intent, options);
     }
 
 

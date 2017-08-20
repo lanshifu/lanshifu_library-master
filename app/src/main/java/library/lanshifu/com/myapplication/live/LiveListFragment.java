@@ -1,31 +1,30 @@
 package library.lanshifu.com.myapplication.live;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.DividerItemDecoration;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
+import library.lanshifu.com.lsf_library.basemvp.BaseModle;
+import library.lanshifu.com.lsf_library.basemvp.NullModle;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.model.LiveCategory;
+import library.lanshifu.com.myapplication.mvp.contract.LiveListFragmentContract;
+import library.lanshifu.com.myapplication.mvp.presenter.LiveListFragmentPresenter;
 
 /**
  * Created by Administrator on 2017/8/13.
  */
 
-public class LiveListFragment extends BaseFragment {
+public class LiveListFragment extends BaseFragment<LiveListFragmentPresenter,BaseModle> implements LiveListFragmentContract.View {
     @Bind(R.id.recycler)
     RecyclerView recyclerView;
 
@@ -55,6 +54,8 @@ public class LiveListFragment extends BaseFragment {
 
     @Override
     protected void initPresenter() {
+        mPresenter.setVM(this,mModle);
+
 
     }
 
@@ -62,6 +63,7 @@ public class LiveListFragment extends BaseFragment {
     protected void initView() {
 
         initData();
+        mPresenter.getLiveList();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
@@ -85,17 +87,18 @@ public class LiveListFragment extends BaseFragment {
         }
     }
 
+
+
     class LiveBean{
+
         public String name;
         public String url;
-
         public LiveBean(String name, String url) {
             this.name = name;
             this.url = url;
         }
+
     }
-
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -104,5 +107,32 @@ public class LiveListFragment extends BaseFragment {
         } else {// 重新显示到最前端中
 
         }
+    }
+
+
+
+    @Override
+    public void returnLiveList(List<LiveCategory> liveCategoryList) {
+        showShortToast("成功："+liveCategoryList.size());
+        loge(liveCategoryList.get(0).toString());
+
+    }
+
+    @Override
+    public void showProgressDialog(String text) {
+        startProgressDialog();
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        stopProgressDialog();
+
+    }
+
+    @Override
+    public void showError(String error) {
+        showShortToast(error);
+
     }
 }

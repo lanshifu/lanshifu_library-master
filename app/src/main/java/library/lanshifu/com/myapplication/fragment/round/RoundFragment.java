@@ -150,7 +150,7 @@ public class RoundFragment extends BaseFragment {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    refreshLayout.autoRefresh();
+//                    refreshLayout.autoRefresh();
                 }
             }, 1000);
         }

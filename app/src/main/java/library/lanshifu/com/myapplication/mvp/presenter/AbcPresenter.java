@@ -7,5 +7,5 @@ import library.lanshifu.com.myapplication.mvp.contract.AbcContract;
  * Created by lanxiaobin on 2017/8/7.
  */
 
-public class AbcPresenter extends BasePresenter implements AbcContract.Presenter {
+public class AbcPresenter  {
 }

@@ -94,4 +94,5 @@
     <string name="desc">查看当前类名（myapp）</string>
     <string name="accessibility_service_label">查看当前类名</string>
     <string name="title_activity_provider">ProviderActivity</string>
+    <string name="transition_wechat_img">transition_wechat_img</string>
 </resources>

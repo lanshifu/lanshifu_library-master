@@ -1,8 +1,5 @@
 package library.lanshifu.com.myapplication.net;
 
-
-import android.util.Config;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +8,7 @@ import library.lanshifu.com.lsf_library.utils.SystemManage;
 import library.lanshifu.com.myapplication.MyApp;
 import library.lanshifu.com.myapplication.net.api.APIException;
 import library.lanshifu.com.myapplication.net.api.ApiConstant;
+import library.lanshifu.com.myapplication.net.api.LiveApi;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
 import library.lanshifu.com.myapplication.net.api.WechatApi;
 import okhttp3.Cache;
@@ -74,16 +72,6 @@ public class RetrofitHelper {
     }
 
 
-    public static WeatherApi getWeatherService() {
-        return createApi(WeatherApi.class, ApiConstant.BASE_URL_WEATHER);
-
-    }
-
-    public static WechatApi getWechatApi() {
-        return createApi(WechatApi.class, ApiConstant.BASE_URL_WECHAT);
-
-    }
-
     /**
      * 根据传入的baseUrl，和api创建retrofit
      */
@@ -99,11 +87,11 @@ public class RetrofitHelper {
         return retrofit.create(clazz);
     }
 
-
     /**
      * 添加UA拦截器，B站请求API需要加上UA才能正常使用
      */
     private static class UserAgentInterceptor implements Interceptor {
+
 
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -115,8 +103,8 @@ public class RetrofitHelper {
                     .build();
             return chain.proceed(requestWithUserAgent);
         }
-    }
 
+    }
     /**
      * 为okhttp添加缓存，这里是考虑到服务器不支持缓存时，从而让okhttp支持缓存
      */
@@ -155,9 +143,8 @@ public class RetrofitHelper {
             }
             return response;
         }
+
     }
-
-
     public <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
         o.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -173,6 +160,7 @@ public class RetrofitHelper {
      */
     public class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
 
+
         @Override
         public T call(HttpResult<T> httpResult) {
             if (!httpResult.isSuccess()) {
@@ -180,6 +168,20 @@ public class RetrofitHelper {
             }
             return httpResult.data;
         }
+
+    }
+    public static WeatherApi getWeatherService() {
+        return createApi(WeatherApi.class, ApiConstant.BASE_URL_WEATHER);
+
+    }
+
+    public static WechatApi getWechatApi() {
+        return createApi(WechatApi.class, ApiConstant.BASE_URL_WECHAT);
+
+    }
+
+    public static LiveApi getLiveApi(){
+        return createApi(LiveApi.class,ApiConstant.LIVE_URL);
     }
 
 }

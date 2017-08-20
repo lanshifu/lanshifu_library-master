@@ -13,22 +13,33 @@ import java.util.List;
 
 public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private List<PagerTab> pagerTags;
+    private List<Fragment> fragmentList;
+    private List<String> titleList;
 
-    public BaseFragmentPagerAdapter(FragmentManager fm, List<PagerTab> pagerTags) {
+    public void setFragmentList(List<Fragment> fragmentList) {
+        this.fragmentList = fragmentList;
+    }
+
+    public void setTitleList(List<String> titleList) {
+        this.titleList = titleList;
+    }
+
+    public BaseFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
+
         super(fm);
-        this.pagerTags = pagerTags;
+        this.fragmentList = fragmentList;
+        this.titleList = titleList;
     }
 
 
     @Override
     public Fragment getItem(int position) {
-        return pagerTags.get(position).getFragment();
+        return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return pagerTags.size();
+        return fragmentList.size();
     }
 
     @Override
@@ -38,6 +49,6 @@ public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return pagerTags.get(position).getTitle();
+        return titleList.get(position);
     }
 }

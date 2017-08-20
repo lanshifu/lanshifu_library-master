@@ -13,6 +13,7 @@ import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.databinding.User;
 import library.lanshifu.com.myapplication.live.LiveListFragment;
 import library.lanshifu.com.myapplication.fragment.round.RoundFragment;
+import library.lanshifu.com.myapplication.live.RecommendFragment;
 import library.lanshifu.com.myapplication.ui.DemoFragment;
 import library.lanshifu.com.myapplication.widget.FragmentTabHost;
 
@@ -32,10 +33,10 @@ public class HomeFragment extends BaseFragment {
 
     private Class[] fragments = new Class[]{
             MainFragment.class, RoundFragment.class,
-            LiveListFragment.class, DemoFragment.class};
+            LiveListFragment.class, RecommendFragment.class};
 
 
-    private String[] titles = new String[]{"主页", "周边", "直播", "更多"};
+    private String[] titles = new String[]{"主页", "周边", "直播", "全民"};
 
     private int[] icons = new int[]{
             R.drawable.tab_home_selector, R.drawable.tab_around_selector,
@@ -49,6 +50,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initPresenter() {
+
+
 
     }
 

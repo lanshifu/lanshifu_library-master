@@ -24,9 +24,9 @@ import library.lanshifu.com.lsf_library.utils.TUtil;
 public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle> extends Fragment{
 
     protected View mRootView;
-    private RxManager mRxManage;
-    private P mPresenter;
-    private M mModle;
+    protected RxManager mRxManage;
+    protected P mPresenter;
+    protected M mModle;
 
 
     @Nullable

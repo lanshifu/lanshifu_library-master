@@ -41,25 +41,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.android.support:cardview-v7:26.0.0-alpha1'
 
-
-
-    //retrofit和rxjava
-//    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
-//    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    //rxjava
     compile 'io.reactivex:rxjava:1.0.1'
     compile 'io.reactivex:rxandroid:1.0.1'
-//    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-//    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-//    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
-//    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
-    //Rxlifecycle
-//    compile 'com.trello:rxlifecycle:0.3.1'
-//    compile 'com.trello:rxlifecycle-components:0.3.1'
-
     compile 'com.jakewharton:butterknife:7.0.1'//view注解
-//    compile 'com.jakewharton:butterknife:8.6.0'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-
     //动画库
     compile 'com.facebook.rebound:rebound:0.3.8'
 
