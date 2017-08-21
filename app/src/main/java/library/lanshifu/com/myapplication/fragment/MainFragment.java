@@ -26,9 +26,11 @@ import library.lanshifu.com.myapplication.ToolBarDemoActivity;
 import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.databinding.DataBindingDemoActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
+import library.lanshifu.com.myapplication.guolin.cardstack.CardStackActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
+import library.lanshifu.com.myapplication.surfaceview.SurfaceViewActivity;
 import library.lanshifu.com.myapplication.twolist.TwoListActivity;
 import library.lanshifu.com.myapplication.ui.SmileFaceActivity;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
@@ -140,7 +142,7 @@ public class MainFragment extends BaseFragment {
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
             R.id.bt_photopicker, R.id.bt_slid_pager,R.id.btn_viewpager,R.id.btn_databinding
-            ,R.id.btn_twolist,R.id.btn_face})
+            ,R.id.btn_twolist,R.id.btn_face,R.id.btn_cardstack,R.id.btn_surefaceview})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -232,6 +234,12 @@ public class MainFragment extends BaseFragment {
                 break;
            case R.id.btn_face:
                 startActivity(new Intent(getContext(), SmileFaceActivity.class));
+                break;
+          case R.id.btn_cardstack:
+                startActivity(new Intent(getContext(), CardStackActivity.class));
+                break;
+        case R.id.btn_surefaceview:
+                startActivity(new Intent(getContext(), SurfaceViewActivity.class));
                 break;
         }
 

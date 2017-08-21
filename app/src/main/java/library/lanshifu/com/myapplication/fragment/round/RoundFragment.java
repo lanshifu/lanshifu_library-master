@@ -1,6 +1,7 @@
 package library.lanshifu.com.myapplication.fragment.round;
 
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -64,6 +65,29 @@ public class RoundFragment extends BaseFragment {
     public final int mPs = 21;
     public int mPageMark = 1;
     private NewListAdapter newListAdapter;
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+        }
+    };
+
+    void request(){
+
+        new Thread(){
+            @Override
+            public void run() {
+                String result = "result";
+
+                Message message = Message.obtain();
+
+                handler.sendMessage(message);
+            }
+        }.start();
+
+
+    }
 
     @Override
     protected int getLayoutId() {

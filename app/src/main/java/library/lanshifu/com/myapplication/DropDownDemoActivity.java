@@ -33,7 +33,7 @@ public class DropDownDemoActivity extends BaseToolBarActivity {
 
         View headView = LayoutInflater.from(this).inflate(R.layout.tag_item, null);
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.pop_list, null);
-        RecyclerView recyclerView = linearLayout.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) linearLayout.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CommonAdapter<String>(this, R.layout.list_item, getData()) {
             @Override

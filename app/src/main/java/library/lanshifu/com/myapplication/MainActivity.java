@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity {
     protected void doBeforeSetcontentView() {
         super.doBeforeSetcontentView();
         setTheme(R.style.AppTheme);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override

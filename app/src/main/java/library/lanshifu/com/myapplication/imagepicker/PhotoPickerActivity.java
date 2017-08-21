@@ -3,9 +3,7 @@ package library.lanshifu.com.myapplication.imagepicker;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobObject;
@@ -50,7 +47,6 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
     private int maxImgCount = 8;               //允许选择图片最大数
     private CommonAdapter<ImageItem> adapter;
 
-    static Handler handler = new Handler();
 
     @Override
     protected int getLayoutid() {
@@ -85,7 +81,6 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
         selImageList = new ArrayList<>();
         selImageList.add(new ImageItem());
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        recyclerView.setHasFixedSize(true);
         adapter = new CommonAdapter<ImageItem>(this, R.layout.list_item_image, selImageList) {
             @Override
             protected void convert(ViewHolder holder, ImageItem imageItem, final int position) {
@@ -123,7 +118,9 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
             }
 
         };
+
         recyclerView.setAdapter(adapter);
+
 
     }
 
@@ -278,4 +275,5 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
         });
 
     }
+
 }

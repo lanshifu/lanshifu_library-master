@@ -1,13 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+//        debug {
+//            keyAlias '123456'
+//            keyPassword '123456'
+//            storeFile file('D:/git_clone/lanshifu_library-master/key.jks')
+//            storePassword '123456'
+//        }
+        release {
+            keyAlias '123456'
+            keyPassword '123456'
+            storeFile file('D:/git_clone/lanshifu_library-master/key.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
-
     //**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下
     // 使用compile 'cn.bmob.android:http-legacy:1.0'**
     useLibrary 'org.apache.http.legacy'
-
     defaultConfig {
         applicationId "library.lanshifu.com.myapplication"
         minSdkVersion 17
@@ -38,8 +50,6 @@ android {
             jniLibs.srcDirs = ['libs']//将so文件目录指向libs目录
         }
     }
-
-
 }
 repositories {
     maven {
@@ -54,67 +64,24 @@ dependencies {
     compile project(':lsf_library')
     compile project(':imagepicker')
     compile project(':fileprovdider7')
-
     //If you use the special Header
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
-
-    //    compile('com.squareup.retrofit2:converter-gson:2.1.0') {
-
-    //        exclude group: 'com.google.code.gson'
-
-    //        exclude group: 'com.squareup.okhttp3'
-
-    //        exclude group: 'io.reactivex'
-
-    //    }
-
-    //    compile('com.squareup.retrofit2:adapter-rxjava:2.1.0') {
-
-    //                exclude group: 'io.reactivex'
-
-    //                exclude group: 'com.squareup.okhttp3'
-
-    //                exclude group: 'com.squareup.okhttp3'
-
-    //                exclude module: 'rxjava'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-7'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.9'
     compile 'com.google.android:flexbox:0.3.0'
-
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'org.litepal.android:core:1.6.0'
-
-    //bmob
-
-    //3.5.5：请务必查看下面注释[1]
-
-    //    compile('cn.bmob.android:bmob-sdk:3.5.5') { // gson-2.6.2
-
-    //        exclude group: 'com.squareup.okhttp3'
-
-    //        exclude group: 'com.squareup.okio'
-
-    //        exclude group: 'com.google.code.gson'
-
-    //        exclude group: 'io.reactivex'
-
-    //        exclude group: 'io.reactivex:rxandroid'
-
-    //        exclude group: 'io.reactivex:rxjava'
-
-    //    }
-
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile 'cn.bmob.android:http-legacy:1.0'
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
-
+    compile 'com.loopeer.library:cardstack:1.0.2'
 }
 
 

@@ -126,7 +126,7 @@ public class SearchActivity extends BaseAppCompatActivity {
         }
 
         // 显示缓存的数据在横向流式布局中
-        tagCloudView = getView().findViewById(R.id.search_tcv);
+        tagCloudView = (TagCloudView) getView().findViewById(R.id.search_tcv);
         tagCloudView.setTags(mCache);
         tagCloudView.setOnTagClickListener(onTagClickListener);
 

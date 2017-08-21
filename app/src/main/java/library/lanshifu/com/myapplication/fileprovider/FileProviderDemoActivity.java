@@ -81,7 +81,7 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
     private void install() {
 
         File file = new File(Environment.getExternalStorageDirectory(),
-                "111.apk");
+                "aaa/111.apk");
         Intent intent = new Intent(Intent.ACTION_VIEW);
         // 仅需改变这一行
         FileProvider7.setIntentDataAndType(this,
