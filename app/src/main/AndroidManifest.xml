@@ -94,7 +94,8 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".ui.SmileFaceActivity" />
         <activity android:name=".guolin.cardstack.CardStackActivity" />
-        <activity android:name=".surfaceview.SurfaceViewActivity"></activity>
+        <activity android:name=".surfaceview.SurfaceViewActivity" />
+        <activity android:name=".live.LiveDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -115,7 +115,7 @@ public class SurfaceViewActivity extends BaseToolBarActivity {
                 showShortToast(""+color);
 //                mDoodleView.setColor(RGB(color)+"");
                 Loge("color:"+color);
-                if(dialog != null){n
+                if(dialog != null){
                     dialog.dismiss();
                 }
             }

@@ -1,10 +1,13 @@
 package library.lanshifu.com.myapplication.mvp.presenter;
 
 import library.lanshifu.com.myapplication.model.Recommend;
+import library.lanshifu.com.myapplication.model.Room;
+import library.lanshifu.com.myapplication.model.RoomLine;
 import library.lanshifu.com.myapplication.mvp.contract.RecommendFragmentContract;
 import library.lanshifu.com.myapplication.net.MyObserver;
 import library.lanshifu.com.myapplication.net.RetrofitHelper;
 import library.lanshifu.com.myapplication.net.RxSchedulerHelper;
+import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2017/8/20.

@@ -1,5 +1,7 @@
 package library.lanshifu.com.myapplication.live;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
@@ -93,6 +96,19 @@ public class RecommendFragment extends BaseFragment<RecommendFragmentPresenter,R
                         holder.setText(R.id.tvTitle, data.getTitle());
                         holder.setText(R.id.tvName, data.getNick());
                         holder.setText(R.id.tvViewer, data.getViews());
+
+                        final String uid = String.valueOf(data.getUid());
+
+                        holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getActivity(),LiveDetailActivity.class);
+                                intent.putExtra("uid",uid);
+                                startActivity(intent);
+                            }
+                        });
+
+
                     }
                 });
 

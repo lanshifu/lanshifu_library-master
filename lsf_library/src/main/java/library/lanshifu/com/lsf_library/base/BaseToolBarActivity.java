@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import library.lanshifu.com.lsf_library.R;
+import library.lanshifu.com.lsf_library.basemvp.BaseModle;
+import library.lanshifu.com.lsf_library.basemvp.BasePresenter;
 import library.lanshifu.com.lsf_library.utils.ViewIdGenerator;
 
 /**

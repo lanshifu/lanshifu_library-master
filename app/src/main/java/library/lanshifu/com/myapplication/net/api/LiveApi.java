@@ -4,7 +4,9 @@ import java.util.List;
 
 import library.lanshifu.com.myapplication.model.LiveCategory;
 import library.lanshifu.com.myapplication.model.Recommend;
+import library.lanshifu.com.myapplication.model.Room;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -28,5 +30,13 @@ public interface LiveApi {
      */
     @GET("json/app/index/recommend/list-android.json?v=3.0.1&os=1&ver=4")
     Observable<Recommend> getRecommend();
+
+    /**
+     * 进入房间
+     * @param uid
+     * @return
+     */
+    @GET("json/rooms/{uid}/info.json?v=3.0.1&os=1&ver=4")
+    Observable<Room> enterRoom(@Path("uid")String uid);
 
 }
