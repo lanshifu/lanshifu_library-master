@@ -165,6 +165,10 @@ public class DoodleView extends SurfaceView implements SurfaceHolder.Callback {
         this.currentColor = Color.parseColor(color);
     }
 
+    public void setColor(int argb){
+        this.currentColor = argb;
+    }
+
     /**
      * 设置画笔的粗细
      *

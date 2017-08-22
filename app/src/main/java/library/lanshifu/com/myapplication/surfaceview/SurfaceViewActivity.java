@@ -1,8 +1,6 @@
 package library.lanshifu.com.myapplication.surfaceview;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,8 +8,7 @@ import android.view.View;
 import butterknife.Bind;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
-import library.lanshifu.com.myapplication.widget.colorselect.ColorPanelView;
-import library.lanshifu.com.myapplication.widget.popu.CustomPopWindow;
+import library.lanshifu.com.myapplication.widget.colorselect.ColorPicker;
 
 public class SurfaceViewActivity extends BaseToolBarActivity {
 
@@ -106,22 +103,17 @@ public class SurfaceViewActivity extends BaseToolBarActivity {
 //        }
 //        mColorDialog.show();
 
-        final BottomSheetDialog dialog = new BottomSheetDialog(this);
-        View view = View.inflate(this,R.layout.layout_color_select,null);
-        ColorPanelView colorPanelView = view.findViewById(R.id.color_pannelview);
-        colorPanelView.setOnColorChangedListener(new ColorPanelView.OnColorChangedListener() {
+        ColorPicker.show(this, new ColorPicker.OnColorSelectListener() {
             @Override
-            public void onColorChanged(ColorPanelView view, int color) {
-                showShortToast(""+color);
-//                mDoodleView.setColor(RGB(color)+"");
-                Loge("color:"+color);
-                if(dialog != null){
-                    dialog.dismiss();
+            public void selectColor(int rgb) {
+                Loge("rgb="+rgb);
+                if(rgb != 0){
+                    mDoodleView.setColor(rgb);
                 }
             }
         });
-        dialog.setContentView(view);
-        dialog.show();
+
+
     }
 
 

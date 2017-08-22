@@ -59,7 +59,6 @@ public class LiveDetailActivity extends BaseActivity<LiveDetailPresenter,LiveDet
 
         Loge("url = "+url);
         videoplayer.setUp(url,JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
-        videoplayer.
 
     }
 }
