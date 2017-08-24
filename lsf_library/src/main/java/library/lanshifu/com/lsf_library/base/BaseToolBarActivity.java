@@ -22,7 +22,7 @@ import library.lanshifu.com.lsf_library.utils.ViewIdGenerator;
  * Created by 蓝师傅 on 2016/12/30.
  */
 
-public  abstract class BaseToolBarActivity extends BaseActivity {
+public  abstract class BaseToolBarActivity<P extends BasePresenter, M extends BaseModle> extends BaseActivity {
 
     private Menu mTBMenu;
     private TextView mToolBarTitle;

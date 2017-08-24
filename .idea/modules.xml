@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/lanshifu_library-master.iml" filepath="$PROJECT_DIR$/lanshifu_library-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/lsf_library/lsf_library.iml" filepath="$PROJECT_DIR$/lsf_library/lsf_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/luban/luban.iml" filepath="$PROJECT_DIR$/luban/luban.iml" />
+      <module fileurl="file://E:\android_project\201707\lanshifu_library-master\luban\luban.iml" filepath="E:\android_project\201707\lanshifu_library-master\luban\luban.iml" />
     </modules>
   </component>
 </project>

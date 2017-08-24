@@ -45,6 +45,7 @@ public class MyApp extends LitePalApplication {
         context = getApplicationContext();
         instance = this;
 
+        SdkManager.init(context);
         T.init(context);
         L.init(true, "lanshifu");
 

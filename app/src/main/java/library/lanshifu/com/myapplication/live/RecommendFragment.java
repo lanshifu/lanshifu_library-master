@@ -23,6 +23,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
+import library.lanshifu.com.lsf_library.basemvp.BaseModle;
 import library.lanshifu.com.lsf_library.basemvp.NullModle;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
@@ -36,7 +37,7 @@ import library.lanshifu.com.myapplication.widget.CommRecyclerView;
  * Created by Administrator on 2017/8/20.
  */
 
-public class RecommendFragment extends BaseFragment<RecommendFragmentPresenter,RecommendFragmentModel> implements RecommendFragmentContract.View{
+public class RecommendFragment extends BaseFragment<RecommendFragmentPresenter,BaseModle> implements RecommendFragmentContract.View{
     @Bind(R.id.comm_recyclerView)
     CommRecyclerView commRecyclerView;
 

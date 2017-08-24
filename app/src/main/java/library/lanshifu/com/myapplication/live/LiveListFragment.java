@@ -63,7 +63,7 @@ public class LiveListFragment extends BaseFragment<LiveListFragmentPresenter,Bas
     protected void initView() {
 
         initData();
-        mPresenter.getLiveList();
+//        mPresenter.getLiveList();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));

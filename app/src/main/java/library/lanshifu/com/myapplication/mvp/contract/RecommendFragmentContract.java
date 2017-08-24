@@ -19,7 +19,7 @@ public interface RecommendFragmentContract {
        void returnRecommenInfos(Recommend recommend);
     }
 
-    abstract class Presenter extends BasePresenter<View, Model> {
+    abstract class Presenter extends BasePresenter<View, BaseModle> {
         public abstract void getRecommendInfo();
     }
 }

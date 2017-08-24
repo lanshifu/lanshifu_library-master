@@ -95,9 +95,9 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        Parent child = new Child();
-        child.say();
-        child.sleep();
+//        Parent child = new Child();
+//        child.say();
+//        child.sleep();
 
     }
 
