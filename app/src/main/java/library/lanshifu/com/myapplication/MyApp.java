@@ -13,13 +13,13 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.squareup.leakcanary.LeakCanary;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
 
 import org.litepal.LitePalApplication;
 
-import library.lanshifu.com.lsf_library.baseapp.BaseApplication;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 
@@ -27,7 +27,7 @@ import library.lanshifu.com.lsf_library.utils.T;
  * Created by Administrator on 2017/7/15.
  */
 
-public class MyApp extends LitePalApplication{
+public class MyApp extends LitePalApplication {
 
     private static MyApp instance;
     protected static Context context;
@@ -46,7 +46,7 @@ public class MyApp extends LitePalApplication{
         instance = this;
 
         T.init(context);
-        L.init(true,"lanshifu");
+        L.init(true, "lanshifu");
 
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
             @NonNull
@@ -66,20 +66,26 @@ public class MyApp extends LitePalApplication{
 
         });
 
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
 //        initHotFix();
     }
 
-    public static MyApp getInstance(){
+    public static MyApp getInstance() {
         return instance;
 
     }
 
     private void initHotFix() {
-        Log.e(this.getClass().getSimpleName(), "initHotFix: " );
+        Log.e(this.getClass().getSimpleName(), "initHotFix: ");
         SophixManager.getInstance().setContext(this)
                 .setAppVersion("1.0.0")
                 .setAesKey(null)

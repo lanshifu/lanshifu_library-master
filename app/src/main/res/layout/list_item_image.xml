@@ -12,5 +12,10 @@
         android:layout_height="70dp"
         android:scaleType="centerCrop"
         android:src="@drawable/selector_image_add" />
+    <TextView
+        android:id="@+id/tv_size"
+        android:text="大小："
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.View;
 
 import butterknife.Bind;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
+import library.lanshifu.com.myapplication.BuildConfig;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.widget.colorselect.ColorPicker;
 
@@ -112,7 +113,7 @@ public class SurfaceViewActivity extends BaseToolBarActivity {
                 }
             }
         });
-
+        // 问题
 
     }
 

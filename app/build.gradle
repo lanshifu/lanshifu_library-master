@@ -28,16 +28,40 @@ android {
         versionName "1.0.0"
     }
     buildTypes {
+
+        debug{
+            //变量配置 通过 BuildConfig.isDebug
+            buildConfigField "boolean","isDebug","true"
+        }
+
+        xiaomi{
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "0",
+                    UMENG_APPKEY: "12345"
+            ]
+
+        }
+
         release {
+            buildConfigField "boolean","isDebug","false"
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
         }
     }
+
+
+
+    productFlavors{
+
+
+    }
+
     dataBinding {
         enabled true
     }
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -51,11 +75,7 @@ android {
         }
     }
 }
-repositories {
-    maven {
-        url "http://maven.aliyun.com/nexus/content/repositories/releases"
-    }
-}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -64,6 +84,7 @@ dependencies {
     compile project(':lsf_library')
     compile project(':imagepicker')
     compile project(':fileprovdider7')
+    compile project(':luban')
     //If you use the special Header
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
@@ -82,6 +103,8 @@ dependencies {
     compile 'cn.bmob.android:http-legacy:1.0'
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
     compile 'com.loopeer.library:cardstack:1.0.2'
+
+    compile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
 }
 
 

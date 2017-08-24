@@ -3,7 +3,7 @@ package library.lanshifu.com.myapplication.imagepicker;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,21 +16,22 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UploadBatchListener;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
-import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.lsf_library.utils.ImageUtil;
 import library.lanshifu.com.myapplication.R;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static android.text.TextUtils.isEmpty;
 import static com.lzy.imagepicker.ImagePicker.REQUEST_CODE_PREVIEW;
@@ -95,6 +96,7 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
                         }
                     });
                 } else {
+                    holder.setText(R.id.tv_size,"大小："+imageItem.size);
                     ImageView iv_img = holder.getView(R.id.iv_img);
                     ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, imageItem.path, iv_img, 0, 0);
                     holder.setOnClickListener(R.id.iv_img, new View.OnClickListener() {
@@ -215,65 +217,90 @@ public class PhotoPickerActivity extends BaseToolBarActivity {
     private void uploadPictures() {
 
         //selImageList
-        final String[] filePaths = new String[selImageList.size()-1];
-        List<BmobObject> pictureBeanList = new ArrayList<>();
+        final List<String> filePaths = new ArrayList<>();
         for (int i = 0; i < selImageList.size()-1; i++) {
             ImageItem imageItem = selImageList.get(i);
-            filePaths[i] = imageItem.path;
-            pictureBeanList.add(new PictureBean(imageItem.name,imageItem.path,"",i+""));
-            Loge("file: "+imageItem.path);
+            filePaths.add(imageItem.path);
+            Loge("filePath: "+imageItem.path);
         }
+        compressWithLs(filePaths);
 
-        //批量写
-        new BmobObject().insertBatch(this, pictureBeanList, new SaveListener() {
+    }
+
+
+    /**
+     * 压缩单张图片 Listener 方式
+     */
+    private void compressWithLs(final List<String> photos) {
+        Luban.with(this)
+                .load(photos)
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        Loge("compressWithLs ->onSuccess");
+                        showResult(photos, file);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                }).launch();
+    }
+
+    List<PictureBean> pictureBeanList = new ArrayList<>();
+    private void showResult(List<String> photos, File file) {
+//        int[] originSize = computeSize(photos.get(mAdapter.getItemCount()));
+        int[] thumbSize = computeSize(file.getAbsolutePath());
+//        String originArg = String.format(Locale.CHINA, "原图参数：%d*%d, %dk", originSize[0], originSize[1], new File(photos.get(mAdapter.getItemCount())).length() >> 10);
+        String thumbArg = String.format(Locale.CHINA, "压缩后参数：%d*%d, %dk", thumbSize[0], thumbSize[1], file.length() >> 10);
+        String filePath = file.getAbsolutePath();
+        Loge("压缩后:"+filePath);
+        Loge(thumbArg);
+
+        String name = getFileName(filePath);
+        PictureBean pictureBean = new PictureBean(name,filePath, ImageUtil.imageToBase64(filePath),"描述");
+        pictureBean.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
-                Loge("onSuccess");
+                Loge("上传成功");
             }
 
             @Override
             public void onFailure(int i, String s) {
-                Loge("onFailure:"+s);
-
+                Loge("上传onFailure");
             }
         });
+        pictureBeanList.add(pictureBean);
 
-        startProgressDialog();
-        BmobFile.uploadBatch(this,filePaths, new UploadBatchListener() {
-            @Override
-            public void onSuccess(List<BmobFile> files,List<String> urls) {
-                Loge("onSuccess");
-                //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
-                //2、urls-上传文件的完整url地址
-                if(urls.size()==filePaths.length){//如果数量相等，则代表文件全部上传完成
-                    //do something
-                    stopProgressDialog();
-                    for (BmobFile file : files) {
-                        String filename = file.getFilename();
-                        String fileUrl = file.getFileUrl(PhotoPickerActivity.this);
-                        L.e("filename = "+filename+",fileUrl="+fileUrl);
-                    }
-                }
-            }
+    }
 
-            @Override
-            public void onProgress(int curIndex, int curPercent, int total,int totalPercent) {
-                //1、curIndex--表示当前第几个文件正在上传
-                //2、curPercent--表示当前上传文件的进度值（百分比）
-                //3、total--表示总的上传文件数
-                //4、totalPercent--表示总的上传进度（百分比）
-                Loge("onProgress:"+totalPercent);
-            }
+    private String getFileName(String filePath) {
 
-            @Override
-            public void onError(int statuscode, String errormsg) {
-                stopProgressDialog();
-                Loge("错误码"+statuscode +",错误描述："+errormsg);
-                showLongToast("错误码"+statuscode +",错误描述："+errormsg);
+        if (filePath == null) {
+            return "";
+        }
+        int index = filePath.lastIndexOf("/");
+        String name = filePath.substring(index,filePath.length()-1);
+        return name;
+    }
 
-            }
-        });
 
+    private int[] computeSize(String srcImg) {
+        int[] size = new int[2];
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inSampleSize = 1;
+
+        BitmapFactory.decodeFile(srcImg, options);
+        size[0] = options.outWidth;
+        size[1] = options.outHeight;
+
+        return size;
     }
 
 }
