@@ -156,6 +156,8 @@ public class MainFragment extends BaseFragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 T.showShort("点击了" + which);
                                 dialog.dismiss();
+                                int i = 8/0;
+                                int j = i;
                             }
                         })
                         .show();
