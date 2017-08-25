@@ -243,16 +243,19 @@ public class PhotoPickerActivity extends BaseActivity<PhotoPicturePresenter,Base
 
     @Override
     public void showProgressDialog(String text) {
+        startProgressDialog(text);
 
     }
 
     @Override
     public void hideProgressDialog() {
+        stopProgressDialog();
 
     }
 
     @Override
     public void showError(String error) {
+        T.showShort("error");
 
     }
 
@@ -263,6 +266,7 @@ public class PhotoPickerActivity extends BaseActivity<PhotoPicturePresenter,Base
 
     @Override
     public void upLoadPicSuccess() {
+        finish();
 
     }
 }

@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/comm_titlebar"/>
+    <include layout="@layout/comm_titlebar" />
 
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:flexWrap="wrap"
+        app:alignContent="stretch"
         app:alignItems="stretch"
-        app:alignContent="stretch">
+        app:flexWrap="wrap">
 
         <Button
             android:id="@+id/btn_single"
@@ -107,25 +107,37 @@
             android:text="列表悬停"
             android:textAllCaps="false" />
 
-     <Button
+        <Button
             android:id="@+id/btn_face"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="笑脸点赞"
             android:textAllCaps="false" />
 
-   <Button
+        <Button
             android:id="@+id/btn_cardstack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="卡片折叠"
             android:textAllCaps="false" />
 
-   <Button
+        <Button
             android:id="@+id/btn_surefaceview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="涂鸦"
+            android:textAllCaps="false" />
+     <Button
+            android:id="@+id/btn_bluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝牙通信"
+            android:textAllCaps="false" />
+     <Button
+            android:id="@+id/btn_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wifi"
             android:textAllCaps="false" />
 
     </com.google.android.flexbox.FlexboxLayout>

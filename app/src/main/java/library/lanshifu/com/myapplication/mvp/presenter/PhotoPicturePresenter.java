@@ -59,7 +59,7 @@ public class PhotoPicturePresenter extends PhotoPictureContract.Presenter {
 
         String filePath = file.getAbsolutePath();
         String name = getFileName(filePath);
-        PictureBean pictureBean = new PictureBean(name,filePath, ImageUtil.imageToBase64(filePath),"描述");
+        PictureBean pictureBean = new PictureBean(name,filePath, ImageUtil.imageToBase64(filePath),thumbArg);
         fileList.add(pictureBean);
 
         if(photos.size() == fileList.size()){
@@ -76,14 +76,15 @@ public class PhotoPicturePresenter extends PhotoPictureContract.Presenter {
             public void onSuccess() {
                 T.showShort("上传成功");
                 mView.upLoadPicSuccess();
-                mView.showProgressDialog("正在上传");
+                mView.hideProgressDialog();
                 fileList.clear();
             }
 
             @Override
             public void onFailure(int i, String s) {
 
-                T.showShort("上传失败");
+                T.showShort("上传失败"+s);
+                mView.hideProgressDialog();
             }
         });
     }

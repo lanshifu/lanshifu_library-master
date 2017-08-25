@@ -23,6 +23,7 @@ import library.lanshifu.com.myapplication.DropDownDemoActivity;
 import library.lanshifu.com.myapplication.FlowTagDemoActivity;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.ToolBarDemoActivity;
+import library.lanshifu.com.myapplication.bluetooth.BlueToothMainActivity;
 import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.databinding.DataBindingDemoActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
@@ -71,22 +72,23 @@ public class MainFragment extends BaseFragment {
 
     }
 
-    class  Parent{
+    class Parent {
 
-        void say(){
+        void say() {
             loge("我是父亲");
         }
-        void sleep(){
+
+        void sleep() {
             loge("i am sleep");
         }
 
     }
 
-    class Child extends Parent{
+    class Child extends Parent {
         @Override
         void say() {
             super.say();
-            if(true){
+            if (true) {
                 loge("我是儿子");
             }
 
@@ -141,8 +143,9 @@ public class MainFragment extends BaseFragment {
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
-            R.id.bt_photopicker, R.id.bt_slid_pager,R.id.btn_viewpager,R.id.btn_databinding
-            ,R.id.btn_twolist,R.id.btn_face,R.id.btn_cardstack,R.id.btn_surefaceview})
+            R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
+            , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
+            ,R.id.btn_bluetooth})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -156,7 +159,7 @@ public class MainFragment extends BaseFragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 T.showShort("点击了" + which);
                                 dialog.dismiss();
-                                int i = 8/0;
+                                int i = 8 / 0;
                                 int j = i;
                             }
                         })
@@ -228,20 +231,27 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_viewpager:
                 startActivity(new Intent(getContext(), ViewPagerDemoActivity.class));
                 break;
-           case R.id.btn_databinding:
+            case R.id.btn_databinding:
                 startActivity(new Intent(getContext(), DataBindingDemoActivity.class));
                 break;
-           case R.id.btn_twolist:
+            case R.id.btn_twolist:
                 startActivity(new Intent(getContext(), TwoListActivity.class));
                 break;
-           case R.id.btn_face:
+            case R.id.btn_face:
                 startActivity(new Intent(getContext(), SmileFaceActivity.class));
                 break;
-          case R.id.btn_cardstack:
+            case R.id.btn_cardstack:
                 startActivity(new Intent(getContext(), CardStackActivity.class));
                 break;
-        case R.id.btn_surefaceview:
+            case R.id.btn_surefaceview:
                 startActivity(new Intent(getContext(), SurfaceViewActivity.class));
+                break;
+
+            case R.id.btn_bluetooth:
+                startActivity(new Intent(getContext(), BlueToothMainActivity.class));
+                break;
+            case R.id.btn_wifi:
+//                startActivity(new Intent(getContext(), SurfaceViewActivity.class));
                 break;
         }
 
