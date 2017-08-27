@@ -11,7 +11,7 @@ import com.squareup.leakcanary.LeakCanary;
 public class SdkManager {
 
     public static void init(Context context){
-        LeakCanary.install((Application) context);
+//        LeakCanary.install((Application) context);
     }
 
 }

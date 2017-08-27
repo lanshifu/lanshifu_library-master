@@ -114,7 +114,7 @@ public class L
 			}else if(label.equals("e")){
 				Log.e(mTag, SINGLE_DIVIDER);
 			}else{
-				Log.e(mTag, SINGLE_DIVIDER);
+				Log.d(mTag, SINGLE_DIVIDER);
 			}
 		}
 

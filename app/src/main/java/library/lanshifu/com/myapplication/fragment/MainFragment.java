@@ -23,7 +23,7 @@ import library.lanshifu.com.myapplication.DropDownDemoActivity;
 import library.lanshifu.com.myapplication.FlowTagDemoActivity;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.ToolBarDemoActivity;
-import library.lanshifu.com.myapplication.bluetooth.BlueToothMainActivity;
+import library.lanshifu.com.myapplication.bluetooth.activity.BlueToothMainActivity;
 import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.databinding.DataBindingDemoActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;

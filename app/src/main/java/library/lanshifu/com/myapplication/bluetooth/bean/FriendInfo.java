@@ -18,6 +18,16 @@ public class FriendInfo implements Parcelable {
     private String identificationName;//标识名称，即设备名称
     private String joinTime;//加入时间
     private boolean isOnline;//是否在线
+
+    public boolean isFriend() {
+        return isFriend;
+    }
+
+    public void setFriend(boolean friend) {
+        isFriend = friend;
+    }
+
+    private boolean isFriend;//是否好友？ 已经配对
     private BluetoothDevice bluetoothDevice;
 
     public FriendInfo() {

@@ -67,10 +67,6 @@ public class MyApp extends LitePalApplication {
 
         });
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
 
     }
 

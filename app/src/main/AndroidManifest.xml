@@ -3,6 +3,7 @@
     package="library.lanshifu.com.myapplication">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -22,7 +23,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -32,12 +32,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
-
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="UMENG_APPKEY"
-            />
-
+            android:value="UMENG_APPKEY" />
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
             android:value="24579256-1" />
@@ -106,8 +103,10 @@
         <activity android:name=".ui.SmileFaceActivity" />
         <activity android:name=".guolin.cardstack.CardStackActivity" />
         <activity android:name=".surfaceview.SurfaceViewActivity" />
-        <activity android:name=".live.LiveDetailActivity"/>
-        <activity android:name=".bluetooth.BlueToothMainActivity"/>
+        <activity android:name=".live.LiveDetailActivity" />
+        <activity android:name=".bluetooth.activity.BlueToothMainActivity" />
+        <activity android:name=".bluetooth.activity.BlueToothSearchActivity" />
+        <activity android:name=".bluetooth.activity.BlueToothChatActivity"></activity>
     </application>
 
 </manifest>
