@@ -22,6 +22,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.commwidget.IDrawerLayout;
+import library.lanshifu.com.myapplication.bluetooth.BluetoothChatHelper;
 import library.lanshifu.com.myapplication.fragment.HomeFragment;
 
 public class MainActivity extends BaseActivity {
@@ -122,6 +123,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BluetoothChatHelper.getInstance().close();
         Log.e(TAG, "onDestroy: ");
     }
 

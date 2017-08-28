@@ -16,13 +16,11 @@ import library.lanshifu.com.myapplication.bluetooth.ChatConstant;
  */
 public class ConnectThread extends Thread {
 
-    private BluetoothChatHelper mHelper;
     private  BluetoothSocket mSocket;
     private final BluetoothDevice mDevice;
     private String mSocketType;
 
-    public ConnectThread(BluetoothChatHelper bluetoothChatHelper, BluetoothDevice device, boolean secure) {
-        mHelper = bluetoothChatHelper;
+    public ConnectThread( BluetoothDevice device, boolean secure) {
         mDevice = device;
         BluetoothSocket tmp = null;
         mSocketType = secure ? "Secure" : "Insecure";
@@ -42,15 +40,15 @@ public class ConnectThread extends Thread {
         L.d("BEGIN mConnectThread SocketType:" + mSocketType);
         setName("ConnectThread" + mSocketType);
 
-        if(mHelper.getAdapter().isDiscovering()){
-            mHelper.getAdapter().cancelDiscovery();
+        if(BluetoothChatHelper.getInstance().getAdapter().isDiscovering()){
+            BluetoothChatHelper.getInstance().getAdapter().cancelDiscovery();
         }
 
         try {
             mSocket.connect();
         } catch (IOException e) {
-            L.e("连接报错");
-            mHelper.connectionFailed();
+            L.e("连接报错"+e.getMessage());
+            BluetoothChatHelper.getInstance().connectionFailed("连接报错"+e.getMessage());
             try {
                 mSocket.close();
             } catch (IOException e2) {
@@ -60,10 +58,10 @@ public class ConnectThread extends Thread {
         }
 
         synchronized (this) {
-            mHelper.setConnectThread(null);
+            BluetoothChatHelper.getInstance().setConnectThread(null);
         }
 
-        mHelper.connected(mSocket, mDevice, mSocketType);
+        BluetoothChatHelper.getInstance().connected(mSocket, mDevice, mSocketType);
     }
 
     public void cancel() {

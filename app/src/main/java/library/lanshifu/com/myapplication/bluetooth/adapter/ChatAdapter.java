@@ -37,7 +37,7 @@ public class ChatAdapter extends MultiItemTypeAdapter<ChatInfo> {
 
             @Override
             public void convert(ViewHolder holder, ChatInfo chatInfo, int position) {
-                holder.setText(R.id.item_chat_left_msg,chatInfo.getMessage().getMsgContent());
+                holder.setText(R.id.item_chat_left_msg,chatInfo.getContent());
 
             }
         });
@@ -57,7 +57,7 @@ public class ChatAdapter extends MultiItemTypeAdapter<ChatInfo> {
 
             @Override
             public void convert(ViewHolder holder, ChatInfo chatInfo, int position) {
-                holder.setText(R.id.item_chat_right_msg,chatInfo.getMessage().getMsgContent());
+                holder.setText(R.id.item_chat_right_msg,chatInfo.getContent());
             }
         });
     }
@@ -69,5 +69,10 @@ public class ChatAdapter extends MultiItemTypeAdapter<ChatInfo> {
     }
 
 
+    public void refresh(List<ChatInfo> chatInfos){
+        mChatInfoList.clear();
+        mChatInfoList.addAll(chatInfos);
+        notifyDataSetChanged();
+    }
 
 }

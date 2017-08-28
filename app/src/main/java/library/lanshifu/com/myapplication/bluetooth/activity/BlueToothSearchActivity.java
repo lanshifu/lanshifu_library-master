@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -87,9 +88,9 @@ public class BlueToothSearchActivity extends BaseActivity {
                             @Override
                             public void call(Boolean aBoolean) {
 
-                                if(aBoolean){
+                                if (aBoolean) {
                                     mBluetoothAdapter.startDiscovery();
-                                }else {
+                                } else {
                                     T.showShort("权限拒绝");
                                 }
                             }
@@ -107,21 +108,21 @@ public class BlueToothSearchActivity extends BaseActivity {
             protected void convert(ViewHolder holder, final FriendInfo friendInfo, int position) {
                 holder.setText(R.id.item_friend_name, friendInfo.getIdentificationName());
                 holder.setText(R.id.item_friend_address, friendInfo.getDeviceAddress());
-                holder.setText(R.id.item_friend_status,  friendInfo.isFriend() ? "好友" :"在线" );
+                holder.setText(R.id.item_friend_status, friendInfo.isFriend() ? "好友(已配对)" : "在线");
                 holder.setOnClickListener(R.id.ll_root, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         BluetoothDevice bluetoothDevice = friendInfo.getBluetoothDevice();
-                        if(bluetoothDevice.getBondState()!= BluetoothDevice.BOND_BONDED){
-                            startProgressDialog("正在连接... "+friendInfo.getIdentificationName());
+                        if (bluetoothDevice.getBondState() != BluetoothDevice.BOND_BONDED) {
+                            startProgressDialog("正在连接... " + friendInfo.getIdentificationName());
                             startPair();
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 bluetoothDevice.createBond();
-                            }else {
+                            } else {
                                 //利用反射方法调用BluetoothDevice.createBond(BluetoothDevice remoteDevice);
                                 Method createBondMethod = null;
                                 try {
-                                    createBondMethod =BluetoothDevice.class.getMethod("createBond");
+                                    createBondMethod = BluetoothDevice.class.getMethod("createBond");
                                     createBondMethod.invoke(bluetoothDevice);
                                 } catch (NoSuchMethodException e) {
                                     e.printStackTrace();
@@ -131,8 +132,13 @@ public class BlueToothSearchActivity extends BaseActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }else {
-                            T.showShort("已经配对");
+                        } else {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("friendInfo", friendInfo);
+                            Intent intent = new Intent(BlueToothSearchActivity.this, BlueToothChatActivity.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
 //                        connectRemoteDevice(friendInfo.getIdentificationName(),friendInfo.getDeviceAddress());
 
@@ -168,7 +174,7 @@ public class BlueToothSearchActivity extends BaseActivity {
                 friendInfo.setDeviceAddress(device.getAddress());
                 friendInfo.setFriendNickName(device.getName());
                 friendInfo.setBluetoothDevice(device);
-                friendInfo.setFriend(device.getBondState()== BluetoothDevice.BOND_BONDED);
+                friendInfo.setFriend(device.getBondState() == BluetoothDevice.BOND_BONDED);
                 adapter.add(friendInfo);
             } else if (intent.getAction() == BluetoothAdapter.ACTION_DISCOVERY_FINISHED) {
                 title.setText("搜索完成。");
@@ -179,20 +185,20 @@ public class BlueToothSearchActivity extends BaseActivity {
     };
 
 
-
     /**
      * 连接设备
+     *
      * @param address
      */
-    private void connectRemoteDevice(String name,String address) {
-        if(mBluetoothAdapter.isDiscovering()){
+    private void connectRemoteDevice(String name, String address) {
+        if (mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
         }
 
         remoteDevice = mBluetoothAdapter.getRemoteDevice(address);
 
         try {
-            if(clientSocket == null){
+            if (clientSocket == null) {
                 clientSocket = remoteDevice.createRfcommSocketToServiceRecord(MY_UUID);
                 clientSocket.connect();
                 os = clientSocket.getOutputStream();
@@ -203,7 +209,7 @@ public class BlueToothSearchActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        if(os!=null){
+        if (os != null) {
             try {
                 os.write("蓝牙信息来了".getBytes("utf-8"));
                 T.showShort("发送消息...");
@@ -216,18 +222,17 @@ public class BlueToothSearchActivity extends BaseActivity {
     }
 
 
+    private void startPair() {
 
-    private void startPair(){
-
-        if(mPairBroadcastReceiver == null){
-            mPairBroadcastReceiver = new BroadcastReceiver(){
+        if (mPairBroadcastReceiver == null) {
+            mPairBroadcastReceiver = new BroadcastReceiver() {
 
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    if(intent.getAction().equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)){
+                    if (intent.getAction().equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
                         //取得状态改变的设备，更新设备列表信息（配对状态）
                         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                        if(device != null){
+                        if (device != null) {
                             resolveBondingState(device.getBondState());
                         }
                     }
@@ -261,15 +266,14 @@ public class BlueToothSearchActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onDestroy() {
         BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-        if(receiver != null){
+        if (receiver != null) {
             unregisterReceiver(receiver);
             receiver = null;
         }
-        if(mPairBroadcastReceiver != null){
+        if (mPairBroadcastReceiver != null) {
             unregisterReceiver(mPairBroadcastReceiver);
             mPairBroadcastReceiver = null;
         }

@@ -1,5 +1,7 @@
 package library.lanshifu.com.myapplication.bluetooth.bean;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
  * @date: 16/9/24 20:58.
  */
-public class ChatInfo implements Serializable {
+public class ChatInfo  extends DataSupport implements Serializable {
 
     private int chatId;
     private FriendInfo friendInfo;
@@ -15,6 +17,26 @@ public class ChatInfo implements Serializable {
     private boolean isSend;
     private String sendTime;
     private String receiveTime;
+
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    private String receiver;
+
+    public String getReceiver() {
+        return friendInfo.getDeviceAddress();
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
 
     public int getChatId() {
         return chatId;

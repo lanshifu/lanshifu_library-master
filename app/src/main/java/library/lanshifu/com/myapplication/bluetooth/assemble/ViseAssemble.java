@@ -59,7 +59,7 @@ public class ViseAssemble extends BaseAssemble implements IViseAssemble {
         System.arraycopy(buffer.array(), 1, checkData, 0, length - 2);
         checkCode = CRCUtil.calcCrc8(checkData);
         buffer.put(checkCode);
-        L.d("send packet:"+ HexUtil.encodeHexStr(buffer.array()));
+        L.d("发送消息:"+ HexUtil.encodeHexStr(buffer.array()));
         return buffer.array();
     }
 

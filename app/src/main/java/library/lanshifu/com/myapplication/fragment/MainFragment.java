@@ -165,7 +165,6 @@ public class MainFragment extends BaseFragment {
                         })
                         .show();
 
-
                 break;
             case R.id.btn_multi:
                 String[] str2 = new String[]{"1", "2", "3", "4"};

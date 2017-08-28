@@ -8,10 +8,10 @@ import android.os.Looper;
 import android.os.Message;
 
 import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.myapplication.bluetooth.callback.IChatCallback;
 import library.lanshifu.com.myapplication.bluetooth.thread.AcceptThread;
 import library.lanshifu.com.myapplication.bluetooth.thread.ConnectThread;
 import library.lanshifu.com.myapplication.bluetooth.thread.ConnectedThread;
-import library.lanshifu.com.myapplication.bluetooth.callback.*;
 
 
 /**
@@ -21,23 +21,35 @@ import library.lanshifu.com.myapplication.bluetooth.callback.*;
  */
 public class BluetoothChatHelper {
 
+    private BluetoothChatHelper() {
+    }
 
-    private final BluetoothAdapter mAdapter;
+    private static class BluetoothChatHelperBuilder {
+        private static BluetoothChatHelper singleTon = new BluetoothChatHelper();
+    }
+
+    public static BluetoothChatHelper getInstance() {
+        return BluetoothChatHelperBuilder.singleTon;
+    }
+
+
+    private static BluetoothAdapter mAdapter;
     private static AcceptThread mAcceptThread;
     private static ConnectThread mConnectThread;
     private static ConnectedThread mConnectedThread;
+    private static String mCurrentAddress;
     private State mState;
-    private IChatCallback<byte[]> mChatCallback;
+    private static IChatCallback<byte[]> mChatCallback;
 
     private static boolean isStopThread;
     private BluetoothDevice mRemoveDevice;
 
-    public static boolean isStopThread() {
+    public boolean isStopThread() {
         return isStopThread;
     }
 
-    public static void setStopThread(boolean stopThread){
-        isStopThread =stopThread;
+    public void setStopThread(boolean stopThread) {
+        isStopThread = stopThread;
     }
 
     private final Handler mHandler = new Handler(Looper.getMainLooper()) {
@@ -76,11 +88,18 @@ public class BluetoothChatHelper {
         }
     };
 
-    public BluetoothChatHelper(IChatCallback<byte[]> chatCallback) {
-        mAdapter = BluetoothAdapter.getDefaultAdapter();
-        mState = State.STATE_NONE;
+    public void setmChatCallback(IChatCallback<byte[]> chatCallback, String address) {
+        if (mState == State.STATE_CONNECTED && address.equals(mCurrentAddress)) {
+            L.e("保持会话");
+        } else {
+            mState = State.STATE_NONE;
+            mCurrentAddress = address;
+            mAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+
         mChatCallback = chatCallback;
     }
+
 
     public synchronized State getState() {
         return mState;
@@ -139,11 +158,19 @@ public class BluetoothChatHelper {
         }
 
 
-        mAcceptThread = new AcceptThread(this, mRemoveDevice,secure);
-        mAcceptThread.start();
+        if(mRemoveDevice != null){
+            mAcceptThread = new AcceptThread(mRemoveDevice, secure);
+            mAcceptThread.start();
+        }
     }
 
-    public synchronized void connect(BluetoothDevice device, boolean secure) {
+    public synchronized void connect(BluetoothDevice device, String address, boolean secure) {
+
+        if (mState == State.STATE_CONNECTED && address.equals(mCurrentAddress)) {
+            L.e("正在与*** 进行会话");
+            return;
+        }
+
         mRemoveDevice = device;
         L.d("connect to: " + device);
         if (mState == State.STATE_CONNECTING) {
@@ -158,7 +185,7 @@ public class BluetoothChatHelper {
             mConnectedThread = null;
         }
 
-        mConnectThread = new ConnectThread(this, device, secure);
+        mConnectThread = new ConnectThread(device, secure);
         mConnectThread.start();
         setState(State.STATE_CONNECTING);
     }
@@ -176,12 +203,12 @@ public class BluetoothChatHelper {
             mConnectedThread = null;
         }
 
-        if (mAcceptThread != null){
+        if (mAcceptThread != null) {
             mAcceptThread.cancel();
             mAcceptThread = null;
         }
 
-        mConnectedThread = new ConnectedThread(this, socket, socketType);
+        mConnectedThread = new ConnectedThread(socket, socketType);
         mConnectedThread.start();
 
         mHandler.obtainMessage(ChatConstant.MESSAGE_DEVICE_NAME, -1, -1, device.getName()).sendToTarget();
@@ -218,8 +245,8 @@ public class BluetoothChatHelper {
         r.write(out);
     }
 
-    public void connectionFailed() {
-        mHandler.obtainMessage(ChatConstant.MESSAGE_TOAST, -1, -1, "Unable to connect device").sendToTarget();
+    public void connectionFailed(String error) {
+        mHandler.obtainMessage(ChatConstant.MESSAGE_TOAST, -1, -1, error).sendToTarget();
         setState(State.STATE_NONE);
         this.start(false);
     }
@@ -229,11 +256,27 @@ public class BluetoothChatHelper {
         this.start(false);
     }
 
-    public static void close(){
+    public void close() {
         if (mAcceptThread != null) {
             mAcceptThread.cancel();
         }
+        if (mConnectedThread != null) {
+            mConnectedThread.cancel();
+            mConnectedThread = null;
+        }
+
+        if (mAcceptThread != null) {
+            mAcceptThread.cancel();
+            mAcceptThread = null;
+        }
+
+        mCurrentAddress = null;
+        mChatCallback = null;
+        mAdapter = null;
+
+
         setStopThread(true);
+        setmChatCallback(null,"");
     }
 
 }

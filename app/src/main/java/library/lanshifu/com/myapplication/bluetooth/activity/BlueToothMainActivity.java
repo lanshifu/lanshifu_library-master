@@ -22,7 +22,6 @@ import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.bluetooth.BluetoothChatHelper;
-import library.lanshifu.com.myapplication.bluetooth.BluetoothUtil;
 import library.lanshifu.com.myapplication.bluetooth.CommandHelper;
 import library.lanshifu.com.myapplication.bluetooth.HexUtil;
 import library.lanshifu.com.myapplication.bluetooth.State;
@@ -208,6 +207,6 @@ public class BlueToothMainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BluetoothChatHelper.close();
+
     }
 }

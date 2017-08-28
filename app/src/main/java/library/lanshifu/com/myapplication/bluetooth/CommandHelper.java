@@ -74,7 +74,17 @@ public class CommandHelper {
                 ((FileMessage)message).setFileLength(ConvertUtil.bytesToIntHigh(fileLength, 4));
                 ((FileMessage)message).setFileName(new String(fileName));
                 ((FileMessage)message).setFileNameLength(ConvertUtil.bytesToIntHigh(fileNameLength, 2));
-            } else{
+            } else if(data[4] == ChatConstant.VISE_COMMAND_TYPE_ISTYPING_ON){
+                message = new BaseMessage();
+                message.setMsgType(ChatConstant.VISE_COMMAND_TYPE_ISTYPING_ON);
+                message.setMsgLength(0);
+                message.setMsgContent("对方正在输入");
+            }else if(data[4] == ChatConstant.VISE_COMMAND_TYPE_ISTYPING_OFF){
+                message = new BaseMessage();
+                message.setMsgType(ChatConstant.VISE_COMMAND_TYPE_ISTYPING_OFF);
+                message.setMsgLength(0);
+                message.setMsgContent("对方停止输入");
+            }else{
                 message = new BaseMessage();
                 message.setMsgType(ChatConstant.VISE_COMMAND_TYPE_NONE);
                 message.setMsgLength(0);

@@ -18,14 +18,12 @@ import library.lanshifu.com.myapplication.bluetooth.ChatConstant;
  */
 public class ConnectedThread extends Thread {
 
-    private final BluetoothChatHelper mHelper;
     private final BluetoothSocket mSocket;
     private final InputStream mInStream;
     private final OutputStream mOutStream;
 
-    public ConnectedThread(BluetoothChatHelper bluetoothChatHelper, BluetoothSocket socket, String socketType) {
+    public ConnectedThread(BluetoothSocket socket, String socketType) {
         L.d("创建守护线程: " + socketType);
-        mHelper = bluetoothChatHelper;
         mSocket = socket;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
@@ -42,21 +40,21 @@ public class ConnectedThread extends Thread {
     }
 
     public void run() {
-        L.d("BEGIN mConnectedThread");
+        L.d("守护线程 run");
         int bytes;
         byte[] buffer = new byte[1024];
 
         // Keep listening to the InputStream while connected
-        while (!mHelper.isStopThread()) {
+        while (!BluetoothChatHelper.getInstance().isStopThread()) {
             try {
                 bytes = mInStream.read(buffer);
                 byte[] data = new byte[bytes];
                 L.e("消息："+data);
                 System.arraycopy(buffer, 0, data, 0, data.length);
-                mHelper.getHandler().obtainMessage(ChatConstant.MESSAGE_READ, bytes, -1, data).sendToTarget();
+                BluetoothChatHelper.getInstance().getHandler().obtainMessage(ChatConstant.MESSAGE_READ, bytes, -1, data).sendToTarget();
             } catch (IOException e) {
                 L.e("读取出错了", e);
-                mHelper.start(false);
+                BluetoothChatHelper.getInstance().getHandler().obtainMessage(ChatConstant.MESSAGE_TOAST, -1, -1, e.getMessage()).sendToTarget();
                 break;
             }
         }
@@ -66,7 +64,7 @@ public class ConnectedThread extends Thread {
         if(mSocket.isConnected()){
             try {
                 mOutStream.write(buffer);
-                mHelper.getHandler().obtainMessage(ChatConstant.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
+                BluetoothChatHelper.getInstance().getHandler().obtainMessage(ChatConstant.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
             } catch (IOException e) {
                 L.e("Exception during write", e);
             }

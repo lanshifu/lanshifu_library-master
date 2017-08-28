@@ -21,6 +21,8 @@ public class ChatConstant {
     public static final byte VISE_COMMAND_TYPE_IMAGE = (byte) 0x03;
     public static final byte VISE_COMMAND_TYPE_AUDIO = (byte) 0x04;
     public static final byte VISE_COMMAND_TYPE_VIDEO = (byte) 0x05;
+    public static final byte VISE_COMMAND_TYPE_ISTYPING_ON = (byte) 0x06;
+    public static final byte VISE_COMMAND_TYPE_ISTYPING_OFF = (byte) 0x07;
 
     /*KEY*/
     public static final String NAME_SECURE = "BluetoothChatSecure";
@@ -36,4 +38,6 @@ public class ChatConstant {
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
+
+    public static final int MESSAGE_ISTYPING = 6;
 }
