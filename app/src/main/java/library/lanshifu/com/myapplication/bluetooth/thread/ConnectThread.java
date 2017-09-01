@@ -16,11 +16,11 @@ import library.lanshifu.com.myapplication.bluetooth.ChatConstant;
  */
 public class ConnectThread extends Thread {
 
-    private  BluetoothSocket mSocket;
+    private BluetoothSocket mSocket;
     private final BluetoothDevice mDevice;
     private String mSocketType;
 
-    public ConnectThread( BluetoothDevice device, boolean secure) {
+    public ConnectThread(BluetoothDevice device, boolean secure) {
         mDevice = device;
         BluetoothSocket tmp = null;
         mSocketType = secure ? "Secure" : "Insecure";
@@ -32,27 +32,28 @@ public class ConnectThread extends Thread {
                 mSocket = device.createInsecureRfcommSocketToServiceRecord(ChatConstant.UUID_INSECURE);
             }
         } catch (IOException e) {
-            L.e("Socket Type: " + mSocketType + "create() failed", e);
+            L.e("ConnectThread 初始化socket 报错 "+e.getMessage());
         }
     }
 
     public void run() {
-        L.d("BEGIN mConnectThread SocketType:" + mSocketType);
+        L.d("ConnectThread run:");
         setName("ConnectThread" + mSocketType);
 
-        if(BluetoothChatHelper.getInstance().getAdapter().isDiscovering()){
+        if (BluetoothChatHelper.getInstance().getAdapter().isDiscovering()) {
             BluetoothChatHelper.getInstance().getAdapter().cancelDiscovery();
         }
 
         try {
             mSocket.connect();
         } catch (IOException e) {
-            L.e("连接报错"+e.getMessage());
-            BluetoothChatHelper.getInstance().connectionFailed("连接报错"+e.getMessage());
+            L.e("连接报错" + e.getMessage());
+            BluetoothChatHelper.getInstance().connectionFailed("连接报错" + e.getMessage());
+            BluetoothChatHelper.getInstance().setState(library.lanshifu.com.myapplication.bluetooth.State.STATE_NONE);
             try {
                 mSocket.close();
             } catch (IOException e2) {
-                L.e("关闭连接报错 " +e2.getMessage());
+                L.e("关闭连接报错 " + e2.getMessage());
             }
             return;
         }

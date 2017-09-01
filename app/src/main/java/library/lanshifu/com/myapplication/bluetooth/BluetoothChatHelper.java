@@ -38,7 +38,7 @@ public class BluetoothChatHelper {
     private static ConnectThread mConnectThread;
     private static ConnectedThread mConnectedThread;
     private static String mCurrentAddress;
-    private State mState;
+    private static State mState;
     private static IChatCallback<byte[]> mChatCallback;
 
     private static boolean isStopThread;
@@ -101,7 +101,7 @@ public class BluetoothChatHelper {
     }
 
 
-    public synchronized State getState() {
+    public synchronized  State getState() {
         return mState;
     }
 
@@ -114,7 +114,7 @@ public class BluetoothChatHelper {
     }
 
 
-    private synchronized BluetoothChatHelper setState(State state) {
+    public synchronized BluetoothChatHelper setState(State state) {
         mState = state;
         mHandler.obtainMessage(ChatConstant.MESSAGE_STATE_CHANGE, -1, -1, state).sendToTarget();
         return this;

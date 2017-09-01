@@ -92,7 +92,7 @@ public class AcceptThread extends Thread {
         while (BluetoothChatHelper.getInstance().getState() != STATE_CONNECTED && !BluetoothChatHelper.getInstance().isStopThread()) {
             try {
                 if (mServerSocket != null) {
-                    L.d("调用 mServerSocket.accept()");
+                    L.d("调用 mServerSocket.accept()，阻塞中................");
                     socket = mServerSocket.accept();
                 } else {
                     L.e("mServerSocket == null");
@@ -101,7 +101,6 @@ public class AcceptThread extends Thread {
             } catch (IOException e) {
                 L.e(" mServerSocket.accept() 异常：" + e.getMessage());
                 BluetoothChatHelper.getInstance().connectionFailed(e.getMessage());
-
                 break;
             }
             if (socket != null) {

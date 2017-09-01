@@ -39,6 +39,7 @@ import library.lanshifu.com.myapplication.viewpager.TabActivity;
 import library.lanshifu.com.myapplication.viewpager.ViewPagerDemoActivity;
 import library.lanshifu.com.myapplication.voice.VoiceListActivity;
 import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
+import library.lanshifu.com.myapplication.wifi.wifitransfe.ChooseFileActivity;
 import rx.functions.Action1;
 
 /**
@@ -145,7 +146,7 @@ public class MainFragment extends BaseFragment {
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
-            ,R.id.btn_bluetooth})
+            ,R.id.btn_bluetooth,R.id.btn_wifi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -250,7 +251,7 @@ public class MainFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), BlueToothMainActivity.class));
                 break;
             case R.id.btn_wifi:
-//                startActivity(new Intent(getContext(), SurfaceViewActivity.class));
+                startActivity(new Intent(getContext(), ChooseFileActivity.class));
                 break;
         }
 

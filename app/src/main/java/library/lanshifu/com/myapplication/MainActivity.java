@@ -1,26 +1,15 @@
 package library.lanshifu.com.myapplication;
 
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
-import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.commwidget.IDrawerLayout;
 import library.lanshifu.com.myapplication.bluetooth.BluetoothChatHelper;
 import library.lanshifu.com.myapplication.fragment.HomeFragment;

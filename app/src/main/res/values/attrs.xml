@@ -52,4 +52,11 @@
         <attr name="card_loop" format="boolean" />
     </declare-styleable>
 
+    <string-array name="array_res">
+        <item>应用</item>
+        <item>图片</item>
+        <item>音乐</item>
+        <item>视频</item>
+    </string-array>
+
 </resources>

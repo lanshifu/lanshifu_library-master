@@ -1,5 +1,6 @@
 package library.lanshifu.com.myapplication.bluetooth.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -26,7 +27,6 @@ import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.bluetooth.BluetoothChatHelper;
 import library.lanshifu.com.myapplication.bluetooth.ChatConstant;
 import library.lanshifu.com.myapplication.bluetooth.CommandHelper;
-import library.lanshifu.com.myapplication.bluetooth.HexUtil;
 import library.lanshifu.com.myapplication.bluetooth.State;
 import library.lanshifu.com.myapplication.bluetooth.adapter.ChatAdapter;
 import library.lanshifu.com.myapplication.bluetooth.bean.BaseMessage;
@@ -53,15 +53,17 @@ public class BlueToothChatActivity extends BaseActivity {
 
     private static final int CODE_ISTYPING = 0;
     private static final int CODE_ISTYPING_OFF = 1;
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             int what = msg.what;
-            if(CODE_ISTYPING_OFF == what){
-                sendMessag("对方停止输入",ChatConstant.VISE_COMMAND_TYPE_ISTYPING_OFF);
+            if (CODE_ISTYPING_OFF == what) {
+                sendMessag("对方停止输入", ChatConstant.VISE_COMMAND_TYPE_ISTYPING_OFF);
             }
         }
     };
+
+
 
     @Override
     public int getLayoutId() {
@@ -94,7 +96,7 @@ public class BlueToothChatActivity extends BaseActivity {
 
     }
 
-    private void initEdittextListener(){
+    private void initEdittextListener() {
         title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -165,15 +167,16 @@ public class BlueToothChatActivity extends BaseActivity {
 
             try {
                 BaseMessage message = CommandHelper.unpackData(data);
-                if(message !=null){
-                    if( "对方正在输入".equals(message.getMsgContent())){
-                        if(title != null){
+                if (message != null) {
+                    if ("对方正在输入".equals(message.getMsgContent())) {
+                        if (title != null) {
                             title.setText("对方正在输入");
                         }
                         return;
 
-                    }if("对方停止输入".equals(message.getMsgContent())){
-                        if(title != null){
+                    }
+                    if ("对方停止输入".equals(message.getMsgContent())) {
+                        if (title != null) {
                             title.setText("与 " + mFriendInfo.getIdentificationName() + " 聊天中");
                         }
                         return;
@@ -193,7 +196,7 @@ public class BlueToothChatActivity extends BaseActivity {
                 boolean save = chatInfo.save();
                 L.e("保存接收的消息" + save);
                 mChatAdapter.add(chatInfo);
-                recyclerView.scrollToPosition(mChatAdapter.getItemCount() -1);
+                recyclerView.scrollToPosition(mChatAdapter.getItemCount() - 1);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -215,16 +218,16 @@ public class BlueToothChatActivity extends BaseActivity {
 
 
     private void logOut(String text) {
-        if(tvLog != null){
+        if (tvLog != null) {
             tvLog.append("\r\n" + text);
         }
     }
 
     private void sendMessag(String text) {
-       sendMessag(text,ChatConstant.VISE_COMMAND_TYPE_TEXT);
+        sendMessag(text, ChatConstant.VISE_COMMAND_TYPE_TEXT);
     }
 
-    private void sendMessag(String text,byte msgType) {
+    private void sendMessag(String text, byte msgType) {
         ChatInfo chatInfo = new ChatInfo();
         FriendInfo friendInfo = new FriendInfo();
         friendInfo.setBluetoothDevice(mFriendInfo.getBluetoothDevice());
@@ -251,11 +254,11 @@ public class BlueToothChatActivity extends BaseActivity {
             T.showShort("发送失败：" + e.getMessage());
         }
 
-        if(msgType == ChatConstant.VISE_COMMAND_TYPE_ISTYPING_ON || msgType == ChatConstant.VISE_COMMAND_TYPE_ISTYPING_OFF){
+        if (msgType == ChatConstant.VISE_COMMAND_TYPE_ISTYPING_ON || msgType == ChatConstant.VISE_COMMAND_TYPE_ISTYPING_OFF) {
             return;
         }
         mChatAdapter.add(chatInfo);
-        recyclerView.scrollToPosition(mChatAdapter.getItemCount() -1);
+        recyclerView.scrollToPosition(mChatAdapter.getItemCount() - 1);
         boolean save = chatInfo.save();
         etText.setText("");
         L.e("保存消息到数据库" + save);
@@ -287,7 +290,7 @@ public class BlueToothChatActivity extends BaseActivity {
         }
         if (infoList != null && infoList.size() > 0) {
             mChatAdapter.refresh(infoList);
-            recyclerView.scrollToPosition(infoList.size()-1);
+            recyclerView.scrollToPosition(infoList.size() - 1);
         }
     }
 }

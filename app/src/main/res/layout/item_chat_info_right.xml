@@ -25,17 +25,18 @@
             />
         <TextView
             android:text="123456"
+            android:padding="@dimen/dp_10"
             android:id="@+id/item_chat_right_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/item_chat_right_icon"
             android:gravity="center_vertical"
             android:background="@color/gray"
+            android:minWidth="100dp"
             android:minHeight="48dp"
             />
     </RelativeLayout>
     <TextView
-        android:text="1233455"
         android:id="@+id/item_chat_right_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

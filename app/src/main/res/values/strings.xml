@@ -95,4 +95,28 @@
     <string name="accessibility_service_label">查看当前类名</string>
     <string name="title_activity_provider">ProviderActivity</string>
     <string name="transition_wechat_img">transition_wechat_img</string>
+
+
+    <string name="str_apk_desc">应用</string>
+    <string name="str_jpeg_desc">图片</string>
+    <string name="str_mp3_desc">音乐</string>
+    <string name="str_mp4_desc">视频</string>
+
+    <string name="tip_web_transfer_first_tip">
+        第1步 \n
+        请好友连入我的热点 \n
+        \"{hotspot}\"
+    </string>
+    <string name="tip_web_transfer_second_tip">
+        第2步 \n
+        请好友在浏览器输入以下网址 \n
+        http://192.168.43.1:3999 \n
+        或者扫描二维码
+    </string>
+    <string name="str_restart_hotspot">重启热点</string>
+    <string name="title_web_transfer">网页传</string>
+    <string name="tip_permission_denied">权限被拒绝</string>
+    <string name="tip_permission_denied_and_not_get_file_info_list">权限被拒绝，无法获取文件列表</string>
+    <string name="tip_permission_denied_and_not_receive_file">权限被拒绝，无法接收文件</string>
+    <string name="tip_permission_denied_and_not_send_file" >权限被拒绝，无法发送文件文件</string>
 </resources>
