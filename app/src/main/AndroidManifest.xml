@@ -28,7 +28,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".MyApp"
@@ -111,8 +111,9 @@
         <activity android:name=".bluetooth.activity.BlueToothMainActivity" />
         <activity android:name=".bluetooth.activity.BlueToothSearchActivity" />
         <activity android:name=".bluetooth.activity.BlueToothChatActivity" />
-        <activity android:name=".wifi.wifitransfe.WifiTranserActivity"/>
-        <activity android:name=".wifi.wifitransfe.ChooseFileActivity"/>
+        <activity android:name=".wifi.wifitransfe.WifiTranserActivity" />
+        <activity android:name=".wifi.wifitransfe.ChooseFileActivity" />
+        <activity android:name=".ui.GaoKaoSearchActivity"></activity>
     </application>
 
 </manifest>

@@ -118,5 +118,5 @@
     <string name="tip_permission_denied">权限被拒绝</string>
     <string name="tip_permission_denied_and_not_get_file_info_list">权限被拒绝，无法获取文件列表</string>
     <string name="tip_permission_denied_and_not_receive_file">权限被拒绝，无法接收文件</string>
-    <string name="tip_permission_denied_and_not_send_file" >权限被拒绝，无法发送文件文件</string>
+    <string name="tip_permission_denied_and_not_send_file">权限被拒绝，无法发送文件文件</string>
 </resources>

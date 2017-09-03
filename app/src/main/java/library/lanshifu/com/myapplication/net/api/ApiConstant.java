@@ -16,5 +16,6 @@ public class ApiConstant {
 
     public static final String COMMON_UA_STR = "Android Client/version name";
     public static final String LIVE_URL = "http://www.quanmin.tv/";
+    public static final String GAOKAO_URL = "http://service.southcn.com/";
 
 }

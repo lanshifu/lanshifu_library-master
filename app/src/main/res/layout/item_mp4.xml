@@ -45,6 +45,6 @@
         android:layout_alignRight="@id/iv_shortcut"
         android:layout_marginBottom="6dp"
         android:layout_marginRight="6dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/checkbox_checked"
         android:visibility="gone"/>
 </RelativeLayout>

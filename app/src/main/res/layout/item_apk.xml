@@ -8,7 +8,7 @@
         android:layout_height="64dp"
         android:padding="8dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/icon_apk"/>
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
@@ -33,6 +33,6 @@
         android:layout_alignRight="@id/iv_shortcut"
         android:layout_marginBottom="6dp"
         android:layout_marginRight="6dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/checkbox_checked"
         android:visibility="gone"/>
 </RelativeLayout>

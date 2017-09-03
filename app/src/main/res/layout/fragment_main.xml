@@ -137,7 +137,7 @@
             android:id="@+id/btn_wifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="wifi"
+            android:text="wifi快传（网页）"
             android:textAllCaps="false" />
 
     </com.google.android.flexbox.FlexboxLayout>

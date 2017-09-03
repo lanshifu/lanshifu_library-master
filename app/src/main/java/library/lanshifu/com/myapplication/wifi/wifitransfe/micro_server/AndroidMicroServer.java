@@ -13,12 +13,16 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import library.lanshifu.com.lsf_library.baserx.RxManager;
+
 /**
  * Created by 蓝师傅 on 2017/3/11.
  */
 
 public class AndroidMicroServer {
     private static final String TAG = "AndroidMicroServer";
+
+    RxManager mRxManager = new RxManager();
 
     List<ResUriHandler> mResUriHandlerList = new ArrayList<ResUriHandler>();
 
@@ -58,6 +62,7 @@ public class AndroidMicroServer {
             resUriHandler.destroy();
             resUriHandler = null;
         }
+        mRxManager.clear();
     }
 
 
@@ -80,6 +85,7 @@ public class AndroidMicroServer {
                     mServerSocket = new ServerSocket(mPort);
 
                     while(mIsEnable){
+                        mRxManager.post("log","Socket.accept()，等待客户端消息中...");
                         Log.i(TAG, "Socket.accept()，等待客户端消息中...");
                         Socket socket = mServerSocket.accept();
                         hanlderSocketAsyn(socket);
@@ -138,7 +144,7 @@ public class AndroidMicroServer {
 
 //            //解决URL中文乱码的问题
             requestUri = URLDecoder.decode(requestUri, "UTF-8");
-            Log.i(TAG,  "requestLine ="+ requestLine);
+//            Log.i(TAG,  "requestLine ="+ requestLine);
             Log.i(TAG,  "requestUri ="+ requestUri);
             request.setUri(requestUri);
 
@@ -157,7 +163,7 @@ public class AndroidMicroServer {
 
         Log.i(TAG,  "---------------------------\r\n request  = " + request.toString()+"\r\n" +
                 "---------------------------------");
-
+        mRxManager.post("log"," request  = " + request.toString());
         return request;
     }
 

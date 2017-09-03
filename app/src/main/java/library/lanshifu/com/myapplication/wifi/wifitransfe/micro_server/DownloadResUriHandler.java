@@ -13,6 +13,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLDecoder;
 
+import library.lanshifu.com.lsf_library.utils.FileUtil;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.core.FileInfo;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.core.utils.FileUtils;
 
@@ -81,17 +83,28 @@ public class DownloadResUriHandler implements ResUriHandler {
             printStream.println();
 
         }else{
-//            Log.i(TAG, "fileInfo 长度"+fileInfo.getSize());
             printStream.println("HTTP/1.1 200 OK");
-//            image/jpeg
             printStream.println("Content-Length:" + fileInfo.getSize());
-//            printStream.println("Content-Type:image/png");
-//            multipart/mixed,text/html,image/png,image/jpeg,image/gif,image/x-xbitmap,application/vnd.oma.dd+xml,*/*
-            //二进制流，不知道下载类型
-            printStream.println("Content-Type:application/octet-stream");
-//            printStream.println("Content-Type:multipart/mixed,text/html,image/png,image/jpeg,image/gif,image/x-xbitmap,application/vnd.oma.dd+xml,*/*");
-            printStream.println();
+            printStream.println("Content-Disposition: attachment; filename="+fileName);
 
+            L.e("Content-Length:"+fileInfo.getSize());
+            //二进制文件流。这样浏览器就会直接打开文件，而不是在浏览器内打开。
+            printStream.println("Content-Type:application/octet-stream");
+//            if(fileInfo.getFileType() == FileInfo.TYPE_APK){
+//                printStream.println("Content-Type:application/octet-stream");
+//            }else if(fileInfo.getFileType() == FileInfo.TYPE_JPG){
+//                printStream.println("Content-Type:image/jpeg");
+//            }else if(fileInfo.getFileType() == FileInfo.TYPE_MP3){
+//                printStream.println("Content-Type:audio/x-pn-realaudio");
+//            }else if(fileInfo.getFileType() == FileInfo.TYPE_MP4){
+//                printStream.println("Content-Type:application/octet-stream");
+//            }
+
+//            printStream.println("Expires: 0");
+//            printStream.println("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+//            printStream.println("Content-Transfer-Encoding: binary");
+//            printStream.println("Pragma: public");
+            printStream.println();
 
             File file = null;
             FileInputStream fis = null;

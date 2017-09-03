@@ -227,6 +227,9 @@ public class ChooseFileActivity extends BaseToolBarActivity {
             mShowSelectedFileInfoDialog.rxDestory();
         }
         AppContext.getInstance().getReceiverFileInfoMap().clear();
+
+        //清楚所选中的文件
+        AppContext.getInstance().getFileInfoMap().clear();
         super.onDestroy();
 
     }

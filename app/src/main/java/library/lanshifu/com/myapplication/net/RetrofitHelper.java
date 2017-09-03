@@ -8,6 +8,7 @@ import library.lanshifu.com.lsf_library.utils.SystemManage;
 import library.lanshifu.com.myapplication.MyApp;
 import library.lanshifu.com.myapplication.net.api.APIException;
 import library.lanshifu.com.myapplication.net.api.ApiConstant;
+import library.lanshifu.com.myapplication.net.api.GaoKaoAPI;
 import library.lanshifu.com.myapplication.net.api.LiveApi;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
 import library.lanshifu.com.myapplication.net.api.WechatApi;
@@ -105,6 +106,7 @@ public class RetrofitHelper {
         }
 
     }
+
     /**
      * 为okhttp添加缓存，这里是考虑到服务器不支持缓存时，从而让okhttp支持缓存
      */
@@ -145,6 +147,7 @@ public class RetrofitHelper {
         }
 
     }
+
     public <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
         o.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -170,6 +173,7 @@ public class RetrofitHelper {
         }
 
     }
+
     public static WeatherApi getWeatherService() {
         return createApi(WeatherApi.class, ApiConstant.BASE_URL_WEATHER);
 
@@ -180,8 +184,12 @@ public class RetrofitHelper {
 
     }
 
-    public static LiveApi getLiveApi(){
-        return createApi(LiveApi.class,ApiConstant.LIVE_URL);
+    public static LiveApi getLiveApi() {
+        return createApi(LiveApi.class, ApiConstant.LIVE_URL);
+    }
+
+    public static GaoKaoAPI getGaokaoApi() {
+        return createApi(GaoKaoAPI.class, ApiConstant.GAOKAO_URL);
     }
 
 }

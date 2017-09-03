@@ -37,13 +37,50 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/web_transfer_url"/>
 
-        <Button
-            android:id="@+id/button_restart"
+    </LinearLayout>
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_log"
+            android:textColor="@color/red"
+            android:alpha="0.4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/str_restart_hotspot"
-            android:visibility="gone"/>
+            android:text="日志："/>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清空日志"/>
+        <Button
+            android:id="@+id/btn_showConnectCount"
+            android:gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刷新连接数目"/>
+
+        <Button
+            android:id="@+id/button_restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_restart_hotspot"/>
+
     </LinearLayout>
+
+
 
 </RelativeLayout>

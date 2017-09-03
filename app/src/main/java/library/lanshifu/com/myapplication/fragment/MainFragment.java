@@ -1,6 +1,5 @@
 package library.lanshifu.com.myapplication.fragment;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,8 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -33,6 +30,7 @@ import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
 import library.lanshifu.com.myapplication.surfaceview.SurfaceViewActivity;
 import library.lanshifu.com.myapplication.twolist.TwoListActivity;
+import library.lanshifu.com.myapplication.ui.GaoKaoSearchActivity;
 import library.lanshifu.com.myapplication.ui.SmileFaceActivity;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
 import library.lanshifu.com.myapplication.viewpager.TabActivity;
@@ -40,7 +38,6 @@ import library.lanshifu.com.myapplication.viewpager.ViewPagerDemoActivity;
 import library.lanshifu.com.myapplication.voice.VoiceListActivity;
 import library.lanshifu.com.myapplication.wifi.WifiPassWorldActivity;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.ChooseFileActivity;
-import rx.functions.Action1;
 
 /**
  * Created by Administrator on 2017/7/15.
@@ -114,7 +111,7 @@ public class MainFragment extends BaseFragment {
                 .addMenuItem(new PopMenuItem(getActivity(), "7.0适配", R.mipmap.icon_menu3))
                 .addMenuItem(new PopMenuItem(getActivity(), "刷新控件", R.mipmap.icon_menu4))
                 .addMenuItem(new PopMenuItem(getActivity(), "可下拉布局", R.mipmap.icon_menu5))
-                .addMenuItem(new PopMenuItem(getActivity(), "菜单6", R.mipmap.icon_menu5))
+                .addMenuItem(new PopMenuItem(getActivity(), "高考查询", R.mipmap.icon_menu5))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单7", R.mipmap.icon_menu5))
                 .addMenuItem(new PopMenuItem(getActivity(), "菜单8", R.mipmap.icon_menu5))
                 .setOnPopMenuItemListener(new PopMenu.OnPopMenuItemClickListener() {
@@ -123,18 +120,16 @@ public class MainFragment extends BaseFragment {
                         showShortToast("菜单" + position);
                         if (position == 0) {
                             startActivity(new Intent(getActivity(), FlowTagDemoActivity.class));
-                        }
-                        if (position == 1) {
+                        } else if (position == 1) {
                             startActivity(new Intent(getActivity(), PopuDemoActivity.class));
-                        }
-                        if (position == 2) {
+                        } else if (position == 2) {
                             startActivity(new Intent(getActivity(), FileProviderDemoActivity.class));
-                        }
-                        if (position == 3) {
+                        } else if (position == 3) {
                             startActivity(new Intent(getActivity(), SmartRefreshDemoActivity.class));
-                        }
-                        if (position == 4) {
+                        } else if (position == 4) {
                             startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
+                        } else if (position == 5) {
+                            startActivity(new Intent(getActivity(), GaoKaoSearchActivity.class));
                         }
                     }
                 })
@@ -146,7 +141,7 @@ public class MainFragment extends BaseFragment {
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
-            ,R.id.btn_bluetooth,R.id.btn_wifi})
+            , R.id.btn_bluetooth, R.id.btn_wifi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -263,23 +258,17 @@ public class MainFragment extends BaseFragment {
     private void requestAlertWindowPermission() {
         final String settings = Settings.ACTION_ACCESSIBILITY_SETTINGS;
 
-        RxPermissions.getInstance(getActivity()).request(Manifest.permission.SYSTEM_ALERT_WINDOW)
-                .subscribe(new Action1<Boolean>() {
-                    @Override
-                    public void call(Boolean aBoolean) {
-                        if (aBoolean) {
-
-                            showShortToast("有权限");
-                            startActivity(new Intent(settings));
-                        } else {
-                            showShortToast("没有权限，请求");
-                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-                            startActivityForResult(intent, REQUEST_CODE);
-                        }
-
-                    }
-                });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.canDrawOverlays(getActivity())) {
+                startActivity(new Intent(settings));
+            } else {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        } else {
+            startActivity(new Intent(settings));
+        }
 
 
     }
@@ -294,10 +283,6 @@ public class MainFragment extends BaseFragment {
                     Log.i("111", "onActivityResult success");
                     String settings = Settings.ACTION_ACCESSIBILITY_SETTINGS;
                     startActivity(new Intent(settings));
-
-                    //联系人 一段时间
-//                    intent = new Intent(this,WindowService.class);
-//                    startService(intent);
                 }
             }
         }
