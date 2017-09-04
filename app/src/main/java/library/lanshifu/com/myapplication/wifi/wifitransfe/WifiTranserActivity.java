@@ -57,7 +57,7 @@ public class WifiTranserActivity extends BaseToolBarActivity {
     TextView tvLog;
 
     private WifiAPBroadcastReceiver mWifiAPBroadcastReceiver;
-    private boolean mIsInitialized;
+    private boolean mIsInitialized = false;
     private AndroidMicroServer mAndroidMicroServer;
 
     @Override
@@ -132,15 +132,15 @@ public class WifiTranserActivity extends BaseToolBarActivity {
                 showLog(">>>热点打开咯 !!!");
                 Log.i(TAG, "======>>>热点打开咯onWifiApEnabled !!!");
                 if (!mIsInitialized) {
-//                    mUdpServerRuannable = createSendMsgToFileSenderRunnable();
-//                   mExcutor.execute(mUdpServerRuannable);
                     try {
-                        mExcutor.execute(createServer());
+                        showLog(">>>正在打开服务器...");
+                        new Thread(createServer()).start();
                         mIsInitialized = true;
                     } catch (Exception e) {
-                        e.printStackTrace();
-                        mIsInitialized = false;
+                        mIsInitialized =false;
+                        showLog(">>>出错了..."+e.toString());
                     }
+
                 }
 
             }
@@ -187,13 +187,15 @@ public class WifiTranserActivity extends BaseToolBarActivity {
         return new Runnable() {
             @Override
             public void run() {
+                mRxManager.post("log", "run");
                 String hotspotIpAddr;
                 try {
                     // 确保热点开启之后获取得到IP地址
-                    hotspotIpAddr = WifiMgr.getInstance(WifiTranserActivity.this).getHotspotLocalIpAddress();
+                    hotspotIpAddr = WifiMgr.getInstance(WifiTranserActivity.this).getIpAddressFromHotspot();
+                    mRxManager.post("log", "hotspotIpAddr = "+hotspotIpAddr);
                     int count = 0;
                     while (hotspotIpAddr.equals(Constant.DEFAULT_UNKOWN_IP) && count < Constant.DEFAULT_TRY_TIME) {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                         hotspotIpAddr = WifiMgr.getInstance(WifiTranserActivity.this).getIpAddressFromHotspot();
                         mRxManager.post("log", "receiver serverIp ----->>>" + hotspotIpAddr);
                         Log.i(TAG, "receiver serverIp ----->>>" + hotspotIpAddr);
@@ -219,6 +221,8 @@ public class WifiTranserActivity extends BaseToolBarActivity {
                 mAndroidMicroServer.resgisterResUriHandler(new ImageResUriHandler(WifiTranserActivity.this));
                 mAndroidMicroServer.resgisterResUriHandler(new DownloadResUriHandler(WifiTranserActivity.this));
                 mAndroidMicroServer.start();
+
+                mRxManager.post("log", "服务器已经启动，可以开始传输数据");
             }
         };
 

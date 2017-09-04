@@ -59,7 +59,6 @@ public class DownloadResUriHandler implements ResUriHandler {
         FileInfo fileInfo = FileUtils.getFileInfo(this.mActivity, fileName);
 
         Log.i(TAG, "uri =  "+uri);
-        Log.i(TAG, "filename =  "+fileName);
         Log.i(TAG, "文件路径 = "+fileInfo.getFilePath());
 
         //2.check the local system has the file. if has, return the image file, else return 404 to the client
