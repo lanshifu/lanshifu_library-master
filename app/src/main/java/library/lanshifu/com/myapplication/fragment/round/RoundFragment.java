@@ -31,8 +31,7 @@ import library.lanshifu.com.myapplication.model.NewBean;
 import library.lanshifu.com.myapplication.model.WechatItem;
 import library.lanshifu.com.myapplication.net.MyObserver;
 import library.lanshifu.com.myapplication.net.RetrofitHelper;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import library.lanshifu.com.myapplication.net.RxSchedulerHelper;
 
 /**
  * Created by Administrator on 2017/8/12.
@@ -66,16 +65,16 @@ public class RoundFragment extends BaseFragment {
     public int mPageMark = 1;
     private NewListAdapter newListAdapter;
 
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 
         }
     };
 
-    void request(){
+    void request() {
 
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 String result = "result";
@@ -182,7 +181,7 @@ public class RoundFragment extends BaseFragment {
     }
 
 
-     private void antoScroll() {
+    private void antoScroll() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -196,8 +195,7 @@ public class RoundFragment extends BaseFragment {
 
     private void requestData() {
         RetrofitHelper.getWechatApi().getWechat(WECHAT_APPKEY, mPageMark, mPs)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxSchedulerHelper.<WechatItem>io_main())
                 .subscribe(new MyObserver<WechatItem>() {
                     @Override
                     public void _onNext(WechatItem wechatItem) {
@@ -266,7 +264,6 @@ public class RoundFragment extends BaseFragment {
         newListAdapter.refresh(listBeanList);
         return true;
     }
-
 
 
 }

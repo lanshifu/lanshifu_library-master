@@ -2,7 +2,6 @@ package library.lanshifu.com.myapplication.wifi;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -12,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
-import rx.functions.Action1;
 
 public class WifiPassWorldActivity extends BaseToolBarActivity {
 
@@ -37,17 +36,17 @@ public class WifiPassWorldActivity extends BaseToolBarActivity {
     protected void onViewCreate() {
         setTBTitle("wifi密码查看");
 
-        mRxManager.on("wifi", new Action1<List<WifiInfo>>() {
+        mRxManager.on("wifi", new Consumer<List<WifiInfo>>() {
             @Override
-            public void call(List<WifiInfo> wifiInfos) {
+            public void accept(List<WifiInfo> wifiInfos) throws Exception {
                 refreshLayout.finishRefresh();
-                if(wifiInfos ==null){
+                if (wifiInfos == null) {
                     showShortToast("出错了，看log，可能是手机未root");
                     return;
                 }
                 adapter.refresh(wifiInfos);
-
             }
+
         });
 
         adapter = new CommonAdapter<WifiInfo>(this, R.layout.list_item, new ArrayList<WifiInfo>()) {

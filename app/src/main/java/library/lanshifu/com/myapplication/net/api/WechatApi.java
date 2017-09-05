@@ -1,10 +1,10 @@
 package library.lanshifu.com.myapplication.net.api;
 
 
+import io.reactivex.Observable;
 import library.lanshifu.com.myapplication.model.WechatItem;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /*******************************************************************
  * * * * *   * * * *   *     *       Created by OCN.Yang

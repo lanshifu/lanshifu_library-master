@@ -15,8 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 import rx.functions.Action1;
@@ -103,22 +104,7 @@ public class RecordVoiceButton extends AppCompatButton implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-
-        RxPermissions.getInstance(mContext).request(Manifest.permission.RECORD_AUDIO)
-                .subscribe(new Action1<Boolean>() {
-                    @Override
-                    public void call(Boolean aBoolean) {
-                        if(aBoolean){
-                            T.showShort("有权限");
-                            startRecord();
-                        }else {
-
-                            T.showShort("权限拒绝");
-                        }
-
-                    }
-                });
-
+        startRecord();
 
     }
 

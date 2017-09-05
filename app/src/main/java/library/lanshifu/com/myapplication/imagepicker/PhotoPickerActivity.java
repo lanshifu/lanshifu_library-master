@@ -3,7 +3,6 @@ package library.lanshifu.com.myapplication.imagepicker;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,29 +15,20 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.listener.SaveListener;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
-import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.basemvp.BaseModle;
-import library.lanshifu.com.lsf_library.utils.ImageUtil;
-import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.mvp.contract.PhotoPictureContract;
-import library.lanshifu.com.myapplication.mvp.model.PhotoPictureModel;
 import library.lanshifu.com.myapplication.mvp.presenter.PhotoPicturePresenter;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 import static android.text.TextUtils.isEmpty;
 import static com.lzy.imagepicker.ImagePicker.REQUEST_CODE_PREVIEW;

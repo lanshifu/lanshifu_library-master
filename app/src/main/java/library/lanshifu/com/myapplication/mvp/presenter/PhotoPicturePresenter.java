@@ -14,6 +14,7 @@ import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.imagepicker.PictureBean;
 import library.lanshifu.com.myapplication.mvp.contract.PhotoPictureContract;
+import rx.Observable;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 

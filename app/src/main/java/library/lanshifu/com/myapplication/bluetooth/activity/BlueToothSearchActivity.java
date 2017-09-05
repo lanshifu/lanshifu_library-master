@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,16 +28,15 @@ import java.util.List;
 import java.util.UUID;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
+import library.lanshifu.com.lsf_library.baserx.RxSchedulers;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.bluetooth.bean.FriendInfo;
-import library.lanshifu.com.myapplication.net.RxSchedulerHelper;
 import library.lanshifu.com.myapplication.widget.CommRecyclerView;
-import rx.functions.Action1;
-
 public class BlueToothSearchActivity extends BaseActivity {
 
 
@@ -82,19 +81,21 @@ public class BlueToothSearchActivity extends BaseActivity {
                     mBluetoothAdapter.cancelDiscovery();
                 }
 
-                RxPermissions.getInstance(mContext).request(Manifest.permission.ACCESS_COARSE_LOCATION)
-                        .compose(RxSchedulerHelper.<Boolean>io_main())
-                        .subscribe(new Action1<Boolean>() {
+                RxPermissions rxPermissions = new RxPermissions(BlueToothSearchActivity.this);
+                rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .compose(RxSchedulers.<Boolean>io_main())
+                        .subscribe(new Consumer<Boolean>() {
                             @Override
-                            public void call(Boolean aBoolean) {
-
+                            public void accept(Boolean aBoolean) throws Exception {
                                 if (aBoolean) {
                                     mBluetoothAdapter.startDiscovery();
                                 } else {
                                     T.showShort("权限拒绝");
                                 }
                             }
+
                         });
+
                 adapter.removeAllData();
             }
         });

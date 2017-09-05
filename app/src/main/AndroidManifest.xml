@@ -113,7 +113,8 @@
         <activity android:name=".bluetooth.activity.BlueToothChatActivity" />
         <activity android:name=".wifi.wifitransfe.WifiTranserActivity" />
         <activity android:name=".wifi.wifitransfe.ChooseFileActivity" />
-        <activity android:name=".ui.GaoKaoSearchActivity"></activity>
+        <activity android:name=".ui.GaoKaoSearchActivity"/>
+        <activity android:name=".hongyang.VRActivity"/>
     </application>
 
 </manifest>

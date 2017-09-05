@@ -25,6 +25,7 @@ import library.lanshifu.com.myapplication.contentprovider.ProviderActivity;
 import library.lanshifu.com.myapplication.databinding.DataBindingDemoActivity;
 import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.guolin.cardstack.CardStackActivity;
+import library.lanshifu.com.myapplication.hongyang.VRActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
@@ -141,7 +142,7 @@ public class MainFragment extends BaseFragment {
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
-            , R.id.btn_bluetooth, R.id.btn_wifi})
+            , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -247,6 +248,9 @@ public class MainFragment extends BaseFragment {
                 break;
             case R.id.btn_wifi:
                 startActivity(new Intent(getContext(), ChooseFileActivity.class));
+                break;
+           case R.id.btn_vr:
+                startActivity(new Intent(getContext(), VRActivity.class));
                 break;
         }
 

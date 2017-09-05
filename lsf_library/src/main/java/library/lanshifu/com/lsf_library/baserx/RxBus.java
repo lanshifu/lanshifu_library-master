@@ -7,11 +7,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.subjects.PublishSubject;
-import rx.subjects.Subject;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
+
 
 /**
  * 用RxJava实现的EventBus
@@ -34,22 +35,6 @@ public class RxBus {
     @SuppressWarnings("rawtypes")
     private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<Object, List<Subject>>();
 
-    /**
-     * 订阅事件源
-     *
-     * @param mObservable
-     * @param mAction1
-     * @return
-     */
-    public RxBus OnEvent(Observable<?> mObservable, Action1<Object> mAction1) {
-        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(mAction1, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                throwable.printStackTrace();
-            }
-        });
-        return getInstance();
-    }
 
     /**
      * 注册事件源
@@ -64,7 +49,7 @@ public class RxBus {
             subjectList = new ArrayList<Subject>();
             subjectMapper.put(tag, subjectList);
         }
-        Subject<T, T> subject;
+        Subject<T> subject;
         subjectList.add(subject = PublishSubject.create());
         return subject;
     }

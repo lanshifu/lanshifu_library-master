@@ -22,11 +22,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by lWX385269 lanshifu on 2017/4/10.
@@ -148,12 +144,13 @@ public class RetrofitHelper {
 
     }
 
-    public <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
-        o.subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s);
-    }
+//    public <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
+//        o.subscribeOn(Schedulers.io())
+//                .compose(RxSchedulerHelper.<T>io_main())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(s);
+//    }
 
 
     /**

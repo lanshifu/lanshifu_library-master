@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.baserx.RxManager;
 import library.lanshifu.com.myapplication.R;
-import rx.functions.Action1;
 
 /**
  * Created by lWX385269 lanshifu on 2017/2/8.
@@ -44,9 +44,9 @@ public class WindowService extends Service {
         addWindowView();
         initClick();
         mRxManager = new RxManager();
-        mRxManager.on("packagename", new Action1<String>() {
+        mRxManager.on("packagename", new Consumer<String>() {
             @Override
-            public void call(String s) {
+            public void accept(String s) {
                 if (mPercenTv != null) {
                     mPercenTv.setText(s);
                 }

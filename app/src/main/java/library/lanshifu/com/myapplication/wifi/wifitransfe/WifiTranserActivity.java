@@ -22,6 +22,10 @@ import java.util.concurrent.Executors;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.Constant;
@@ -38,9 +42,6 @@ import library.lanshifu.com.myapplication.wifi.wifitransfe.micro_server.AndroidM
 import library.lanshifu.com.myapplication.wifi.wifitransfe.micro_server.DownloadResUriHandler;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.micro_server.ImageResUriHandler;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.micro_server.IndexResUriHandler;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
 
 public class WifiTranserActivity extends BaseToolBarActivity {
 
@@ -80,9 +81,11 @@ public class WifiTranserActivity extends BaseToolBarActivity {
             init();
         }
 
-        mRxManager.on("log", new Action1<String>() {
+        mRxManager.on("log", new Consumer<String>() {
+
+
             @Override
-            public void call(String s) {
+            public void accept(String s) {
                 showLog(s);
             }
         });
@@ -137,8 +140,8 @@ public class WifiTranserActivity extends BaseToolBarActivity {
                         new Thread(createServer()).start();
                         mIsInitialized = true;
                     } catch (Exception e) {
-                        mIsInitialized =false;
-                        showLog(">>>出错了..."+e.toString());
+                        mIsInitialized = false;
+                        showLog(">>>出错了..." + e.toString());
                     }
 
                 }
@@ -192,7 +195,7 @@ public class WifiTranserActivity extends BaseToolBarActivity {
                 try {
                     // 确保热点开启之后获取得到IP地址
                     hotspotIpAddr = WifiMgr.getInstance(WifiTranserActivity.this).getIpAddressFromHotspot();
-                    mRxManager.post("log", "hotspotIpAddr = "+hotspotIpAddr);
+                    mRxManager.post("log", "hotspotIpAddr = " + hotspotIpAddr);
                     int count = 0;
                     while (hotspotIpAddr.equals(Constant.DEFAULT_UNKOWN_IP) && count < Constant.DEFAULT_TRY_TIME) {
                         Thread.sleep(500);
@@ -277,13 +280,14 @@ public class WifiTranserActivity extends BaseToolBarActivity {
     }
 
     private void getConnectCount() {
-        Observable.create(new Observable.OnSubscribe<List<ClientScanResult>>() {
+        Observable.create(new ObservableOnSubscribe<List<ClientScanResult>>() {
             @Override
-            public void call(Subscriber<? super List<ClientScanResult>> subscriber) {
+            public void subscribe(ObservableEmitter<List<ClientScanResult>> subscriber) throws Exception {
                 List<ClientScanResult> clientScanResults = readFile();
                 subscriber.onNext(clientScanResults);
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
+
 
         }).compose(RxSchedulerHelper.<List<ClientScanResult>>io_main())
                 .subscribe(new MyObserver<List<ClientScanResult>>() {

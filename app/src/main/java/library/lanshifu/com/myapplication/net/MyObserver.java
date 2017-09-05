@@ -2,17 +2,15 @@ package library.lanshifu.com.myapplication.net;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import rx.Observer;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by lWX385269 lanshifu on 2017/4/13.
  */
 
 public abstract class MyObserver<T> implements Observer<T> {
-    @Override
-    public void onCompleted() {
 
-    }
 
     @Override
     public void onError(Throwable e) {
@@ -34,6 +32,15 @@ public abstract class MyObserver<T> implements Observer<T> {
         _onNext(t);
     }
 
+    @Override
+    public void onComplete() {
+
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
+    }
 
     public abstract void _onNext(T t);
 

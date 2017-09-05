@@ -17,9 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lanshifu.fileprovdider7.FileProvider7;
-import com.lzy.imagepicker.util.BitmapUtil;
-import com.tbruyelle.rxpermissions.Permission;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -28,6 +26,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
 import rx.functions.Action1;
@@ -60,10 +59,10 @@ public class FileProviderDemoActivity extends BaseToolBarActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_photo:
-                RxPermissions.getInstance(this).request("android.permission.CAMERA")
-                        .subscribe(new Action1<Boolean>() {
+                new RxPermissions(this).request("android.permission.CAMERA")
+                        .subscribe(new Consumer<Boolean>() {
                             @Override
-                            public void call(Boolean aBoolean) {
+                            public void accept(Boolean aBoolean) {
                                 takePhoto();
                             }
                         });

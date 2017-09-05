@@ -10,10 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.Constant;
@@ -21,7 +22,6 @@ import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.core.FileInfo;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.core.utils.WifiMgr;
 import library.lanshifu.com.myapplication.wifi.wifitransfe.framgent.FileInfoFragment;
-import rx.functions.Action1;
 
 /**
  * Created by 蓝师傅 on 2017/3/5.
@@ -45,7 +45,7 @@ public class ChooseFileActivity extends BaseToolBarActivity {
     /**
      * 获取文件的请求码
      */
-    public static final int  REQUEST_CODE_GET_FILE_INFOS = 200;
+    public static final int REQUEST_CODE_GET_FILE_INFOS = 200;
     private boolean mIsWebTransfer;
     private ShowSelectedFileInfoDialog mShowSelectedFileInfoDialog;
 
@@ -60,19 +60,18 @@ public class ChooseFileActivity extends BaseToolBarActivity {
 
         mIsWebTransfer = getIntent().getBooleanExtra(Constant.KEY_WEB_TRANSFER_FLAG, false);
 
-        RxPermissions.getInstance(this).request( Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_COARSE_LOCATION )
-                .subscribe(new Action1<Boolean>() {
+        new RxPermissions(this).request(Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void call(Boolean aBoolean) {
-                        if(aBoolean){
+                    public void accept(Boolean aBoolean) {
+                        if (aBoolean) {
                             initData();//初始化数据
-                        }else {
+                        } else {
                             T.showShort("没有权限");
                         }
                     }
                 });
-
 
 
     }
@@ -94,11 +93,12 @@ public class ChooseFileActivity extends BaseToolBarActivity {
         setSelectedViewStyle(false);
 
         mShowSelectedFileInfoDialog = new ShowSelectedFileInfoDialog(this);
-        mRxManager.on(FileInfo.TAG_SELETEDFILELISTCHANGED, new Action1<String>() {
+        mRxManager.on(FileInfo.TAG_SELETEDFILELISTCHANGED, new Consumer<Object>() {
             @Override
-            public void call(String s) {
+            public void accept(Object o) throws Exception {
                 update();
             }
+
         });
 
     }
@@ -106,11 +106,11 @@ public class ChooseFileActivity extends BaseToolBarActivity {
     /**
      * 更新选中文件列表的状态
      */
-    private void update(){
-        if(mApkInfoFragment != null) mApkInfoFragment.updateFileInfoAdapter();
-        if(mJpgInfoFragment != null) mJpgInfoFragment.updateFileInfoAdapter();
-        if(mMp3InfoFragment != null) mMp3InfoFragment.updateFileInfoAdapter();
-        if(mMp4InfoFragment != null) mMp4InfoFragment.updateFileInfoAdapter();
+    private void update() {
+        if (mApkInfoFragment != null) mApkInfoFragment.updateFileInfoAdapter();
+        if (mJpgInfoFragment != null) mJpgInfoFragment.updateFileInfoAdapter();
+        if (mMp3InfoFragment != null) mMp3InfoFragment.updateFileInfoAdapter();
+        if (mMp4InfoFragment != null) mMp4InfoFragment.updateFileInfoAdapter();
 
         //更新已选中Button
         getSelectedView();
@@ -119,14 +119,15 @@ public class ChooseFileActivity extends BaseToolBarActivity {
 
     /**
      * 设置选中View的样式
+     *
      * @param isEnable
      */
-    private void setSelectedViewStyle(boolean isEnable){
-        if(isEnable){
+    private void setSelectedViewStyle(boolean isEnable) {
+        if (isEnable) {
             btnSelected.setEnabled(true);
             btnSelected.setBackgroundResource(R.drawable.selector_bottom_text_common);
             btnSelected.setTextColor(getResources().getColor(R.color.colorPrimary));
-        }else{
+        } else {
             btnSelected.setEnabled(false);
             btnSelected.setBackgroundResource(R.drawable.shape_bottom_text_unenable);
             btnSelected.setTextColor(getResources().getColor(R.color.gray));
@@ -138,7 +139,6 @@ public class ChooseFileActivity extends BaseToolBarActivity {
     protected void initPresenter() {
 
     }
-
 
 
     /**
@@ -186,19 +186,19 @@ public class ChooseFileActivity extends BaseToolBarActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_selected:
-                if(mShowSelectedFileInfoDialog != null){
+                if (mShowSelectedFileInfoDialog != null) {
                     mShowSelectedFileInfoDialog.show();
                 }
 
                 break;
             case R.id.btn_next:
 
-                if(!AppContext.getAppContext().isFileInfoMapExist()){//不存在选中的文件
+                if (!AppContext.getAppContext().isFileInfoMapExist()) {//不存在选中的文件
                     T.showShort("请选择你要传输的文件！");
                     return;
                 }
 
-                startActivity(new Intent(this,WifiTranserActivity.class));
+                startActivity(new Intent(this, WifiTranserActivity.class));
 
         }
     }
@@ -206,15 +206,16 @@ public class ChooseFileActivity extends BaseToolBarActivity {
 
     /**
      * 获取选中文件的View
+     *
      * @return
      */
-    public View getSelectedView(){
+    public View getSelectedView() {
         //获取SelectedView的时候 触发选择文件
-        if(AppContext.getAppContext().getFileInfoMap() != null && AppContext.getAppContext().getFileInfoMap().size() > 0 ){
+        if (AppContext.getAppContext().getFileInfoMap() != null && AppContext.getAppContext().getFileInfoMap().size() > 0) {
             setSelectedViewStyle(true);
             int size = AppContext.getAppContext().getFileInfoMap().size();
-            btnSelected.setText("已选："+size);
-        }else{
+            btnSelected.setText("已选：" + size);
+        } else {
             setSelectedViewStyle(false);
             btnSelected.setText("已选（0）");
         }
@@ -223,7 +224,7 @@ public class ChooseFileActivity extends BaseToolBarActivity {
 
     @Override
     protected void onDestroy() {
-        if(mShowSelectedFileInfoDialog != null){
+        if (mShowSelectedFileInfoDialog != null) {
             mShowSelectedFileInfoDialog.rxDestory();
         }
         AppContext.getInstance().getReceiverFileInfoMap().clear();
@@ -237,7 +238,7 @@ public class ChooseFileActivity extends BaseToolBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode ==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             WifiMgr.getInstance(this).openWifi();
         }
     }

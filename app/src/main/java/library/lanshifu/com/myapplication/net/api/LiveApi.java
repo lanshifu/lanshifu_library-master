@@ -2,12 +2,12 @@ package library.lanshifu.com.myapplication.net.api;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import library.lanshifu.com.myapplication.model.LiveCategory;
 import library.lanshifu.com.myapplication.model.Recommend;
 import library.lanshifu.com.myapplication.model.Room;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by Administrator on 2017/8/19.

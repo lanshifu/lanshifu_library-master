@@ -1,16 +1,21 @@
 package library.lanshifu.com.myapplication.voice;
 
+import android.Manifest;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.CommonAdapter;
 import library.lanshifu.com.lsf_library.adapter.recyclerview.base.ViewHolder;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
+import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
 
 public class VoiceListActivity extends BaseToolBarActivity {
@@ -36,6 +41,7 @@ public class VoiceListActivity extends BaseToolBarActivity {
     @Override
     protected void onViewCreate() {
         setTBTitle("录音播放");
+        requestPermission();
 
         voiceManager = VoiceManager.getInstance(this);
         adapter = new CommonAdapter<Voice>(this, R.layout.item_voice_list, new ArrayList<Voice>()) {
@@ -75,6 +81,23 @@ public class VoiceListActivity extends BaseToolBarActivity {
 
     }
 
+
+    private void requestPermission(){
+        new RxPermissions(this).request(Manifest.permission.RECORD_AUDIO)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) {
+                        if(aBoolean){
+                            T.showShort("有权限");
+                        }else {
+
+                            T.showShort("权限拒绝");
+                        }
+
+                    }
+                });
+
+    }
 
 
 }
