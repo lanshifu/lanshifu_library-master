@@ -13,8 +13,8 @@ public class ClientScanResult {
 
     @Override
     public String toString() {
-        return "IpAddr='" + IpAddr + '\'' +
-                ", Device='" + Device + '\'' +
+        return "ip='" + IpAddr + '\'' +
+                ", mac='" + HWAddr + '\'' +
                 '}';
     }
 
