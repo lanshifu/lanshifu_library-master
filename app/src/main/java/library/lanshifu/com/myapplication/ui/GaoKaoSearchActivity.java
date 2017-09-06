@@ -3,6 +3,7 @@ package library.lanshifu.com.myapplication.ui;
 import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -40,8 +41,11 @@ public class GaoKaoSearchActivity extends BaseToolBarActivity {
 
     @Override
     protected void onViewCreate() {
+        setTBTitle("点击查询按钮");
         initData();
         webView.loadUrl("http://service.southcn.com/ksy-lqcx");
+
+
     }
 
     private void initData() {
@@ -103,6 +107,17 @@ public class GaoKaoSearchActivity extends BaseToolBarActivity {
        setTBTitle("正在查询");
 //        request();
         startSearch();
+
+        new Thread(){
+            @Override
+            public void run() {
+                Looper.prepare();
+                showShortToast("子线程更新UI");
+                setTBTitle("子线程更新ui");
+                Looper.loop();
+            }
+        }.start();
+
     }
 
 

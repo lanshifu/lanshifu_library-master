@@ -57,8 +57,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        //横屏 被覆盖 谷歌输入法
         iDrawerLayout.switchContentFragment(new HomeFragment());
+
     }
 
 

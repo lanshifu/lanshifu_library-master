@@ -3,6 +3,8 @@ package library.lanshifu.com.myapplication.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +86,7 @@ public class WechatItem implements Parcelable {
             this.list = list;
         }
 
-        public static class ListBean implements Parcelable {
+        public static class ListBean implements Parcelable,MultiItemEntity{
             /**
              * id : wechat_20170222006600
              * title : 不死的基因

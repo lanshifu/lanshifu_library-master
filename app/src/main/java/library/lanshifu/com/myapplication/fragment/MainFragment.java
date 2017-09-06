@@ -118,7 +118,6 @@ public class MainFragment extends BaseFragment {
                 .setOnPopMenuItemListener(new PopMenu.OnPopMenuItemClickListener() {
                     @Override
                     public void onItemClick(PopMenu popMenu, int position) {
-                        showShortToast("菜单" + position);
                         if (position == 0) {
                             startActivity(new Intent(getActivity(), FlowTagDemoActivity.class));
                         } else if (position == 1) {

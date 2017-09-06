@@ -1,6 +1,7 @@
 package library.lanshifu.com.lsf_library.base;
 
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
@@ -22,7 +23,7 @@ import library.lanshifu.com.lsf_library.utils.ViewIdGenerator;
  * Created by 蓝师傅 on 2016/12/30.
  */
 
-public  abstract class BaseToolBarActivity<P extends BasePresenter, M extends BaseModle> extends BaseActivity {
+public  abstract class BaseToolBarActivity extends BaseActivity {
 
     private Menu mTBMenu;
     private TextView mToolBarTitle;
@@ -30,7 +31,12 @@ public  abstract class BaseToolBarActivity<P extends BasePresenter, M extends Ba
     protected ImageView mIv_menu;
 
     @Override
-    public int getLayoutId() {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected int getLayoutId() {
         return  R.layout.base_activity;
     }
 

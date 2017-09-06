@@ -253,7 +253,7 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModle>
     /*********************
      * 子类实现
      *****************************/
-    public abstract int getLayoutId();
+    protected abstract int getLayoutId();
 
     protected  void initPresenter(){}
 

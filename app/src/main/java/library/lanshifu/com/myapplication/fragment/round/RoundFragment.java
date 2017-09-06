@@ -65,29 +65,6 @@ public class RoundFragment extends BaseFragment {
     public int mPageMark = 1;
     private NewListAdapter newListAdapter;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-
-        }
-    };
-
-    void request() {
-
-        new Thread() {
-            @Override
-            public void run() {
-                String result = "result";
-
-                Message message = Message.obtain();
-
-                handler.sendMessage(message);
-            }
-        }.start();
-
-
-    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.round_fragment;
@@ -121,13 +98,6 @@ public class RoundFragment extends BaseFragment {
 
     private void initList() {
 
-        final CommonAdapter<String> adapter = new CommonAdapter<String>(getActivity(), R.layout.list_item, new ArrayList<String>()) {
-            @Override
-            protected void convert(ViewHolder holder, String s, int position) {
-                holder.setText(R.id.title, s);
-
-            }
-        };
 
         newListAdapter = new NewListAdapter(getActivity(), new ArrayList<WechatItem.ResultBean.ListBean>());
 
