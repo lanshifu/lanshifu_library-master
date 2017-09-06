@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +28,6 @@ import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
-import rx.functions.Action1;
 
 public class FileProviderDemoActivity extends BaseToolBarActivity {
 

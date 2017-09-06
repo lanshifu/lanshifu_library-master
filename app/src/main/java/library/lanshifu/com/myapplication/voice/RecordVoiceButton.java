@@ -1,26 +1,16 @@
 package library.lanshifu.com.myapplication.voice;
 
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import io.reactivex.functions.Consumer;
-import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.R;
-import rx.functions.Action1;
 
 /**
  * 录音控件button
@@ -28,7 +18,7 @@ import rx.functions.Action1;
 public class RecordVoiceButton extends AppCompatButton implements View.OnClickListener {
 
     private Dialog recordIndicator;
-    private ImageView mVolumeIv,mIvPauseContinue,mIvComplete;
+    private ImageView mVolumeIv, mIvPauseContinue, mIvComplete;
     private VoiceLineView voicLine;
     private TextView mRecordHintTv;
     private Context mContext;
@@ -53,7 +43,7 @@ public class RecordVoiceButton extends AppCompatButton implements View.OnClickLi
     }
 
     private void init() {
-        voiceManager =VoiceManager.getInstance(mContext);
+        voiceManager = VoiceManager.getInstance(mContext);
         setOnClickListener(this);
     }
 
@@ -75,17 +65,17 @@ public class RecordVoiceButton extends AppCompatButton implements View.OnClickLi
         recordIndicator.setCanceledOnTouchOutside(false);
         recordIndicator.setCancelable(false);
         mVolumeIv = (ImageView) recordIndicator.findViewById(R.id.iv_voice);
-        voicLine= (VoiceLineView) recordIndicator.findViewById(R.id.voicLine);
+        voicLine = (VoiceLineView) recordIndicator.findViewById(R.id.voicLine);
         mRecordHintTv = (TextView) recordIndicator.findViewById(R.id.tv_length);
         mRecordHintTv.setText("00:00:00");
-        mIvPauseContinue= (ImageView) recordIndicator.findViewById(R.id.iv_continue_or_pause);
-        mIvComplete= (ImageView) recordIndicator.findViewById(R.id.iv_complete);
+        mIvPauseContinue = (ImageView) recordIndicator.findViewById(R.id.iv_continue_or_pause);
+        mIvComplete = (ImageView) recordIndicator.findViewById(R.id.iv_complete);
         recordIndicator.show();
         //暂停或继续
         mIvPauseContinue.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(voiceManager!=null){
+                if (voiceManager != null) {
                     voiceManager.pauseOrStartVoiceRecord();
                 }
             }
@@ -94,7 +84,7 @@ public class RecordVoiceButton extends AppCompatButton implements View.OnClickLi
         mIvComplete.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(voiceManager!=null){
+                if (voiceManager != null) {
                     voiceManager.stopVoiceRecord();
                 }
                 recordIndicator.dismiss();
@@ -141,7 +131,7 @@ public class RecordVoiceButton extends AppCompatButton implements View.OnClickLi
                 }
             }
         });
-        voiceManager.startVoiceRecord(Environment.getExternalStorageDirectory().getPath()+"/VoiceManager/audio");
+        voiceManager.startVoiceRecord(Environment.getExternalStorageDirectory().getPath() + "/VoiceManager/audio");
     }
 
     /**

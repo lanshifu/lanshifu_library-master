@@ -20,9 +20,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.functions.Func1;
 
 /**
  * Created by lWX385269 lanshifu on 2017/4/10.
@@ -77,7 +76,7 @@ public class RetrofitHelper {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -158,18 +157,18 @@ public class RetrofitHelper {
      *
      * @param <T> Subscriber真正需要的数据类型，也就是Data部分的数据类型
      */
-    public class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
-
-
-        @Override
-        public T call(HttpResult<T> httpResult) {
-            if (!httpResult.isSuccess()) {
-                throw new APIException(httpResult.code, httpResult.msg);
-            }
-            return httpResult.data;
-        }
-
-    }
+//    public class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
+//
+//
+//        @Override
+//        public T call(HttpResult<T> httpResult) {
+//            if (!httpResult.isSuccess()) {
+//                throw new APIException(httpResult.code, httpResult.msg);
+//            }
+//            return httpResult.data;
+//        }
+//
+//    }
 
     public static WeatherApi getWeatherService() {
         return createApi(WeatherApi.class, ApiConstant.BASE_URL_WEATHER);

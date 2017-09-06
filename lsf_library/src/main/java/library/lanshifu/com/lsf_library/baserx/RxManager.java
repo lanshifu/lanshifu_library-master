@@ -1,5 +1,7 @@
 package library.lanshifu.com.lsf_library.baserx;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,19 +32,17 @@ public class RxManager {
      * @param action1
      */
     public <T>void on(String eventName, Consumer<T> action1) {
-        Observable observable = mRxBus.register(eventName);
+        Observable<T> observable = mRxBus.register(eventName);
         mObservables.put(eventName, observable);
         /*订阅管理*/
-        Disposable disposable = observable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(action1);
+        Disposable disposable = observable.compose(RxSchedulers.<T>io_main())
+                .subscribe(action1, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e("rxManager", "rxManager on 报错: "+throwable.toString());
+                    }
+                });
 
-//        Observable subscribe = observable.observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(action1, new Observable<T>() {
-//                    @Override
-//                    protected void subscribeActual(Observer observer) {
-//
-//                    }
-//                });
         mCompositeSubscription.add(disposable);
     }
 
