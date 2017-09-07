@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_level_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:background="#ddd"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_level_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="二级列表"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:textColor="#038039"/>
+
+        <CheckBox
+            android:id="@+id/cb_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

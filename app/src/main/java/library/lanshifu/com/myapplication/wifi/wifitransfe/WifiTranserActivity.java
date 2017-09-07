@@ -28,6 +28,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.Constant;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.model.ClientScanResult;
@@ -99,7 +100,6 @@ public class WifiTranserActivity extends BaseToolBarActivity {
         intent.setData(Uri.parse("package:" + getPackageName()));
         startActivityForResult(intent, REQUEST_CODE_WRITE_SETTINGS);
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

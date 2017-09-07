@@ -34,7 +34,7 @@ public class NewListAdapter extends BaseMultiItemQuickAdapter<WechatItem.ResultB
 
     public NewListAdapter(Context context, List<WechatItem.ResultBean.ListBean> datas) {
         super(datas);
-
+        mContext = context;
 
         addItemType(0, R.layout.item_wechat_style2);
         addItemType(1, R.layout.item_wechat_style1);
