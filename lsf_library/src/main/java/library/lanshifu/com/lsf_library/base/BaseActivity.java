@@ -11,6 +11,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.components.RxActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
 import butterknife.ButterKnife;
 import library.lanshifu.com.lsf_library.R;
 import library.lanshifu.com.lsf_library.baseapp.AppManager;
@@ -63,7 +67,7 @@ import library.lanshifu.com.lsf_library.utils.TUtil;
 /**
  * Created by 蓝师傅 on 2016/12/24.
  */
-public abstract class BaseActivity<P extends BasePresenter, M extends BaseModle> extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenter, M extends BaseModle> extends RxAppCompatActivity{
 
 
     public P mPresenter;

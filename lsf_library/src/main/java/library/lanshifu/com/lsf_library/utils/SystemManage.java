@@ -18,8 +18,12 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Process;
+import android.os.RemoteException;
 import android.os.StatFs;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -27,6 +31,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.net.Inet4Address;
@@ -34,7 +39,9 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import library.lanshifu.com.lsf_library.baseapp.BaseApplication;
 
@@ -152,22 +159,115 @@ public final class SystemManage {
      */
     public static String[] getIMSI(Context context) {
         String[] imsi = new String[2];
-        try {
-            imsi[0] = getDeviceIdBySlot(context, "getSubscriberIdGemini", 0);
-            imsi[1] = getDeviceIdBySlot(context, "getSubscriberIdGemini", 1);
-        } catch (Exception e) {
-            try {
-                imsi[0] = getMTKDeviceIdBySlot(context, "getSubscriberId", 0);
-                imsi[1] = getMTKDeviceIdBySlot(context, "getSubscriberId", 1);
-            } catch (Exception e2) {
-                TelephonyManager telephonyManager = (TelephonyManager) context
-                        .getSystemService(Context.TELEPHONY_SERVICE);
-                imsi[0] = telephonyManager.getSubscriberId();
-            }
-        }
+        imsi[0] = getSimIMSI(context, 0);
+        imsi[1] = getSimIMSI(context, 1);
         return imsi;
+
     }
 
+    /**
+     * Android5.0系统才开始提供对双卡识别支持，提供SubscriptionManager类来完成对双卡相关设备信息的读取
+     * @param context
+     * @return
+     */
+    public static boolean hasTwoSimCard(Context context){
+        SubscriptionInfo sInfo = null;
+        final SubscriptionManager sManager = (SubscriptionManager) context.getSystemService(
+                Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+
+        List<SubscriptionInfo> list = new ArrayList<>();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+            list = sManager.getActiveSubscriptionInfoList();
+        }
+
+        return list.size() >1;
+    }
+
+    public static int getSubId(Context context,int which){
+
+        int subId = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            SubscriptionInfo sInfo = null;
+            final SubscriptionManager sManager = (SubscriptionManager) context.getSystemService(
+                    Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+
+            List<SubscriptionInfo> list = new ArrayList<>();
+            list = sManager.getActiveSubscriptionInfoList();
+            SubscriptionInfo subscriptionInfo = list.get(which);
+            subId = subscriptionInfo.getSubscriptionId();
+        }else {
+            // TODO: 2017/9/10  5.0之前 。。。
+        }
+
+        return subId;
+    }
+
+
+    public static String getSimIMSI(Context context, int simid) {
+
+        TelephonyManager telephonyManager = (TelephonyManager) context.
+                getSystemService(Context.TELEPHONY_SERVICE);
+
+        int[] subId = null;//SubscriptionManager.getSubId(simid);
+        Class<?> threadClazz = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+            threadClazz =SubscriptionManager.class;
+            try {
+                Method method = threadClazz.getDeclaredMethod("getSubId", int.class);
+                method.setAccessible(true);
+                subId = (int[]) method.invoke(null, simid);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.d(TAG, "getSimIMSI, simId = " + simid + " subId  = " + ((subId != null) ? subId[0] : "invalid!"));
+        int sub = -1;
+        if (Build.VERSION.SDK_INT >= 24) {
+            sub = (subId != null) ? subId[0] : SubscriptionManager.getDefaultSubscriptionId();
+        } else {
+            if (threadClazz != null) {
+                try {
+                    Method method = threadClazz.getDeclaredMethod("getDefaultSubId");
+                    method.setAccessible(true);
+                    sub = (subId != null) ? subId[0] : (Integer) method.invoke(null);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        String IMSI = null;
+        if (sub != -1) {
+            Class clazz = telephonyManager.getClass();
+            try {
+                Method method = clazz.getDeclaredMethod("getSubscriberId",int.class);
+                method.setAccessible(true);
+                IMSI = (String)method.invoke(telephonyManager,sub);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.d(TAG, "IMSI = " + IMSI);
+
+        if (!TextUtils.isEmpty(IMSI)) {
+            return IMSI;
+        }
+
+        return null;
+    }
     /**
      * 通过类型获取运营商名称
      *
@@ -533,12 +633,12 @@ public final class SystemManage {
         try {
             gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (IllegalArgumentException e) {
-            Log.w("SystemManage.isLocationServiceAvailable()", e.toString());
+            Log.w("SystemManage", e.toString());
         }
         try {
             netEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         } catch (IllegalArgumentException e) {
-            Log.w("SystemManage.isLocationServiceAvailable()", e.toString());
+            Log.w("SystemManage", e.toString());
         }
         return gpsEnabled || netEnabled;
     }

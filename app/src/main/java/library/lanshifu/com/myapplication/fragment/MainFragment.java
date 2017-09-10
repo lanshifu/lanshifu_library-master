@@ -1,20 +1,41 @@
 package library.lanshifu.com.myapplication.fragment;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
+import android.os.RemoteException;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.SmsManager;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseFragment;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenu;
 import library.lanshifu.com.lsf_library.commwidget.popmenu.PopMenuItem;
+import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.lsf_library.utils.SystemManage;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.DropDownDemoActivity;
 import library.lanshifu.com.myapplication.FlowTagDemoActivity;
@@ -28,6 +49,7 @@ import library.lanshifu.com.myapplication.guolin.cardstack.CardStackActivity;
 import library.lanshifu.com.myapplication.hongyang.VRActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
+import library.lanshifu.com.myapplication.shell.FileManagerActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
 import library.lanshifu.com.myapplication.surfaceview.SurfaceViewActivity;
 import library.lanshifu.com.myapplication.twolist.TwoListActivity;
@@ -61,6 +83,9 @@ public class MainFragment extends BaseFragment {
 
 
     private PopMenu popMenu;
+    private PendingIntent sentPI;
+    private Intent deliverIntent;
+    private PendingIntent deliverPI;
 
     @Override
     protected int getLayoutId() {
@@ -142,7 +167,7 @@ public class MainFragment extends BaseFragment {
             , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
-            , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend})
+            , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell, R.id.btn_sms})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -255,6 +280,26 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_expend:
                 startActivity(new Intent(getContext(), ExpendActivity.class));
                 break;
+            case R.id.btn_shell:
+                startActivity(new Intent(getContext(), FileManagerActivity.class));
+                break;
+            case R.id.btn_sms:
+                new RxPermissions(getActivity()).request("android.permission.SEND_SMS")
+                        .subscribe(new Consumer<Boolean>() {
+                            @Override
+                            public void accept(Boolean aBoolean) throws Exception {
+                                if(aBoolean){
+                                    showShortToast("发送短信");
+                                    sendSMS("10086","cxll");
+                                    chooseSim();
+//                                    doSendSMSTo("10086","cxll");
+                                }else {
+                                    showShortToast("没有权限");
+                                }
+                            }
+                        });
+
+                break;
         }
 
     }
@@ -294,4 +339,139 @@ public class MainFragment extends BaseFragment {
             }
         }
     }
+
+
+
+    /**
+     * 直接调用短信接口发短信
+     * @param phoneNumber
+     * @param message
+     */
+    public void sendSMS(final String phoneNumber, final String message){
+
+        //处理返回的发送状态
+        String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+        Intent sentIntent = new Intent(SENT_SMS_ACTION);
+        if (sentPI == null) {
+            sentPI = PendingIntent.getBroadcast(getActivity(), 0, sentIntent,
+                    0);
+            // register the Broadcast Receivers
+            getActivity().registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context _context, Intent _intent) {
+                    switch (getResultCode()) {
+                        case Activity.RESULT_OK:
+                            T.showShort("发送成功");
+                            break;
+                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                            break;
+                        case SmsManager.RESULT_ERROR_RADIO_OFF:
+                            break;
+                        case SmsManager.RESULT_ERROR_NULL_PDU:
+                            break;
+                    }
+                }
+            }, new IntentFilter(SENT_SMS_ACTION));
+        }
+
+        //处理返回的接收状态
+        String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+        // create the deilverIntent parameter
+        if (deliverIntent == null) {
+            deliverIntent = new Intent(DELIVERED_SMS_ACTION);
+            deliverPI = PendingIntent.getBroadcast(getActivity(), 0,
+                    deliverIntent, 0);
+            getActivity().registerReceiver(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context _context, Intent _intent) {
+                    Toast.makeText(getActivity(),
+                            "收信人已经成功接收", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }, new IntentFilter(DELIVERED_SMS_ACTION));
+        }
+
+        //获取短信管理器
+        //5.0 之前只能获取卡1
+         final SmsManager smsManager;
+        //5.0 后通过subid来获取SmsManager对象
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if(SystemManage.hasTwoSimCard(getActivity())){
+                //如果有两张卡
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("选择要发短信的卡")
+                        .setPositiveButton("卡1", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                 SmsManager sm = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(),0));
+                                sendMsgBySmsManager(sm,phoneNumber,message);
+                            }
+                        })
+                        .setNegativeButton("卡2", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SmsManager sm = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(),1));
+                                sendMsgBySmsManager(sm,phoneNumber,message);
+                            }
+                        }).show();
+                return;
+
+            }else{
+                //默认卡1
+                smsManager = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(),0));
+            }
+        }else {
+            smsManager = SmsManager.getDefault();
+        }
+        sendMsgBySmsManager(smsManager,phoneNumber,message);
+    }
+
+    public void sendMsgBySmsManager(SmsManager smsManager,String phoneNumber,String message){
+        List<String> divideContents = smsManager.divideMessage(message);
+        for (String text : divideContents) {
+            smsManager.sendTextMessage(phoneNumber, null, text, sentPI, deliverPI);
+        }
+    }
+
+
+
+    public void chooseSim(){
+
+        new RxPermissions(getActivity()).request("android.permission.READ_PHONE_STATE")
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean){
+                            String[] imsi = SystemManage.getIMSI(getActivity());
+                            String phoneNum = SystemManage.getPhoneNum(getActivity());
+                            for (String s : imsi) {
+                                L.e("imsi:"+s);
+                            }
+                            L.e("phoneNum:"+phoneNum);
+
+
+                        }else {
+                            L.e("没有权限");
+                        }
+                    }
+                });
+
+    }
+
+
+    /**
+     * 调起系统发短信功能
+     * @param phoneNumber
+     * @param message
+     */
+    public void doSendSMSTo(String phoneNumber,String message){
+        if(PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber)){
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+            intent.putExtra("sms_body", message);
+            startActivity(intent);
+        }
+    }
+
+
+
 }

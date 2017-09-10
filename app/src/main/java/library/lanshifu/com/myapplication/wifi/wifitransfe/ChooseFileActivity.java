@@ -1,12 +1,17 @@
 package library.lanshifu.com.myapplication.wifi.wifitransfe;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
@@ -60,6 +65,13 @@ public class ChooseFileActivity extends BaseToolBarActivity {
 
         mIsWebTransfer = getIntent().getBooleanExtra(Constant.KEY_WEB_TRANSFER_FLAG, false);
 
+
+        checkPermission();
+    }
+
+
+
+    private void checkPermission() {
         new RxPermissions(this).request(Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(new Consumer<Boolean>() {
@@ -68,12 +80,18 @@ public class ChooseFileActivity extends BaseToolBarActivity {
                         if (aBoolean) {
                             initData();//初始化数据
                         } else {
-                            T.showShort("没有权限");
+                            new AlertDialog.Builder(ChooseFileActivity.this)
+                                    .setTitle("权限")
+                                    .setMessage("有些必要的权限没有授予，需要手动授权")
+                                    .setPositiveButton("go", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            getAppDetailSettingIntent(ChooseFileActivity.this);
+                                        }
+                                    }).show();
                         }
                     }
                 });
-
-
     }
 
     private void initData() {
@@ -116,6 +134,13 @@ public class ChooseFileActivity extends BaseToolBarActivity {
         getSelectedView();
     }
 
+    private void getAppDetailSettingIntent(Context context) {
+        Intent localIntent = new Intent();
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        localIntent.setData(Uri.fromParts("package", getPackageName(), null));
+        startActivityForResult(localIntent,200);
+    }
 
     /**
      * 设置选中View的样式
@@ -240,6 +265,10 @@ public class ChooseFileActivity extends BaseToolBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             WifiMgr.getInstance(this).openWifi();
+
+            if(requestCode == 200){
+                checkPermission();
+            }
         }
     }
 }

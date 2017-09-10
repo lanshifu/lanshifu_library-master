@@ -1,1 +1,1 @@
-include ':app', ':lsf_library',':imagepicker',':fileprovdider7',':luban'
+include ':app', ':lsf_library',':imagepicker',':fileprovdider7',':luban',':shell_library'

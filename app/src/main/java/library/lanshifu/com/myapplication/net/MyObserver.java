@@ -13,6 +13,7 @@ import io.reactivex.functions.Consumer;
 public abstract class MyObserver<T> implements Observer<T> {
 
 
+    private Disposable disposable;
     @Override
     public void onError(Throwable e) {
         String msg = e.getMessage();
@@ -22,8 +23,6 @@ public abstract class MyObserver<T> implements Observer<T> {
         } else if (e instanceof SocketTimeoutException) {
             // 超时
             msg = "请求超时";
-        }else{
-            msg = "请求失败，请稍后重试...";
         }
         _onError(msg);
     }
@@ -40,12 +39,17 @@ public abstract class MyObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-
+        disposable = d;
     }
 
     public abstract void _onNext(T t);
 
     public abstract void _onError(String e);
 
+    public void dispose(){
+        if (disposable !=null){
+            disposable.dispose();
+        }
+    }
 
 }

@@ -13,6 +13,7 @@ import library.lanshifu.com.lsf_library.base.BaseActivity;
 import library.lanshifu.com.lsf_library.commwidget.IDrawerLayout;
 import library.lanshifu.com.myapplication.bluetooth.BluetoothChatHelper;
 import library.lanshifu.com.myapplication.fragment.HomeFragment;
+import library.lanshifu.com.myapplication.model.UserInfo;
 
 public class MainActivity extends BaseActivity {
 
@@ -59,8 +60,15 @@ public class MainActivity extends BaseActivity {
 
         iDrawerLayout.switchContentFragment(new HomeFragment());
 
+//        initUserInfo();
+
     }
 
+    private void initUserInfo() {
+        UserInfo userInfo = new UserInfo("this is id","lanshifu","this is token");
+        boolean save = userInfo.save();
+        showShortToast("插入用户信息"+save);
+    }
 
 
     private String doSomeThing() {

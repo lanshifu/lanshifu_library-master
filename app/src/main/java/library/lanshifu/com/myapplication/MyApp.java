@@ -13,8 +13,10 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
+import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
 
+import library.lanshifu.com.lsf_library.baseapp.BaseApplication;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 
@@ -22,7 +24,7 @@ import library.lanshifu.com.lsf_library.utils.T;
  * Created by Administrator on 2017/7/15.
  */
 
-public class MyApp extends LitePalApplication {
+public class MyApp extends BaseApplication {
 
     private static MyApp instance;
     protected static Context context;
@@ -62,6 +64,7 @@ public class MyApp extends LitePalApplication {
 
         });
 
+        LitePal.initialize(this);
 
     }
 

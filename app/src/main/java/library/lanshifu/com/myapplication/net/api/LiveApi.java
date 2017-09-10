@@ -6,6 +6,8 @@ import io.reactivex.Observable;
 import library.lanshifu.com.myapplication.model.LiveCategory;
 import library.lanshifu.com.myapplication.model.Recommend;
 import library.lanshifu.com.myapplication.model.Room;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -38,5 +40,9 @@ public interface LiveApi {
      */
     @GET("json/rooms/{uid}/info.json?v=3.0.1&os=1&ver=4")
     Observable<Room> enterRoom(@Path("uid")String uid);
+
+    @FormUrlEncoded
+    Observable post(
+            @Field("body") String body);
 
 }
