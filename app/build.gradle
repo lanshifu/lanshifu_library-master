@@ -118,6 +118,12 @@ dependencies {
     compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.5'
     //谷歌vr
     compile 'com.google.vr:sdk-panowidget:1.80.0'
+    //加载框 https://github.com/ybq/Android-SpinKit
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    //权限 https://github.com/jokermonn/permissions4m
+    compile 'com.github.jokermonn:permissions4m:2.1.0-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.0-processor'
+
 }
 
 

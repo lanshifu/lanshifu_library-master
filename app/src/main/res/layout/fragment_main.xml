@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="短信查流量" />
-      <Button
+
+        <Button
             android:id="@+id/btn_single"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -160,11 +161,19 @@
             android:layout_height="wrap_content"
             android:text="三级checkbox"
             android:textAllCaps="false" />
-     <Button
+
+        <Button
             android:id="@+id/btn_shell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="shell"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="loading"
             android:textAllCaps="false" />
 
     </com.google.android.flexbox.FlexboxLayout>

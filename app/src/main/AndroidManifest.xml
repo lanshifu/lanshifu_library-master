@@ -119,6 +119,7 @@
         <activity android:name=".ui.ExpendActivity" />
         <activity android:name=".shell.FileManagerActivity" />
         <activity android:name=".shell.ShellActivity" />
+        <activity android:name=".ui.LoadingActivity" />
     </application>
 
 </manifest>
