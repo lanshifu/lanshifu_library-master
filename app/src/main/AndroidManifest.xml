@@ -120,6 +120,7 @@
         <activity android:name=".shell.FileManagerActivity" />
         <activity android:name=".shell.ShellActivity" />
         <activity android:name=".ui.LoadingActivity" />
+        <activity android:name=".ui.GuideActivity" />
     </application>
 
 </manifest>

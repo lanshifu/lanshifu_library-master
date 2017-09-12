@@ -123,6 +123,8 @@ dependencies {
     //权限 https://github.com/jokermonn/permissions4m
     compile 'com.github.jokermonn:permissions4m:2.1.0-lib'
     annotationProcessor 'com.github.jokermonn:permissions4m:2.1.0-processor'
+    // 引导层  https://github.com/huburt-Hu/NewbieGuide
+    compile 'com.github.huburt-Hu:NewbieGuide:v1.0.3'
 
 }
 
