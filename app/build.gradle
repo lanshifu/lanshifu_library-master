@@ -126,6 +126,10 @@ dependencies {
     // 引导层  https://github.com/huburt-Hu/NewbieGuide
     compile 'com.github.huburt-Hu:NewbieGuide:v1.0.3'
 
+    //jsoup
+    compile 'org.jsoup:jsoup:1.10.1'
+
+
 }
 
 

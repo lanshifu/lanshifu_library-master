@@ -18,4 +18,6 @@ public class ApiConstant {
     public static final String LIVE_URL = "http://www.quanmin.tv/";
     public static final String GAOKAO_URL = "http://service.southcn.com/";
 
+    public static final String JSOUP_URL = "http://www.apkbus.com/";
+
 }

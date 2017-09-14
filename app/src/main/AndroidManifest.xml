@@ -121,6 +121,7 @@
         <activity android:name=".shell.ShellActivity" />
         <activity android:name=".ui.LoadingActivity" />
         <activity android:name=".ui.GuideActivity" />
+        <activity android:name=".ui.JsoupActivity" />
     </application>
 
 </manifest>

@@ -56,6 +56,7 @@ import library.lanshifu.com.myapplication.twolist.TwoListActivity;
 import library.lanshifu.com.myapplication.ui.ExpendActivity;
 import library.lanshifu.com.myapplication.ui.GaoKaoSearchActivity;
 import library.lanshifu.com.myapplication.ui.GuideActivity;
+import library.lanshifu.com.myapplication.ui.JsoupActivity;
 import library.lanshifu.com.myapplication.ui.LoadingActivity;
 import library.lanshifu.com.myapplication.ui.SmileFaceActivity;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
@@ -170,7 +171,7 @@ public class MainFragment extends BaseFragment {
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
-            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide})
+            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -291,6 +292,9 @@ public class MainFragment extends BaseFragment {
                 break;
            case R.id.btn_guide:
                 startActivity(new Intent(getContext(), GuideActivity.class));
+                break;
+            case R.id.btn_jsoup:
+                startActivity(new Intent(getContext(), JsoupActivity.class));
                 break;
             case R.id.btn_sms:
                 new RxPermissions(getActivity()).request("android.permission.SEND_SMS")

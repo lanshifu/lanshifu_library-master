@@ -9,6 +9,7 @@ import library.lanshifu.com.myapplication.MyApp;
 import library.lanshifu.com.myapplication.net.api.APIException;
 import library.lanshifu.com.myapplication.net.api.ApiConstant;
 import library.lanshifu.com.myapplication.net.api.GaoKaoAPI;
+import library.lanshifu.com.myapplication.net.api.JsoupApi;
 import library.lanshifu.com.myapplication.net.api.LiveApi;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
 import library.lanshifu.com.myapplication.net.api.WechatApi;
@@ -186,6 +187,9 @@ public class RetrofitHelper {
 
     public static GaoKaoAPI getGaokaoApi() {
         return createApi(GaoKaoAPI.class, ApiConstant.GAOKAO_URL);
+    }
+    public static JsoupApi getJsoupApi() {
+        return createApi(JsoupApi.class, ApiConstant.JSOUP_URL);
     }
 
 }
