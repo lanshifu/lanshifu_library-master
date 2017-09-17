@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff171c20"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10.0dip" >
+
+        <TextView
+            android:id="@+id/main_open_protect_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="4.0dip"
+            android:text="@string/enable_protection"
+            android:textColor="#ffff5926"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_open_protect_head"
+            android:layout_marginRight="80dp"
+            android:gravity="bottom|left|center"
+            android:text="@string/protection_tips"
+            android:textColor="#ffffffff"
+            android:textSize="14.0dip" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="12.0dip"
+            android:layout_marginRight="4.0dip"
+            android:layout_marginTop="12.0dip"
+            android:padding="1.0dip" >
+
+            <CheckBox
+                android:id="@+id/cb_open_close_protect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/on_off_checkbox"
+                android:button="@null"
+                android:checked="true"
+                android:clickable="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff171c20"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10.0dip" >
+
+        <TextView
+            android:id="@+id/main_arp_way_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="4.0dip"
+            android:text="@string/arp_deception"
+            android:textColor="#ffff5926"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_arp_way_head"
+            android:layout_marginRight="50dp"
+            android:gravity="bottom|left|center"
+            android:text="@string/arp_deception_tips"
+            android:textColor="#ffffffff"
+            android:textSize="14.0dip" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="12.0dip"
+            android:layout_marginRight="4.0dip"
+            android:layout_marginTop="12.0dip"
+            android:padding="1.0dip" >
+
+            <Button
+                android:id="@+id/btn_arp_cheat_way"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_settings"
+                android:clickable="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff171c20"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10.0dip" >
+
+        <TextView
+            android:id="@+id/main_http_server_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="4.0dip"
+            android:text="HttpServer"
+            android:textColor="#ffff5926"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_http_server_head"
+            android:layout_marginRight="50dp"
+            android:gravity="bottom|left|center"
+            android:text="@string/http_server_tips"
+            android:textColor="#ffffffff"
+            android:textSize="14.0dip" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="12.0dip"
+            android:layout_marginRight="4.0dip"
+            android:layout_marginTop="12.0dip"
+            android:padding="1.0dip" >
+
+            <Button
+                android:id="@+id/btn_http_server"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_settings"
+                android:clickable="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <RelativeLayout
+        android:id="@+id/rl_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff171c20"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10.0dip" >
+
+        <TextView
+            android:id="@+id/main_hijack_history_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="4.0dip"
+            android:text="@string/hijack_history"
+            android:textColor="#ffff5926"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_hijack_history_head"
+            android:layout_marginRight="50dp"
+            android:gravity="bottom|left|center"
+            android:text="@string/hijact_history_tips"
+            android:textColor="#ffffffff"
+            android:textSize="14.0dip" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/bt_scanf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5.0dip"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:gravity="center"
+            android:padding="14.0dip"
+            android:text="@string/scan"
+            android:textColor="#ffffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -71,6 +71,11 @@ public class Shell {
     return run(shell, commands, null);
   }
 
+  @WorkerThread
+  public static CommandResult cmd( @NonNull String... commands) {
+    return run("sh", commands, null);
+  }
+
   /**
    * <p>Runs commands using the supplied shell, and returns the result.</p>
    *

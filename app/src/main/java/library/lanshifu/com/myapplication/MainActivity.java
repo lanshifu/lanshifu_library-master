@@ -130,8 +130,7 @@ public class MainActivity extends BaseActivity {
     public void exit() {
         long secondTime = System.currentTimeMillis();
         if (secondTime - firstTime  > 1200) {//如果两次按键时间间隔大于1秒，则不退出
-            Toast.makeText(this, "再按一次退出程序",
-                    Toast.LENGTH_SHORT).show();
+            showErrorToast("再按一次退出程序");
             firstTime = secondTime;//更新firstTime
         } else {
             this.finish();

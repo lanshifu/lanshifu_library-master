@@ -30,6 +30,11 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.UPDATE_APP_OPS_STATS" />
+
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
         android:name=".MyApp"
@@ -122,6 +127,18 @@
         <activity android:name=".ui.LoadingActivity" />
         <activity android:name=".ui.GuideActivity" />
         <activity android:name=".ui.JsoupActivity" />
+        <activity android:name=".network_into.activity.NetWorkMainActivity" />
+        <activity android:name=".network_into.activity.NetworkScanfActivity" />
+        <activity android:name=".network_into.activity.NetworkFunctionActivity" />
+        <activity android:name=".network_into.activity.TinyServiceActivity" />
+
+        <receiver android:name=".network_into.receiver.NetworkReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".network_into.service.HttpService"/>
     </application>
 
 </manifest>

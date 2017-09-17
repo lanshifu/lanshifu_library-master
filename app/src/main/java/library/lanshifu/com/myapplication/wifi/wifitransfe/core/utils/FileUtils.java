@@ -196,7 +196,7 @@ public class FileUtils {
     public static String getRootDirPath(){
         String path = DEFAULT_ROOT_PATH;
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-            path = Environment.getExternalStorageDirectory() + "/kuaichuan/";
+            path = Environment.getExternalStorageDirectory() + "/lanshifu/";
         }
         return path;
     }

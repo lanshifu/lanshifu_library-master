@@ -3,16 +3,15 @@ package library.lanshifu.com.lsf_library.base;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.components.RxActivity;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -23,6 +22,7 @@ import library.lanshifu.com.lsf_library.basemvp.BasePresenter;
 import library.lanshifu.com.lsf_library.baserx.RxManager;
 import library.lanshifu.com.lsf_library.commwidget.LoadingDialog;
 import library.lanshifu.com.lsf_library.commwidget.StatusBarCompat;
+import library.lanshifu.com.lsf_library.commwidget.toast.TopToast;
 import library.lanshifu.com.lsf_library.daynightmodeutils.ChangeModeController;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
@@ -226,7 +226,22 @@ public abstract class BaseActivity<P extends BasePresenter, M extends BaseModle>
      * 短暂显示Toast提示(来自String)
      **/
     public void showShortToast(String text) {
-        T.showShort(text);
+//        T.showShort(text);
+        TopToast.with(this)
+                .setMessage(text,R.color.black)
+                .setDuration(2000)
+                .setIcon(R.drawable.ic_success,R.color.green)
+                .setBackgroundColor(R.color.white)
+                .show();
+    }
+
+    public void showErrorToast(String text){
+        TopToast.with(this)
+                .setMessage(text)
+                .setIcon(R.drawable.ic_error)
+                .setDuration(3000)
+                .setBackgroundColor(R.color.red)
+                .show();
     }
 
     /**

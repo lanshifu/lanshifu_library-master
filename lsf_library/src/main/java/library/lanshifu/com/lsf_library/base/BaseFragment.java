@@ -1,6 +1,7 @@
 package library.lanshifu.com.lsf_library.base;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import library.lanshifu.com.lsf_library.R;
 import library.lanshifu.com.lsf_library.basemvp.BaseModle;
 import library.lanshifu.com.lsf_library.basemvp.BasePresenter;
 import library.lanshifu.com.lsf_library.baserx.RxManager;
 import library.lanshifu.com.lsf_library.commwidget.LoadingDialog;
+import library.lanshifu.com.lsf_library.commwidget.toast.TopToast;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.lsf_library.utils.TUtil;
@@ -101,7 +104,22 @@ public abstract class BaseFragment<P extends BasePresenter, M extends BaseModle>
     }
 
     protected void showShortToast(String text){
-        T.showShort(text);
+//        T.showShort(text);
+        TopToast.with(getActivity())
+                .setMessage(text,R.color.black)
+                .setDuration(2000)
+                .setIcon(R.drawable.ic_warning,R.color.orange)
+                .setBackgroundColor(R.color.white)
+                .show();
+    }
+
+    public void showErrorToast(String text){
+        TopToast.with(getActivity())
+                .setMessage(text)
+                .setIcon(R.drawable.ic_error)
+                .setDuration(3000)
+                .setBackgroundColor(R.color.red)
+                .show();
     }
 
     protected void loge(String text){

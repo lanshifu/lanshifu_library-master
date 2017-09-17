@@ -9,14 +9,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
-import android.os.RemoteException;
 import android.provider.Settings;
+import android.provider.Telephony;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
-import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,8 +21,6 @@ import android.widget.Toast;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import butterknife.Bind;
@@ -48,6 +43,7 @@ import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.guolin.cardstack.CardStackActivity;
 import library.lanshifu.com.myapplication.hongyang.VRActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
+import library.lanshifu.com.myapplication.network_into.activity.NetWorkMainActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.shell.FileManagerActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
@@ -59,6 +55,7 @@ import library.lanshifu.com.myapplication.ui.GuideActivity;
 import library.lanshifu.com.myapplication.ui.JsoupActivity;
 import library.lanshifu.com.myapplication.ui.LoadingActivity;
 import library.lanshifu.com.myapplication.ui.SmileFaceActivity;
+import library.lanshifu.com.myapplication.utils.SmsWriteOpUtil;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
 import library.lanshifu.com.myapplication.viewpager.TabActivity;
 import library.lanshifu.com.myapplication.viewpager.ViewPagerDemoActivity;
@@ -159,6 +156,8 @@ public class MainFragment extends BaseFragment {
                             startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
                         } else if (position == 5) {
                             startActivity(new Intent(getActivity(), GaoKaoSearchActivity.class));
+                        }else {
+                            showErrorToast("点击了+"+position);
                         }
                     }
                 })
@@ -171,7 +170,7 @@ public class MainFragment extends BaseFragment {
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
-            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup})
+            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -183,10 +182,9 @@ public class MainFragment extends BaseFragment {
                         .setSingleChoiceItems(str, 0, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                T.showShort("点击了" + which);
+                                showShortToast("点击了" + which);
                                 dialog.dismiss();
-                                int i = 8 / 0;
-                                int j = i;
+
                             }
                         })
                         .show();
@@ -200,7 +198,7 @@ public class MainFragment extends BaseFragment {
                         .setMultiChoiceItems(str2, select, new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                T.showShort("点击了" + which + "，isChecked=" + isChecked);
+                                showShortToast("点击了" + which + "，isChecked=" + isChecked);
                             }
                         })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -219,6 +217,7 @@ public class MainFragment extends BaseFragment {
                 //打开辅助功能
 //                startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
                 requestAlertWindowPermission();
+
                 break;
             case R.id.toolbar:
                 startActivity(new Intent(getContext(), ToolBarDemoActivity.class));
@@ -303,7 +302,7 @@ public class MainFragment extends BaseFragment {
                             public void accept(Boolean aBoolean) throws Exception {
                                 if(aBoolean){
                                     showShortToast("发送短信");
-                                    sendSMS("10086","cxll");
+                                    requestPermmission();
                                     chooseSim();
 //                                    doSendSMSTo("10086","cxll");
                                 }else {
@@ -312,6 +311,10 @@ public class MainFragment extends BaseFragment {
                             }
                         });
 
+                break;
+
+            case R.id.btn_network_tool:
+                startActivity(new Intent(getContext(), NetWorkMainActivity.class));
                 break;
         }
 
@@ -457,12 +460,12 @@ public class MainFragment extends BaseFragment {
                         if (aBoolean){
                             String[] imsi = SystemManage.getIMSI(getActivity());
                             String phoneNum = SystemManage.getPhoneNum(getActivity());
-                            for (String s : imsi) {
-                                L.e("imsi:"+s);
-                            }
-                            L.e("phoneNum:"+phoneNum);
 
-
+                            sendSMS("10086","cxll");
+                                if(!SmsWriteOpUtil.isWriteEnabled(getActivity())){
+                                    boolean writeEnabled = SmsWriteOpUtil.setWriteEnabled(getActivity(), true);
+                                    loge("writeEnabled = "+writeEnabled);
+                                }
                         }else {
                             L.e("没有权限");
                         }
@@ -473,7 +476,7 @@ public class MainFragment extends BaseFragment {
 
 
     /**
-     * 调起系统发短信功能
+     *
      * @param phoneNumber
      * @param message
      */
@@ -485,6 +488,22 @@ public class MainFragment extends BaseFragment {
         }
     }
 
+    private void requestPermmission(){
+//        ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.Settings");
+//        Intent intent = new Intent();
+//        intent.setComponent(cn);
+//        intent.putExtra(":android:show_fragment", "com.android.settings.applications.AppOpsSummary");
+//        startActivity(intent);
 
+        //选择默认短信
+        Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+        intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, getActivity().getPackageName());
+        startActivity(intent);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
 }
