@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -50,15 +52,19 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
     private static final String TAG = "NetworkScanfActivity";
     @Bind(R.id.recyclerView)
     CommRecyclerView recyclerView;
+    @Bind(R.id.tv_router)
+    TextView tvRouter;
+    @Bind(R.id.tv_my)
+    TextView tvMy;
     private BaseQuickAdapter adapter;
     private NetworkInterface networkInterface;
-    private boolean stop  =true;
+    private boolean stop = true;
 
-    private static final byte[] NETBIOS_REQUEST = { (byte) 0x82, (byte) 0x28, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x1, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x0,
+    private static final byte[] NETBIOS_REQUEST = {(byte) 0x82, (byte) 0x28, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x1, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x0,
             (byte) 0x0, (byte) 0x0, (byte) 0x20, (byte) 0x43, (byte) 0x4B, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41,
             (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41,
             (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x0,
-            (byte) 0x0, (byte) 0x21, (byte) 0x0, (byte) 0x1 };
+            (byte) 0x0, (byte) 0x21, (byte) 0x0, (byte) 0x1};
 
     private static final short NETBIOS_UDP_PORT = 137;
 
@@ -69,7 +75,7 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
     private static final int DATASET_CHANGED = 1;
     private static final int DATASET_HOST_ALIAS_CHANGED = 2;
     private static final int FINISH_REFRESH = 3;
-    Handler mHandler = new Handler(){
+    Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == DATASET_CHANGED) {
@@ -81,7 +87,7 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
                 HostBean host = (HostBean) adapter.getData().get(i);
                 host.setAlias((String) msg.obj);
                 adapter.notifyDataSetChanged();
-            }else if(msg.what == FINISH_REFRESH){
+            } else if (msg.what == FINISH_REFRESH) {
                 recyclerView.finishRefresh();
             }
         }
@@ -98,15 +104,12 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
     protected void onViewCreate() {
         setTBTitle("网络中的主机");
 
-        if (!NetworkUtils.isWifiConnected()){
+        if (!NetworkUtils.isWifiConnected()) {
             showErrorToast("wifi 没有连接");
             return;
         }
 
-
         initRecyclerView();
-
-
 
         try {
             networkInterface = NetworkInterface.getByInetAddress(NetworkHelper.getInetAddress());
@@ -119,30 +122,33 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
 
         HostBean gateWay = new HostBean(NetworkHelper.getGatewayMac(), NetworkHelper.getGateway(),
                 NetworkUtils.vendorFromMac(NetworkUtils.stringMacToByte(NetworkHelper
-                .getGatewayMac())), wifiInfo.getSSID().replace("\"", ""));
+                        .getGatewayMac())), wifiInfo.getSSID().replace("\"", ""));
         HostBean myself = new HostBean(wifiManager.getConnectionInfo().getMacAddress(), NetworkHelper.getIp(),
-                NetworkUtils.vendorFromMac(NetworkUtils.stringMacToByte(wifiInfo.getMacAddress())), android.os.Build.MODEL);
-        adapter.addData(gateWay);
-        adapter.addData(myself);
+                NetworkUtils.vendorFromMac(NetworkUtils.stringMacToByte(wifiInfo.getMacAddress())), Build.MODEL);
+//        adapter.addData(gateWay);
+//        adapter.addData(myself);
+        tvRouter.setText("路由器信息："+gateWay.getIp() +"-"+gateWay.getMac());
+        tvMy.setText("我的设备："+myself.getIp() +"-"+myself.getMac());
 
     }
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BaseQuickAdapter<HostBean,BaseViewHolder>(R.layout.host_list_item,new ArrayList<HostBean>()) {
+        adapter = new BaseQuickAdapter<HostBean, BaseViewHolder>(R.layout.host_list_item, new ArrayList<HostBean>()) {
             @Override
             protected void convert(BaseViewHolder holder, final HostBean host) {
                 String alias = host.getAlias();
-                holder.setText(R.id.host_ip,alias != null && !alias.isEmpty() ? alias : host.getIp());
+                holder.setText(R.id.host_ip, alias != null && !alias.isEmpty() ? alias : host.getIp());
                 holder.setText(R.id.host_mac, host.getMac());
                 holder.setText(R.id.host_vendor, host.getVendor());
                 holder.getView(R.id.rl_root).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // 功能
-                        Intent intent = new Intent(NetworkScanfActivity.this,NetworkFunctionActivity.class);
+                        Intent intent = new Intent(NetworkScanfActivity.this, NetworkFunctionActivity.class);
                         intent.putExtra("host", (Serializable) host);
                         startActivity(intent);
+                        NetworkHelper.setTarget(host);
                     }
                 });
 
@@ -154,7 +160,7 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
         recyclerView.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-//                adapter.replaceData(new ArrayList());
+                adapter.replaceData(new ArrayList());
                 startDiscovery();
             }
         });
@@ -181,11 +187,9 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
     }
 
     /**
-     *
      * 多线程按照IP地址递增扫描 使用线程池 固定大小10
      *
      * @author oinux
-     *
      */
     class DiscoveryThread extends Thread {
 
@@ -204,7 +208,7 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
                     next_int_ip = NetworkHelper.getIntNetMask() & NetworkHelper.getIntGateway();
                     for (int i = 0; i < NetworkHelper.getHostCount() && !stop; i++) {
                         next_int_ip = NetworkUtils.nextIntIp(next_int_ip);
-                        Log.e(TAG, "DiscoveryThread next_int_ip: "+next_int_ip );
+                        Log.e(TAG, "DiscoveryThread next_int_ip: " + next_int_ip);
                         if (next_int_ip != -1) {
                             String ip = NetworkUtils.netfromInt(next_int_ip);
                             try {
@@ -230,11 +234,9 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
     }
 
     /**
-     *
      * 发送NETBIOS数据包
      *
      * @author oinux
-     *
      */
     class UDPThread extends Thread {
 
@@ -265,8 +267,8 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
 
     /**
      * 读取arp缓存文件
-     * @author oinux
      *
+     * @author oinux
      */
     class ArpReadThread extends Thread {
 
@@ -394,7 +396,6 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
     }
 
 
-
     private void stopDiscovery() {
         stop = true;
         if (arpReader != null && arpReader.isAlive()) {
@@ -406,7 +407,6 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
             discoveryThread = null;
         }
     }
-
 
 
     @Override

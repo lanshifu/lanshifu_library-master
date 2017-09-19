@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import library.lanshifu.com.lsf_library.utils.NetworkUtils;
 import library.lanshifu.com.myapplication.MyApp;
+import library.lanshifu.com.myapplication.model.HostBean;
 
 /**
  * Created by lanshifu on 2017/9/17.
@@ -26,6 +27,8 @@ public class NetworkHelper {
     public static boolean isTcpdumpRunning = false;
     public static boolean isInjectRunning = false;
     public static boolean isKillRunning = false;
+    public static HostBean hostBean = null;
+
 
     private static String mStoragePath = null;
     public static String PORT = "10000";
@@ -78,5 +81,12 @@ public class NetworkHelper {
     }
 
 
+    public static void setTarget(HostBean h){
+        hostBean = h;
+    }
+
+    public static HostBean getTarget() {
+        return hostBean;
+    }
 
 }

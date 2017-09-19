@@ -1,5 +1,6 @@
 package library.lanshifu.com.myapplication.network_into.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,6 +15,9 @@ import library.lanshifu.com.myapplication.model.HostBean;
  */
 
 public class NetworkFunctionActivity extends BaseToolBarActivity {
+
+    private HostBean hostBean;
+
     @Override
     protected int getLayoutid() {
         return R.layout.activity_fucntionlist;
@@ -22,9 +26,9 @@ public class NetworkFunctionActivity extends BaseToolBarActivity {
     @Override
     protected void onViewCreate() {
 
-        HostBean hostBean = (HostBean) getIntent().getSerializableExtra("host");
+        hostBean = (HostBean) getIntent().getSerializableExtra("host");
 
-        setTBTitle("功能列表-目标："+hostBean.getIp());
+        setTBTitle("功能列表-目标："+ hostBean.getIp());
 
     }
 
@@ -41,6 +45,10 @@ public class NetworkFunctionActivity extends BaseToolBarActivity {
             case R.id.mitm_select_inject:
                 break;
             case R.id.mitm_select_kill:
+                Intent intent = new Intent(this,NetworkKillActivity.class);
+                intent.putExtra("targetIp",hostBean.getIp());
+                startActivity(intent);
+
                 break;
 
 

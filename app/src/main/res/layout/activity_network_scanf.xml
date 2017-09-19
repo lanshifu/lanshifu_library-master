@@ -3,6 +3,23 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:background="@color/colorAccent"
+        android:padding="@dimen/dp_10"
+        android:id="@+id/tv_router"
+        android:textSize="18sp"
+        android:text="路由器"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:background="@color/colorAccent"
+        android:padding="@dimen/dp_10"
+        android:id="@+id/tv_my"
+        android:text="我的设备"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <library.lanshifu.com.myapplication.widget.CommRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

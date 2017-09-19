@@ -69,13 +69,13 @@ public class SimpleWebServer extends NanoHTTPD {
 	private final List<File> rootDirs;
 	private Context context;
 
-	public SimpleWebServer(Context context, String host, int port, File wwwroot) {
+	public SimpleWebServer(Context context, String host, int port, File wwwroot,OnRequestListener onRequestListener) {
 		super(host, port);
 		this.rootDirs = new ArrayList<File>();
 		this.rootDirs.add(wwwroot);
 		this.context = context;
-
-		this.init();
+        this.onRequestListener = onRequestListener;
+        this.init();
 	}
 
 	public SimpleWebServer(Context context, String host, int port,
@@ -438,9 +438,7 @@ public class SimpleWebServer extends NanoHTTPD {
 		return msg.toString();
 	}
 
-	public void setOnRequestListener(OnRequestListener onRequestListener) {
-		this.onRequestListener = onRequestListener;
-	}
+
 
 	OnRequestListener onRequestListener;
 

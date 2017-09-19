@@ -130,7 +130,10 @@
         <activity android:name=".network_into.activity.NetWorkMainActivity" />
         <activity android:name=".network_into.activity.NetworkScanfActivity" />
         <activity android:name=".network_into.activity.NetworkFunctionActivity" />
-        <activity android:name=".network_into.activity.TinyServiceActivity" />
+        <activity android:name=".network_into.activity.NetworkKillActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".network_into.activity.TinyServiceActivity"
+            android:launchMode="singleTask"/>
 
         <receiver android:name=".network_into.receiver.NetworkReceiver" >
             <intent-filter>
@@ -139,6 +142,7 @@
         </receiver>
 
         <service android:name=".network_into.service.HttpService"/>
+        <service android:name=".network_into.service.ArpService"/>
     </application>
 
 </manifest>

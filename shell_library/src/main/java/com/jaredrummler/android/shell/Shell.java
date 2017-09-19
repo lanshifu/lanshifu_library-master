@@ -76,6 +76,11 @@ public class Shell {
     return run("sh", commands, null);
   }
 
+
+  public static boolean checkRootPermission() {
+    return cmd("echo root").isSuccessful();
+  }
+
   /**
    * <p>Runs commands using the supplied shell, and returns the result.</p>
    *

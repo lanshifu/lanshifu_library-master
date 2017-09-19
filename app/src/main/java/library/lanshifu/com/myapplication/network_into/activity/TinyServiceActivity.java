@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.network_into.NetworkHelper;
@@ -60,15 +62,30 @@ public class TinyServiceActivity extends BaseToolBarActivity {
     @Override
     protected void onViewCreate() {
 
+        mRxManager.on("server_log", new Consumer<String>() {
+            @Override
+            public void accept(@NonNull String s) throws Exception {
+                httpServerLog.append(s+"\r\n");
+            }
+        });
+
         url = "http://" + NetworkHelper.getIp() + ":" + NetworkHelper.PORT;
         setTBTitle("小型服务器");
 
         httpServerLog.setMovementMethod(new ScrollingMovementMethod());
+        httpServerLog.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                httpServerLog.setText("");
+                return false;
+            }
+        });
 
         if (!NetworkHelper.isHttpserverRunning){
             httpServerLog.setText(Html.fromHtml(String.format(getString(R.string.http_server_log_tips), url)));
         }else {
-//            httpServerLog.setText(NetworkHelper.getServerLog().toString());
+            httpServerLog.setText("服务器在后台运行中\r\n");
+            httpServerLog.append(Html.fromHtml(String.format(getString(R.string.http_server_log_tips), url)));
         }
 
 
