@@ -29,11 +29,14 @@ android {
         versionName "1.0.0"
         renderscriptSupportModeEnabled true
         multiDexEnabled true
+
+        dexOptions {
+            jumboMode = true
+        }
+        ndk{abiFilters "armeabi"}
     }
 
-    dexOptions {
-        jumboMode = true
-    }
+
 
     buildTypes {
 
@@ -86,7 +89,6 @@ android {
         daoPackage 'library.lanshifu.com.myapplication.greendao'
         targetGenDir 'src/main/java'
     }
-
 }
 
 dependencies {
@@ -101,6 +103,8 @@ dependencies {
     compile project(':shell_library')
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
+    //腾讯浏览doc/excel/pdf/ppt sdk
+    compile files('src/main/libs/tbs_sdk_v3.2.0.jar')
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
@@ -125,10 +129,8 @@ dependencies {
     annotationProcessor 'com.github.jokermonn:permissions4m:2.1.0-processor'
     // 引导层  https://github.com/huburt-Hu/NewbieGuide
     compile 'com.github.huburt-Hu:NewbieGuide:v1.0.3'
-
     //jsoup
     compile 'org.jsoup:jsoup:1.10.1'
-
 
 }
 

@@ -34,7 +34,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.UPDATE_APP_OPS_STATS" />
 
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name=".MyApp"
@@ -130,19 +130,25 @@
         <activity android:name=".network_into.activity.NetWorkMainActivity" />
         <activity android:name=".network_into.activity.NetworkScanfActivity" />
         <activity android:name=".network_into.activity.NetworkFunctionActivity" />
-        <activity android:name=".network_into.activity.NetworkKillActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".network_into.activity.TinyServiceActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name=".music.activity.NetMusicActivity" />
+        <activity android:name=".music.activity.MusicSongListDetailActivity" />
+        <activity
+            android:name=".network_into.activity.NetworkKillActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".network_into.activity.TinyServiceActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ui.FileDisplayActivity" />
 
-        <receiver android:name=".network_into.receiver.NetworkReceiver" >
+        <receiver android:name=".network_into.receiver.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".network_into.service.HttpService"/>
-        <service android:name=".network_into.service.ArpService"/>
+        <service android:name=".network_into.service.HttpService" />
+        <service android:name=".network_into.service.ArpService" />
+        <service android:name=".music.service.MediaPlayService" />
     </application>
 
 </manifest>

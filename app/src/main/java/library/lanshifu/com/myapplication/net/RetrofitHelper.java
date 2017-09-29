@@ -11,6 +11,7 @@ import library.lanshifu.com.myapplication.net.api.ApiConstant;
 import library.lanshifu.com.myapplication.net.api.GaoKaoAPI;
 import library.lanshifu.com.myapplication.net.api.JsoupApi;
 import library.lanshifu.com.myapplication.net.api.LiveApi;
+import library.lanshifu.com.myapplication.net.api.MusicApi;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
 import library.lanshifu.com.myapplication.net.api.WechatApi;
 import okhttp3.Cache;
@@ -183,6 +184,11 @@ public class RetrofitHelper {
 
     public static LiveApi getLiveApi() {
         return createApi(LiveApi.class, ApiConstant.LIVE_URL);
+    }
+
+
+    public static MusicApi getMusicApi() {
+        return createApi(MusicApi.class, ApiConstant.MUSIC_BASE_URL);
     }
 
     public static GaoKaoAPI getGaokaoApi() {

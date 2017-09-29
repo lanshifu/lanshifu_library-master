@@ -20,4 +20,7 @@ public class ApiConstant {
 
     public static final String JSOUP_URL = "http://www.apkbus.com/";
 
+
+    public static final String MUSIC_BASE_URL = "http://tingapi.ting.baidu.com/v1/restserver/";
+
 }

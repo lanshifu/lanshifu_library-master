@@ -195,6 +195,12 @@
             android:layout_height="wrap_content"
             android:text="网络渗透"
             android:textAllCaps="false" />
+  <Button
+            android:id="@+id/btn_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="音乐"
+            android:textAllCaps="false" />
 
     </com.google.android.flexbox.FlexboxLayout>
 
