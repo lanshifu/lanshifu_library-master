@@ -189,11 +189,19 @@
             android:layout_height="wrap_content"
             android:text="jsoup"
             android:textAllCaps="false" />
-   <Button
+
+        <Button
             android:id="@+id/btn_network_tool"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="网络渗透"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_zhihu_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="知乎图库"
             android:textAllCaps="false" />
 
     </com.google.android.flexbox.FlexboxLayout>

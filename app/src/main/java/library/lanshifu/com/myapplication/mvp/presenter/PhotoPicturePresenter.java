@@ -57,6 +57,7 @@ public class PhotoPicturePresenter extends PhotoPictureContract.Presenter {
 //        String originArg = String.format(Locale.CHINA, "原图参数：%d*%d, %dk", originSize[0], originSize[1], new File(photos.get(mAdapter.getItemCount())).length() >> 10);
         String thumbArg = String.format(Locale.CHINA, "压缩后参数：%d*%d, %dk", thumbSize[0], thumbSize[1], file.length() >> 10);
 
+        L.d("压缩后 "+thumbArg);
         String filePath = file.getAbsolutePath();
         String name = getFileName(filePath);
         PictureBean pictureBean = new PictureBean(name,filePath, ImageUtil.imageToBase64(filePath),thumbArg);

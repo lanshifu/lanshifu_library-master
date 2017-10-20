@@ -74,6 +74,7 @@ public class LiveDetailPresenter extends LiveDetailContract.Presenter {
                 } else {
                     url = roomLine.getHls().getValue(isShowing).getSrc();
                 }
+
                 mView.playUrl(url);
             }
 

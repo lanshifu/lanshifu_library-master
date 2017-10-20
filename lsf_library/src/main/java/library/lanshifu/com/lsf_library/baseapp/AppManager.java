@@ -128,12 +128,11 @@ public class AppManager {
 
 
     /**
-     * 退出应用程序
+     * 安全退出应用程序
      *
      * @param context      上下文
-     * @param isBackground 是否开开启后台运行
      */
-    public void AppExit(Context context, Boolean isBackground) {
+    public void AppSafeExit(Context context) {
         try {
             finishAllActivity();
             ActivityManager activityMgr = (ActivityManager) context
@@ -142,10 +141,7 @@ public class AppManager {
         } catch (Exception e) {
 
         } finally {
-            // 注意，如果您有后台程序运行，请不要支持此句子
-            if (!isBackground) {
-                System.exit(0);
-            }
+            System.exit(0);
         }
     }
 }

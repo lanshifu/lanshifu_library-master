@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Telephony;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
+import com.a.a.I;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.Bind;
@@ -67,6 +69,9 @@ public class ChooseFileActivity extends BaseToolBarActivity {
 
 
         checkPermission();
+        Uri sAllThreadsUri =
+                Telephony.MmsSms.CONTENT_URI.buildUpon().appendQueryParameter("simple", "true").build();
+
     }
 
 
@@ -86,7 +91,8 @@ public class ChooseFileActivity extends BaseToolBarActivity {
                                     .setPositiveButton("go", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            getAppDetailSettingIntent(ChooseFileActivity.this);
+                                            Intent intent = getAppDetailSettingIntent(ChooseFileActivity.this);
+                                            startActivity(intent);
                                         }
                                     }).show();
                         }
@@ -134,12 +140,12 @@ public class ChooseFileActivity extends BaseToolBarActivity {
         getSelectedView();
     }
 
-    private void getAppDetailSettingIntent(Context context) {
+    private Intent getAppDetailSettingIntent(Context context) {
         Intent localIntent = new Intent();
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
         localIntent.setData(Uri.fromParts("package", getPackageName(), null));
-        startActivityForResult(localIntent,200);
+        return localIntent;
     }
 
     /**

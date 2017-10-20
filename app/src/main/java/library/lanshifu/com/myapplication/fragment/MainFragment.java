@@ -3,10 +3,12 @@ package library.lanshifu.com.myapplication.fragment;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -55,6 +57,7 @@ import library.lanshifu.com.myapplication.ui.GuideActivity;
 import library.lanshifu.com.myapplication.ui.JsoupActivity;
 import library.lanshifu.com.myapplication.ui.LoadingActivity;
 import library.lanshifu.com.myapplication.ui.SmileFaceActivity;
+import library.lanshifu.com.myapplication.ui.ZhiHuPictureActivity;
 import library.lanshifu.com.myapplication.utils.SmsWriteOpUtil;
 import library.lanshifu.com.myapplication.viewpager.CardSlideViewActivity;
 import library.lanshifu.com.myapplication.viewpager.TabActivity;
@@ -170,7 +173,8 @@ public class MainFragment extends BaseFragment {
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
-            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool})
+            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup
+            , R.id.btn_network_tool, R.id.btn_zhihu_pic})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -302,7 +306,7 @@ public class MainFragment extends BaseFragment {
                             public void accept(Boolean aBoolean) throws Exception {
                                 if(aBoolean){
                                     showShortToast("发送短信");
-                                    requestPermmission();
+//                                    requestPermmission();
                                     chooseSim();
 //                                    doSendSMSTo("10086","cxll");
                                 }else {
@@ -315,6 +319,9 @@ public class MainFragment extends BaseFragment {
 
             case R.id.btn_network_tool:
                 startActivity(new Intent(getContext(), NetWorkMainActivity.class));
+                break;
+             case R.id.btn_zhihu_pic:
+                startActivity(new Intent(getContext(), ZhiHuPictureActivity.class));
                 break;
         }
 
@@ -461,7 +468,8 @@ public class MainFragment extends BaseFragment {
                             String[] imsi = SystemManage.getIMSI(getActivity());
                             String phoneNum = SystemManage.getPhoneNum(getActivity());
 
-                            sendSMS("10086","cxll");
+                            readSms();
+//                            sendSMS("10086","cxll");
                                 if(!SmsWriteOpUtil.isWriteEnabled(getActivity())){
                                     boolean writeEnabled = SmsWriteOpUtil.setWriteEnabled(getActivity(), true);
                                     loge("writeEnabled = "+writeEnabled);
@@ -475,6 +483,55 @@ public class MainFragment extends BaseFragment {
     }
 
 
+    /**
+     * 读取sms表
+     */
+    private void readSms() {
+//        getSessionCursor();
+        getThreads();
+    }
+
+    /**
+     * 获取历史会话列表
+     */
+    public Cursor getSessionCursor() {
+
+        ContentResolver cr = getActivity().getContentResolver();
+        String[] projection = new String[] { "_id", "address", "person",
+                "body", "date", "type", "thread_id","count(distinct thread_id)" };
+        Uri uri = Uri.parse("content://sms/");
+        Cursor cur = cr.query(uri, projection,"1=1) GROUP BY (thread_id", null, "date desc");
+        // make the first access on the main thread a lot faster
+        if (cur != null) {
+            //乐视获取只有1条
+            L.d("logd cur.getCount()"+cur.getCount());
+            cur.getCount();
+        }
+        return cur;
+    }
+
+    public Cursor getThreads() {
+
+//        Cursor cur = getActivity().getContentResolver().query(Uri.parse("content://sms/"),
+//                new String[]{"* from threads --"}, null, null, null);
+
+        Cursor cur = getActivity().getContentResolver().query(Uri.parse("content://sms/"),
+                new String[]{" a.message_count, b.address, b.type from threads a, sms b " +
+                        "where a.recipient_ids = b.thread_id group by b.address--"}, null, null, null);
+
+        //        Cursor cur = getActivity().getContentResolver().query(Telephony.Threads.CONTENT_URI, new String[]{"id"}, null, null, "date desc");
+
+//        ContentResolver cr = getActivity().getContentResolver();
+//        String[] projection = new String[] { "_id"};
+//        Uri uri = Uri.parse("content://threads/");
+//        Cursor cur = cr.query(uri, null,null, null, "date desc");
+        // make the first access on the main thread a lot faster
+        if (cur != null) {
+            L.d("logd therad cur.getCount()"+cur.getCount());
+            cur.getCount();
+        }
+        return cur;
+    }
     /**
      *
      * @param phoneNumber

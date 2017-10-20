@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import library.lanshifu.com.lsf_library.utils.L;
+
 /**
  * 顶部toast布局，主要处理消失时候取消handler消息
  * Created by lanshifu on 2017/9/16.

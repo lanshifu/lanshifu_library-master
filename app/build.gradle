@@ -99,6 +99,7 @@ dependencies {
     compile project(':fileprovdider7')
     compile project(':luban')
     compile project(':shell_library')
+    compile project(':matisse')
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -125,9 +126,10 @@ dependencies {
     annotationProcessor 'com.github.jokermonn:permissions4m:2.1.0-processor'
     // 引导层  https://github.com/huburt-Hu/NewbieGuide
     compile 'com.github.huburt-Hu:NewbieGuide:v1.0.3'
-
     //jsoup
     compile 'org.jsoup:jsoup:1.10.1'
+    //知乎图库
+//    compile 'com.zhihu.android:matisse:0.4.3'
 
 
 }

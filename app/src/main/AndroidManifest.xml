@@ -41,6 +41,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:theme="@style/DayTheme"
         android:supportsRtl="true">
         <meta-data
             android:name="UMENG_CHANNEL"
@@ -134,6 +135,7 @@
             android:launchMode="singleTask"/>
         <activity android:name=".network_into.activity.TinyServiceActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".ui.ZhiHuPictureActivity" />
 
         <receiver android:name=".network_into.receiver.NetworkReceiver" >
             <intent-filter>

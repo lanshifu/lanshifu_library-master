@@ -83,6 +83,7 @@ public class HttpService extends Service {
         try {
             fos = new FileOutputStream(webRootPath + "/index.html");
             is = this.getAssets().open("web_index.html");
+
             while ((len = is.read(buffer)) != -1) {
                 fos.write(buffer, 0, len);
             }

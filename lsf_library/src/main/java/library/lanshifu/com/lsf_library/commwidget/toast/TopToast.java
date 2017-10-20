@@ -412,9 +412,9 @@ public class TopToast implements View.OnClickListener {
 
                 ivIcon.setImageResource(mIcon);
                 ivIcon.setClickable(false);
-                if (mIconColorFilterColor != DEFAULT_VALUE) {
-                    ivIcon.setColorFilter(mIconColorFilterColor);
-                }
+//                if (mIconColorFilterColor != DEFAULT_VALUE) {
+//                    ivIcon.setColorFilter(mIconColorFilterColor);
+//                }
                 layout.addView(ivIcon);
             } else {
                 ImageView ivIcon = new ImageView(getContext());
@@ -423,9 +423,9 @@ public class TopToast implements View.OnClickListener {
 
                 ivIcon.setImageResource(mIcon);
                 ivIcon.setClickable(false);
-                if (mIconColorFilterColor != DEFAULT_VALUE) {
-                    ivIcon.setColorFilter(mIconColorFilterColor);
-                }
+//                if (mIconColorFilterColor != DEFAULT_VALUE) {
+//                    ivIcon.setColorFilter(mIconColorFilterColor);
+//                }
                 layout.addView(ivIcon);
             }
         }

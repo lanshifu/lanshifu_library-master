@@ -182,4 +182,7 @@
     <string name="http_server_log_tips">&lt;br/&gt;这里是日志窗口：&lt;br/&gt;&lt;br/&gt;—http文档目录:存储卡/lanshifu/www&lt;br/&gt;—开启后请在浏览器中输入&lt;br/&gt;—%s 访问页面&lt;br/&gt;&lt;br/&gt;</string>
     <string name="http_clone">克隆网站</string>
     <string name="obtain_success">获取成功</string>
+
+    <string name="button_apply_default">发送</string>
+    <string name="button_apply">发送(%1$d)</string>
 </resources>
