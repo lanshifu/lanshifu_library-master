@@ -45,6 +45,7 @@ import library.lanshifu.com.myapplication.fileprovider.FileProviderDemoActivity;
 import library.lanshifu.com.myapplication.guolin.cardstack.CardStackActivity;
 import library.lanshifu.com.myapplication.hongyang.VRActivity;
 import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
+import library.lanshifu.com.myapplication.music.activity.NetMusicActivity;
 import library.lanshifu.com.myapplication.network_into.activity.NetWorkMainActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
 import library.lanshifu.com.myapplication.shell.FileManagerActivity;
@@ -173,6 +174,7 @@ public class MainFragment extends BaseFragment {
             R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
+            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool, R.id.btn_music})
             , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup
             , R.id.btn_network_tool, R.id.btn_zhihu_pic})
     public void onViewClicked(View view) {
@@ -319,6 +321,9 @@ public class MainFragment extends BaseFragment {
 
             case R.id.btn_network_tool:
                 startActivity(new Intent(getContext(), NetWorkMainActivity.class));
+                break;
+          case R.id.btn_music:
+                startActivity(new Intent(getContext(), NetMusicActivity.class));
                 break;
              case R.id.btn_zhihu_pic:
                 startActivity(new Intent(getContext(), ZhiHuPictureActivity.class));

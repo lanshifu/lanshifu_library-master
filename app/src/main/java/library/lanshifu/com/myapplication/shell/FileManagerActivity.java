@@ -29,6 +29,7 @@ import library.lanshifu.com.lsf_library.utils.FileUtil;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.net.MyObserver;
 import library.lanshifu.com.myapplication.net.RxSchedulerHelper;
+import library.lanshifu.com.myapplication.ui.FileDisplayActivity;
 
 /**
  * Created by lanshifu on 2017/9/9.
@@ -80,6 +81,17 @@ public class FileManagerActivity extends BaseToolBarActivity {
                     @Override
                     public void onClick(View v) {
 
+                        String filename = prePath + "/" + fileName;
+                        if(filename.endsWith(".docx")||filename.endsWith(".pdf")
+                                ||filename.endsWith(".pptx")
+                                ||filename.endsWith(".txt")
+                                ||filename.endsWith(".xlsx")){
+                            Intent intent = new Intent(mContext, FileDisplayActivity.class);
+                            intent.putExtra("path",filename);
+                            startActivity(intent);
+                            return;
+                        }
+
                         //判断当前点击的是不是文件夹
                         if(dir){
                             String cd2wx = "cd " + fileName;
@@ -87,7 +99,7 @@ public class FileManagerActivity extends BaseToolBarActivity {
                             shell("pwd");
                         }else {
                             showShortToast("打开文件");
-                            Intent intent =openFile(prePath + "/" + fileName);
+                            Intent intent =openFile(filename);
                             startActivity(intent);
                         }
 
