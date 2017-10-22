@@ -1,5 +1,7 @@
 package library.lanshifu.com.myapplication.net;
 
+import com.readystatesoftware.chuck.ChuckInterceptor;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -56,6 +58,7 @@ public class RetrofitHelper {
 
             okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .addInterceptor(new ChuckInterceptor(MyApp.getContext()))
                     .cache(cache)
                     .addNetworkInterceptor(new CacheInterceptor())
 //                    .addNetworkInterceptor(new StethoInterceptor())

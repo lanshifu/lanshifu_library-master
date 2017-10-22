@@ -85,6 +85,11 @@
         <item>宁波</item>
     </array>
 
+    <declare-styleable name="ChatImageView">
+        <attr name="roundRadius" format="dimension"/>
+        <attr name="angleHeight" format="dimension"/>
+        <attr name="anglePercent" format="float"/>
+    </declare-styleable>
 
 
 </resources>

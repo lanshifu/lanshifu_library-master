@@ -3,6 +3,8 @@ package library.lanshifu.com.myapplication.ui;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.File;
 
 import butterknife.Bind;

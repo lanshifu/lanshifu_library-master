@@ -33,7 +33,7 @@ public class DemoFragment extends BaseFragment {
     @Override
     protected void initView() {
 
-        RecyclerView recyclerview = mRootView.findViewById(R.id.recyclerview);
+        RecyclerView recyclerview = (RecyclerView) mRootView.findViewById(R.id.recyclerview);
 
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerview.setAdapter(new CommonAdapter<String>(getActivity(), R.layout.item_textview, getData()) {

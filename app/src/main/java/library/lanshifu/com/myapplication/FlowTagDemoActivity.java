@@ -45,7 +45,7 @@ public class FlowTagDemoActivity extends BaseToolBarActivity {
             @Override
             public void bindView(View itemView, int position, String data) {
 
-                TextView textView = itemView.findViewById(R.id.tv_tag);
+                TextView textView = (TextView) itemView.findViewById(R.id.tv_tag);
                 textView.setText(data);
             }
 
@@ -59,7 +59,7 @@ public class FlowTagDemoActivity extends BaseToolBarActivity {
 
             @Override
             public void bindView(View itemView, int position, String data) {
-                TextView textView = itemView.findViewById(R.id.tv_tag);
+                TextView textView = (TextView) itemView.findViewById(R.id.tv_tag);
                 textView.setText(data);
             }
         };
@@ -72,7 +72,7 @@ public class FlowTagDemoActivity extends BaseToolBarActivity {
 
             @Override
             public void bindView(View itemView, int position, String data) {
-                TextView textView = itemView.findViewById(R.id.tv_tag);
+                TextView textView = (TextView) itemView.findViewById(R.id.tv_tag);
                 textView.setText(data);
             }
         };

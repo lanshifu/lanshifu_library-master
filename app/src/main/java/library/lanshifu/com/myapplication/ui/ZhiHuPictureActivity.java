@@ -53,7 +53,7 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
     protected void onViewCreate() {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BaseQuickAdapter<Uri, BaseViewHolder>(R.layout.list_item_image,
+        adapter = new BaseQuickAdapter<Uri, BaseViewHolder>(R.layout.item_chat_image,
                 new ArrayList<Uri>()) {
 
             @Override
@@ -113,8 +113,8 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
 
     private void openVideoSelect() {
         Matisse.from(this)
-                .choose(MimeType.ofVideo())
-                .showSingleMediaType(true)
+                .choose(MimeType.allOf())
+                .captureStrategy(new CaptureStrategy(true,null))
                 .captureStrategy(new CaptureStrategy(true, getPackageName()+".fileprovider"))
                 .capture(true)
                 .countable(true)
@@ -129,7 +129,8 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
 
     private void openPicSelect() {
         Matisse.from(this)
-                .choose(MimeType.ofImage())
+                .choose(MimeType.allOf())
+                .captureStrategy(new CaptureStrategy(true,null))
                 .countable(true)
                 .maxSelectable(9)
                 .captureStrategy(new CaptureStrategy(true, getPackageName()+".fileprovider"))
@@ -138,7 +139,6 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)
                 .imageEngine(new GlideEngine())
-                        .theme(R.style.Zhihu)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 

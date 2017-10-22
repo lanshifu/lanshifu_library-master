@@ -160,8 +160,8 @@ public class MainFragment extends BaseFragment {
                             startActivity(new Intent(getActivity(), DropDownDemoActivity.class));
                         } else if (position == 5) {
                             startActivity(new Intent(getActivity(), GaoKaoSearchActivity.class));
-                        }else {
-                            showErrorToast("点击了+"+position);
+                        } else {
+                            showErrorToast("点击了+" + position);
                         }
                     }
                 })
@@ -170,13 +170,12 @@ public class MainFragment extends BaseFragment {
 
 
     @OnClick({R.id.btn_single, R.id.btn_multi, R.id.btn_base, R.id.btn_mult, R.id.toolbar, R.id.popmenu
-            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice,
-            R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
+            , R.id.activity_main, R.id.pagerfragment, R.id.bt_contentprovider, R.id.bt_voice
+            , R.id.bt_photopicker, R.id.bt_slid_pager, R.id.btn_viewpager, R.id.btn_databinding
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
-            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool, R.id.btn_music})
-            , R.id.btn_sms , R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup
-            , R.id.btn_network_tool, R.id.btn_zhihu_pic})
+            , R.id.btn_sms, R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool
+            , R.id.btn_music, R.id.btn_zhihu_pic})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -283,7 +282,7 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_wifi:
                 startActivity(new Intent(getContext(), ChooseFileActivity.class));
                 break;
-           case R.id.btn_vr:
+            case R.id.btn_vr:
                 startActivity(new Intent(getContext(), VRActivity.class));
                 break;
             case R.id.btn_expend:
@@ -292,10 +291,10 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_shell:
                 startActivity(new Intent(getContext(), FileManagerActivity.class));
                 break;
-           case R.id.btn_loading:
+            case R.id.btn_loading:
                 startActivity(new Intent(getContext(), LoadingActivity.class));
                 break;
-           case R.id.btn_guide:
+            case R.id.btn_guide:
                 startActivity(new Intent(getContext(), GuideActivity.class));
                 break;
             case R.id.btn_jsoup:
@@ -306,12 +305,12 @@ public class MainFragment extends BaseFragment {
                         .subscribe(new Consumer<Boolean>() {
                             @Override
                             public void accept(Boolean aBoolean) throws Exception {
-                                if(aBoolean){
+                                if (aBoolean) {
                                     showShortToast("发送短信");
 //                                    requestPermmission();
                                     chooseSim();
 //                                    doSendSMSTo("10086","cxll");
-                                }else {
+                                } else {
                                     showShortToast("没有权限");
                                 }
                             }
@@ -322,10 +321,10 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_network_tool:
                 startActivity(new Intent(getContext(), NetWorkMainActivity.class));
                 break;
-          case R.id.btn_music:
+            case R.id.btn_music:
                 startActivity(new Intent(getContext(), NetMusicActivity.class));
                 break;
-             case R.id.btn_zhihu_pic:
+            case R.id.btn_zhihu_pic:
                 startActivity(new Intent(getContext(), ZhiHuPictureActivity.class));
                 break;
         }
@@ -369,13 +368,13 @@ public class MainFragment extends BaseFragment {
     }
 
 
-
     /**
      * 直接调用短信接口发短信
+     *
      * @param phoneNumber
      * @param message
      */
-    public void sendSMS(final String phoneNumber, final String message){
+    public void sendSMS(final String phoneNumber, final String message) {
 
         //处理返回的发送状态
         String SENT_SMS_ACTION = "SENT_SMS_ACTION";
@@ -421,40 +420,40 @@ public class MainFragment extends BaseFragment {
 
         //获取短信管理器
         //5.0 之前只能获取卡1
-         final SmsManager smsManager;
+        final SmsManager smsManager;
         //5.0 后通过subid来获取SmsManager对象
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            if(SystemManage.hasTwoSimCard(getActivity())){
+            if (SystemManage.hasTwoSimCard(getActivity())) {
                 //如果有两张卡
                 new AlertDialog.Builder(getActivity())
                         .setTitle("选择要发短信的卡")
                         .setPositiveButton("卡1", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                 SmsManager sm = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(),0));
-                                sendMsgBySmsManager(sm,phoneNumber,message);
+                                SmsManager sm = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(), 0));
+                                sendMsgBySmsManager(sm, phoneNumber, message);
                             }
                         })
                         .setNegativeButton("卡2", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                SmsManager sm = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(),1));
-                                sendMsgBySmsManager(sm,phoneNumber,message);
+                                SmsManager sm = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(), 1));
+                                sendMsgBySmsManager(sm, phoneNumber, message);
                             }
                         }).show();
                 return;
 
-            }else{
+            } else {
                 //默认卡1
-                smsManager = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(),0));
+                smsManager = SmsManager.getSmsManagerForSubscriptionId(SystemManage.getSubId(getActivity(), 0));
             }
-        }else {
+        } else {
             smsManager = SmsManager.getDefault();
         }
-        sendMsgBySmsManager(smsManager,phoneNumber,message);
+        sendMsgBySmsManager(smsManager, phoneNumber, message);
     }
 
-    public void sendMsgBySmsManager(SmsManager smsManager,String phoneNumber,String message){
+    public void sendMsgBySmsManager(SmsManager smsManager, String phoneNumber, String message) {
         List<String> divideContents = smsManager.divideMessage(message);
         for (String text : divideContents) {
             smsManager.sendTextMessage(phoneNumber, null, text, sentPI, deliverPI);
@@ -462,24 +461,23 @@ public class MainFragment extends BaseFragment {
     }
 
 
-
-    public void chooseSim(){
+    public void chooseSim() {
 
         new RxPermissions(getActivity()).request("android.permission.READ_PHONE_STATE")
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean){
+                        if (aBoolean) {
                             String[] imsi = SystemManage.getIMSI(getActivity());
                             String phoneNum = SystemManage.getPhoneNum(getActivity());
 
                             readSms();
 //                            sendSMS("10086","cxll");
-                                if(!SmsWriteOpUtil.isWriteEnabled(getActivity())){
-                                    boolean writeEnabled = SmsWriteOpUtil.setWriteEnabled(getActivity(), true);
-                                    loge("writeEnabled = "+writeEnabled);
-                                }
-                        }else {
+                            if (!SmsWriteOpUtil.isWriteEnabled(getActivity())) {
+                                boolean writeEnabled = SmsWriteOpUtil.setWriteEnabled(getActivity(), true);
+                                loge("writeEnabled = " + writeEnabled);
+                            }
+                        } else {
                             L.e("没有权限");
                         }
                     }
@@ -502,14 +500,14 @@ public class MainFragment extends BaseFragment {
     public Cursor getSessionCursor() {
 
         ContentResolver cr = getActivity().getContentResolver();
-        String[] projection = new String[] { "_id", "address", "person",
-                "body", "date", "type", "thread_id","count(distinct thread_id)" };
+        String[] projection = new String[]{"_id", "address", "person",
+                "body", "date", "type", "thread_id", "count(distinct thread_id)"};
         Uri uri = Uri.parse("content://sms/");
-        Cursor cur = cr.query(uri, projection,"1=1) GROUP BY (thread_id", null, "date desc");
+        Cursor cur = cr.query(uri, projection, "1=1) GROUP BY (thread_id", null, "date desc");
         // make the first access on the main thread a lot faster
         if (cur != null) {
             //乐视获取只有1条
-            L.d("logd cur.getCount()"+cur.getCount());
+            L.d("logd cur.getCount()" + cur.getCount());
             cur.getCount();
         }
         return cur;
@@ -532,25 +530,25 @@ public class MainFragment extends BaseFragment {
 //        Cursor cur = cr.query(uri, null,null, null, "date desc");
         // make the first access on the main thread a lot faster
         if (cur != null) {
-            L.d("logd therad cur.getCount()"+cur.getCount());
+            L.d("logd therad cur.getCount()" + cur.getCount());
             cur.getCount();
         }
         return cur;
     }
+
     /**
-     *
      * @param phoneNumber
      * @param message
      */
-    public void doSendSMSTo(String phoneNumber,String message){
-        if(PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber)){
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:"+phoneNumber));
+    public void doSendSMSTo(String phoneNumber, String message) {
+        if (PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber)) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + phoneNumber));
             intent.putExtra("sms_body", message);
             startActivity(intent);
         }
     }
 
-    private void requestPermmission(){
+    private void requestPermmission() {
 //        ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.Settings");
 //        Intent intent = new Intent();
 //        intent.setComponent(cn);

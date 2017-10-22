@@ -16,8 +16,8 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
     //**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下
     // 使用compile 'cn.bmob.android:http-legacy:1.0'**
     useLibrary 'org.apache.http.legacy'
@@ -33,7 +33,10 @@ android {
         dexOptions {
             jumboMode = true
         }
-        ndk{abiFilters "armeabi"}
+        ndk{
+//            设置了支持的 CPU 的类型
+//            abiFilters "armeabi"
+            abiFilters "armeabi", "armeabi-v7a", "x86_64"}
     }
 
 
@@ -101,7 +104,6 @@ dependencies {
     compile project(':fileprovdider7')
     compile project(':luban')
     compile project(':shell_library')
-    compile project(':matisse')
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
     //腾讯浏览doc/excel/pdf/ppt sdk
@@ -127,15 +129,70 @@ dependencies {
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     //权限 https://github.com/jokermonn/permissions4m
     compile 'com.github.jokermonn:permissions4m:2.1.0-lib'
-    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.0-processor'
     // 引导层  https://github.com/huburt-Hu/NewbieGuide
     compile 'com.github.huburt-Hu:NewbieGuide:v1.0.3'
     //jsoup
     compile 'org.jsoup:jsoup:1.10.1'
     //知乎图库
-//    compile 'com.zhihu.android:matisse:0.4.3'
+    compile 'com.zhihu.android:matisse:0.4.3'
+
+    //okhttp日志拦截
+    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
 }
+
+
+public class BuildTimeListener implements TaskExecutionListener, BuildListener {
+    private Clock clock
+    private times = []
+
+    @Override
+    void beforeExecute(Task task) {
+        clock = new org.gradle.util.Clock()
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState taskState) {
+        def ms = clock.timeInMs
+        times.add([ms, task.path])
+
+        //task.project.logger.warn "${task.path} spend ${ms}ms"
+    }
+
+    @Override
+    void buildStarted(Gradle gradle) {
+
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println "Task spend time:"
+        for (time in times) {
+            if (time[0] >= 50) {
+                printf "%7sms  %s\n", time
+            }
+        }
+    }
+
+}
+
+project.gradle.addListener(new BuildTimeListener())
 
 
 
