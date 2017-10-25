@@ -140,6 +140,9 @@ dependencies {
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
+    //https://github.com/JessYanCoding/ProgressManager 文件上传下载监听
+    compile 'me.jessyan:progressmanager:1.5.0'
+
 }
 
 

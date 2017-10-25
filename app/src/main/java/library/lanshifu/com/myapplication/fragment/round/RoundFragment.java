@@ -136,7 +136,8 @@ public class RoundFragment extends BaseFragment {
             }
         });
 
-        if (!queryDB()) {
+//        if (!queryDB()) {
+        if (true) {
             //触发自动刷新
             refreshLayout.autoRefresh();
         } else {

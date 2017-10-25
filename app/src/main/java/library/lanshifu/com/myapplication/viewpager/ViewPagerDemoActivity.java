@@ -14,12 +14,21 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.model.LiveCategory;
+import library.lanshifu.com.myapplication.net.MyObserver;
+import library.lanshifu.com.myapplication.net.RetrofitHelper;
+import library.lanshifu.com.myapplication.net.RxSchedulerHelper;
 import library.lanshifu.com.myapplication.viewpager.adapter.ImagePagerAdapter;
 import library.lanshifu.com.myapplication.viewpager.transformer.CardTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.DepthPageTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.RotateDownPageTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.ZoomOutPageTransformer;
+import me.jessyan.progressmanager.ProgressListener;
+import me.jessyan.progressmanager.ProgressManager;
+import me.jessyan.progressmanager.body.ProgressInfo;
+import okhttp3.ResponseBody;
 
 public class ViewPagerDemoActivity extends BaseToolBarActivity {
 
@@ -111,6 +120,35 @@ public class ViewPagerDemoActivity extends BaseToolBarActivity {
 
     @Override
     protected void onViewCreate() {
+        String url = imageArray[0];
+        ProgressManager.getInstance().addResponseListener(url, new ProgressListener() {
+            @Override
+            public void onProgress(ProgressInfo progressInfo) {
+                L.d("进度："+progressInfo.getPercent());
+            }
+
+            @Override
+            public void onError(long l, Exception e) {
+                L.d("onError：");
+            }
+        });
+
+        RetrofitHelper.getOtherApi()
+                .downloadPicture()
+                .compose(RxSchedulerHelper.<ResponseBody>io_main())
+                .subscribe(new MyObserver<ResponseBody>() {
+                    @Override
+                    public void _onNext(ResponseBody responseBody) {
+                        L.d("_onNext");
+                    }
+
+                    @Override
+                    public void _onError(String e) {
+                        L.d("_onError "+e);
+
+                    }
+                });
+
 
     }
 
@@ -118,8 +156,9 @@ public class ViewPagerDemoActivity extends BaseToolBarActivity {
         viewpager.setAdapter(new ImagePagerAdapter<String>(this, R.layout.imageview, Arrays.asList(imageArray)) {
             @Override
             public void bindView(View view, List<String> mData, int position) {
+                String url = mData.get(position);
                 ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
-                Glide.with(mContext).load(mData.get(position)).into(imageView);
+                Glide.with(mContext).load(url).into(imageView);
                 //
 
             }

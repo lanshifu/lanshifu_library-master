@@ -8,14 +8,15 @@ import java.util.concurrent.TimeUnit;
 
 import library.lanshifu.com.lsf_library.utils.SystemManage;
 import library.lanshifu.com.myapplication.MyApp;
-import library.lanshifu.com.myapplication.net.api.APIException;
 import library.lanshifu.com.myapplication.net.api.ApiConstant;
 import library.lanshifu.com.myapplication.net.api.GaoKaoAPI;
 import library.lanshifu.com.myapplication.net.api.JsoupApi;
 import library.lanshifu.com.myapplication.net.api.LiveApi;
 import library.lanshifu.com.myapplication.net.api.MusicApi;
+import library.lanshifu.com.myapplication.net.api.OtherApi;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
 import library.lanshifu.com.myapplication.net.api.WechatApi;
+import me.jessyan.progressmanager.ProgressManager;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -56,7 +57,8 @@ public class RetrofitHelper {
             Cache cache = new Cache(new File(MyApp.getInstance()
                     .getCacheDir(), "HttpCache"), 1024 * 1024 * 10);
 
-            okHttpClient = new OkHttpClient.Builder()
+//            okHttpClient = new OkHttpClient.Builder()
+            okHttpClient = ProgressManager.getInstance().with(new OkHttpClient.Builder())//进度
                     .addInterceptor(loggingInterceptor)
                     .addInterceptor(new ChuckInterceptor(MyApp.getContext()))
                     .cache(cache)
@@ -157,11 +159,11 @@ public class RetrofitHelper {
 //    }
 
 
-    /**
-     * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
-     *
-     * @param <T> Subscriber真正需要的数据类型，也就是Data部分的数据类型
-     */
+//    /**
+//     * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
+//     *
+//     * @param <T> Subscriber真正需要的数据类型，也就是Data部分的数据类型
+//     */
 //    public class HttpResultFunc<T> implements Func1<HttpResult<T>, T> {
 //
 //
@@ -197,8 +199,13 @@ public class RetrofitHelper {
     public static GaoKaoAPI getGaokaoApi() {
         return createApi(GaoKaoAPI.class, ApiConstant.GAOKAO_URL);
     }
+
     public static JsoupApi getJsoupApi() {
         return createApi(JsoupApi.class, ApiConstant.JSOUP_URL);
+    }
+
+    public static OtherApi getOtherApi() {
+        return createApi(OtherApi.class, "https://ss1.bdstatic.com/");
     }
 
 }
