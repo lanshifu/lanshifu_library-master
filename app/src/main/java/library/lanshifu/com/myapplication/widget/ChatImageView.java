@@ -3,117 +3,169 @@ package library.lanshifu.com.myapplication.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Xfermode;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
+import android.widget.ImageView;
+
 import library.lanshifu.com.myapplication.R;
 
 
-public class ChatImageView extends android.support.v7.widget.AppCompatImageView{
-
+public class ChatImageView extends ImageView {
+    private Bitmap srcBitmap;
     private Paint paint;
-    private Path muskPath;
-    private int roundRadius;//圆角半径
-    private int angleWidth;//下角高度
-    private float percent=0.3f;//下角在底部的左边占据百分比
-    private Bitmap mRectMask;
-    private Xfermode mXfermode;
-    private int angleTop = 100;
+    private BitmapShader mBitmapShader;
+    private Matrix mMatrix;
+    private int width;
+    private int height;
+    private Paint borderPaint; //边框的画笔
 
+    private int mOrientation; //方向
+    private int mborderColor; //边框颜色
 
     public ChatImageView(Context context) {
-        this(context, null);
+        super(context);
+        init();
     }
 
-    public ChatImageView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+
+    public ChatImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        //获取自定义属性值
+        TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.ChatImageView);
+        mOrientation = ta.getInt(R.styleable.ChatImageView_orientation, 0);
+        mborderColor = ta.getColor(R.styleable.ChatImageView_borderColor, Color.GRAY);
+        ta.recycle();
+
+        init();
     }
 
-    public ChatImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ChatImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        init();
     }
 
-    private void init(AttributeSet attrs) {
-        paint=new Paint();
-        paint.setColor(Color.RED);
+
+    private void init() {
+
+        paint = new Paint();
         paint.setAntiAlias(true);
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ChatImageView);
-        roundRadius = typedArray.getDimensionPixelOffset(R.styleable.ChatImageView_roundRadius,0);
-        angleWidth = typedArray.getDimensionPixelOffset(R.styleable.ChatImageView_angleHeight,0);
-        percent = typedArray.getFloat(R.styleable.ChatImageView_anglePercent,0);
-        // 关键方法
-        mXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+
+        borderPaint = new Paint();
+        borderPaint.setColor(mborderColor);
+        borderPaint.setAntiAlias(true);
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(1);
+
+        srcBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
+        mBitmapShader = new BitmapShader(srcBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        mMatrix = new Matrix();
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        if (getWidth() > 0 && getHeight() > 0) {
+            width = getWidth();
+            height = getHeight();
+
+            int mWidth = Math.min(getMeasuredWidth(), getMeasuredHeight());
+
+            //设置缩放
+            int bSize = Math.min(srcBitmap.getWidth(), srcBitmap.getHeight());
+            float scale = mWidth * 1.0f / bSize;
+            mMatrix.setScale(scale, scale);
+            mBitmapShader.setLocalMatrix(mMatrix);
+
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        int id = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null, Canvas.ALL_SAVE_FLAG);
-        super.onDraw(canvas);
-        Drawable drawable = getDrawable();
-        if (null != drawable) {
-            createMask();
-            // 关键方法
-            paint.setXfermode(mXfermode);
-            canvas.drawBitmap(mRectMask, 0, 0, paint);
-            paint.setXfermode(null);
-            canvas.restoreToCount(id);
-        }
 
+
+        paint.setShader(mBitmapShader);
+
+        Path path = null;
+        if (mOrientation == 0) {
+            path = getLeftPath();
+        } else {
+            path = getRightPath();
+        }
+        canvas.drawPath(path, paint);
+        //画边框
+        canvas.drawPath(path, borderPaint);
     }
+
 
     /**
-     * 获取上层蒙层
+     * 画出左朝向的path
+     *
+     * @return
      */
-    private void createMask() {
-        if (mRectMask==null){
-            int maskWidth = getMeasuredWidth();
-            int maskHeight = getMeasuredHeight();
-            mRectMask = Bitmap.createBitmap(maskWidth, maskHeight, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(mRectMask);
+    private Path getLeftPath() {
+        Path path = new Path();
 
-            muskPath=new Path();
-            muskPath.moveTo(roundRadius,0); //起点
-            muskPath.lineTo(maskWidth-roundRadius,0); //拐点
-            //右上角用当前端点、端点1(x1,y1)和端点2(x2,y2)这三个点所形成的夹角，然后绘制一段与夹角的两边相切并且半径为radius的圆上的弧线
-            muskPath.arcTo(new RectF(maskWidth-roundRadius*2 - angleWidth,0,maskWidth - angleWidth,roundRadius*2),270,90);
+        path.moveTo(40, 0);
+        path.lineTo(width - 20, 0);
+        RectF oval = new RectF(width - 40, 0, width, 40);
+        path.arcTo(oval, 270, 90, false); //false表示不闭口
 
-            muskPath.lineTo(maskWidth - angleWidth,maskHeight * percent);
-            muskPath.lineTo(maskWidth,maskHeight  * percent + angleWidth);
-            muskPath.lineTo(maskWidth - angleWidth,maskHeight  * percent + angleWidth *2);
-            muskPath.lineTo(maskWidth - angleWidth,maskHeight - roundRadius);
+        path.lineTo(width, height - 20);
 
-            //右下角
-            muskPath.arcTo(new RectF(maskWidth - angleWidth -roundRadius*2,maskHeight-roundRadius*2,
-                    maskWidth- angleWidth,maskHeight),0,90);
-            muskPath.lineTo(roundRadius,maskHeight);
-            //箭头
-//            muskPath.lineTo(maskWidth*percent,maskHeight);
-//            muskPath.lineTo(maskWidth*percent-angleWidth,maskHeight-angleWidth);
-//            muskPath.lineTo(roundRadius,maskHeight);
+        oval = new RectF(width - 40, height - 40, width, height);
+        path.arcTo(oval, 0, 90, false);
 
-            //左下角
-            muskPath.arcTo(new RectF(0,maskHeight-roundRadius*2,roundRadius*2,maskHeight),90,90);
-            muskPath.lineTo(0,roundRadius);
-            //左上角
-            muskPath.arcTo(new RectF(0,0,roundRadius*2,roundRadius*2),180,90);
+        path.lineTo(40, height);
+        oval = new RectF(20, height - 40, 60, height);
+        path.arcTo(oval, 90, 90, false);
 
-            canvas.drawPath(muskPath,paint);
-
-        }
+        path.lineTo(20, 60);
+        path.lineTo(0, 20);
+        path.lineTo(20, 20);
+        oval = new RectF(20, 0, 60, 40);
+        path.arcTo(oval, 180, 90, false);
+        path.close();//封闭
+        return path;
     }
 
+
+    /**
+     * 画出右朝向的path
+     *
+     * @return
+     */
+    private Path getRightPath() {
+        Path path = new Path();
+
+        path.moveTo(20, 0);
+        path.lineTo(width - 40, 0);
+        RectF oval = new RectF(width - 60, 0, width - 20, 40);
+        path.arcTo(oval, 270, 90, false);
+
+        path.lineTo(width, 20);
+        path.lineTo(width - 20, 60);
+        path.lineTo(width - 20, height - 20);
+
+        oval = new RectF(width - 60, height - 40, width - 20, height);
+        path.arcTo(oval, 0, 90, false);
+
+        path.lineTo(20, height);
+        oval = new RectF(0, height - 40, 40, height);
+        path.arcTo(oval, 90, 90, false);
+
+        path.lineTo(0, 20);
+        oval = new RectF(0, 0, 40, 40);
+        path.arcTo(oval, 180, 90, false);
+        path.close();//封闭
+        return path;
+    }
 }

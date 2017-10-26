@@ -140,11 +140,8 @@
             android:name=".network_into.activity.TinyServiceActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.FileDisplayActivity" />
-        <activity android:name=".network_into.activity.NetworkKillActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".network_into.activity.TinyServiceActivity"
-            android:launchMode="singleTask"/>
         <activity android:name=".ui.ZhiHuPictureActivity" />
+        <activity android:name=".ui.WechatImageActivity" />
 
         <receiver android:name=".network_into.receiver.NetworkReceiver">
             <intent-filter>
