@@ -20,6 +20,7 @@ import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.Bind;
@@ -28,6 +29,19 @@ import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.net.MyObserver;
+
+import java.lang.CharSequence;
+
+import android.support.v4.app.NotificationCompat;
+import android.content.Context;
+
+import java.lang.CharSequence;
+
+import android.support.v4.app.NotificationCompat;
+import android.content.Context;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 
 /**
  * Created by lanxiaobin on 2017/10/19.
@@ -101,6 +115,9 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
                     @Override
                     public void _onNext(Boolean aBoolean) {
                         openPicSelect();
+
+
+
                     }
 
                     @Override

@@ -9,7 +9,7 @@
     android:showDividers="middle">
 
 
-    <library.lanshifu.com.myapplication.widget.ChatImageView
+    <library.lanshifu.com.myapplication.widget.ChatImageView1
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:orientation="left"
         />
 
-    <library.lanshifu.com.myapplication.widget.ChatImageView
+    <library.lanshifu.com.myapplication.widget.ChatImageView1
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

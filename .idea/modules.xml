@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/lanshifu_library-master.iml" filepath="$PROJECT_DIR$/lanshifu_library-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/lsf_library/lsf_library.iml" filepath="$PROJECT_DIR$/lsf_library/lsf_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/luban/luban.iml" filepath="$PROJECT_DIR$/luban/luban.iml" />
-      <module fileurl="file://$PROJECT_DIR$/matisse/matisse.iml" filepath="$PROJECT_DIR$/matisse/matisse.iml" />
       <module fileurl="file://$PROJECT_DIR$/shell_library/shell_library.iml" filepath="$PROJECT_DIR$/shell_library/shell_library.iml" />
     </modules>
   </component>

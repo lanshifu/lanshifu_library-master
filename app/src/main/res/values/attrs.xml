@@ -92,7 +92,7 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="ChatImageView">
+    <declare-styleable name="ChatImageView1">
         <attr name="orientation">
             <enum name="left" value="0"></enum>
             <enum name="right" value="1"></enum>
