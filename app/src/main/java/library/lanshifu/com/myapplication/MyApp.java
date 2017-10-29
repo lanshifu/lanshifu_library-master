@@ -3,6 +3,11 @@ package library.lanshifu.com.myapplication;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.CsvFormatStrategy;
+import com.orhanobut.logger.DiskLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
@@ -43,8 +48,8 @@ public class MyApp extends BaseApplication {
         instance = this;
 
         SdkManager.init(context);
-        T.init(context);
-        L.init(true, "lanshifu");
+//        T.init(context);
+//        L.init(true, "lanshifu");
 
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
             @NonNull
@@ -65,6 +70,8 @@ public class MyApp extends BaseApplication {
         });
 
         LitePal.initialize(this);
+
+
 
     }
 

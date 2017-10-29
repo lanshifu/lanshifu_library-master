@@ -130,8 +130,8 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
 
     private void openVideoSelect() {
         Matisse.from(this)
-                .choose(MimeType.allOf())
-                .captureStrategy(new CaptureStrategy(true,null))
+                .choose(MimeType.ofVideo())
+                .showSingleMediaType(true)
                 .captureStrategy(new CaptureStrategy(true, getPackageName()+".fileprovider"))
                 .capture(true)
                 .countable(true)
@@ -146,9 +146,10 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
 
     private void openPicSelect() {
         Matisse.from(this)
-                .choose(MimeType.allOf())
-                .captureStrategy(new CaptureStrategy(true,null))
+                .choose(MimeType.ofImage())
+                .showSingleMediaType(true)
                 .countable(true)
+                .capture(true)
                 .maxSelectable(9)
                 .captureStrategy(new CaptureStrategy(true, getPackageName()+".fileprovider"))
 //                        .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))

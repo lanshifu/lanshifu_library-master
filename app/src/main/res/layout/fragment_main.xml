@@ -8,216 +8,230 @@
 
     <include layout="@layout/comm_titlebar" />
 
-    <com.google.android.flexbox.FlexboxLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:alignContent="stretch"
-        app:alignItems="stretch"
-        app:flexWrap="wrap">
+        android:layout_height="match_parent">
+
+
+        <com.google.android.flexbox.FlexboxLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexWrap="wrap">
+
+            <Button
+                android:id="@+id/btn_sms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="短信查流量" />
+
+            <Button
+                android:id="@+id/btn_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单选窗" />
+
+            <Button
+                android:id="@+id/btn_multi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="多选框" />
+
+            <Button
+                android:id="@+id/btn_base"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="辅助功能查看类名" />
+
+            <Button
+                android:id="@+id/btn_mult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wifi密码查看"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tabActivity"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/popmenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="菜单" />
+
+            <Button
+                android:id="@+id/pagerfragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pagerfragment"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/bt_contentprovider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="内容提供者" />
+
+            <Button
+                android:id="@+id/bt_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="录音" />
+
+            <Button
+                android:id="@+id/bt_photopicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="图片选择" />
+
+            <Button
+                android:id="@+id/bt_slid_pager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卡片pager"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_viewpager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="viewpager切换"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_databinding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mvvm"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/btn_twolist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="列表悬停"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_face"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="笑脸点赞"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_cardstack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卡片折叠"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_surefaceview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="涂鸦"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_bluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="蓝牙通信"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="wifi快传（网页）"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_vr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VR"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_expend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="三级checkbox"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_shell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="shell"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="loading"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="引导层"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_jsoup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jsoup"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_network_tool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网络渗透"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btn_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="音乐"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zhihu_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="知乎图库"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_chatimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="聊天图片"
+                android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_sms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="短信查流量" />
+                android:id="@+id/btn_aidl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="aidl"
+                android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btn_single"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="单选窗" />
-
-        <Button
-            android:id="@+id/btn_multi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="多选框" />
-
-        <Button
-            android:id="@+id/btn_base"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="辅助功能查看类名" />
-
-        <Button
-            android:id="@+id/btn_mult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="wifi密码查看"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tabActivity"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/popmenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="菜单" />
-
-        <Button
-            android:id="@+id/pagerfragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="pagerfragment"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/bt_contentprovider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="内容提供者" />
-
-        <Button
-            android:id="@+id/bt_voice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="录音" />
-
-        <Button
-            android:id="@+id/bt_photopicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="图片选择" />
-
-        <Button
-            android:id="@+id/bt_slid_pager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="卡片pager"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_viewpager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="viewpager切换"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_databinding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="mvvm"
-            android:textAllCaps="false" />
-
-
-        <Button
-            android:id="@+id/btn_twolist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="列表悬停"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_face"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="笑脸点赞"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_cardstack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="卡片折叠"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_surefaceview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="涂鸦"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_bluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="蓝牙通信"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_wifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="wifi快传（网页）"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_vr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VR"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_expend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="三级checkbox"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_shell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="shell"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="loading"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="引导层"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_jsoup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="jsoup"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_network_tool"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="网络渗透"
-            android:textAllCaps="false" />
-  <Button
-            android:id="@+id/btn_music"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="音乐"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_zhihu_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="知乎图库"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btn_chatimage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="聊天图片"
-            android:textAllCaps="false" />
-
-    </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+    </ScrollView>
 
 
 </LinearLayout>

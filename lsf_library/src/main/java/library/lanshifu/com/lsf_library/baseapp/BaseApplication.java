@@ -3,6 +3,13 @@ package library.lanshifu.com.lsf_library.baseapp;
 import android.app.Application;
 import android.content.Context;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.CsvFormatStrategy;
+import com.orhanobut.logger.DiskLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+
+import library.lanshifu.com.lsf_library.BuildConfig;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 
@@ -29,6 +36,17 @@ public class BaseApplication extends Application {
 
         T.init(context);
         L.init(true,"lanshifu");
+        Logger.addLogAdapter(new AndroidLogAdapter() {
+            @Override public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.DEBUG;
+            }
+        });
+//        Logger.addLogAdapter(new DiskLogAdapter());
+        FormatStrategy formatStrategy = CsvFormatStrategy.newBuilder()
+                .tag("lanshifu")
+                .build();
+
+        Logger.addLogAdapter(new DiskLogAdapter(formatStrategy));
 
 
 

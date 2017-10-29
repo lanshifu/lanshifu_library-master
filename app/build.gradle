@@ -17,7 +17,6 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
     //**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下
     // 使用compile 'cn.bmob.android:http-legacy:1.0'**
     useLibrary 'org.apache.http.legacy'
@@ -36,10 +35,16 @@ android {
         ndk{
 //            设置了支持的 CPU 的类型
 //            abiFilters "armeabi"
-            abiFilters "armeabi", "armeabi-v7a", "x86_64"}
+            abiFilters "armeabi", "armeabi-v7a", "x86_64","x86"}
+
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
 
-
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+        }
+    }
 
     buildTypes {
 
@@ -48,13 +53,13 @@ android {
             buildConfigField "boolean", "isDebug", "true"
         }
 
-        xiaomi {
-            manifestPlaceholders = [
-                    UMENG_CHANNEL: "0",
-                    UMENG_APPKEY : "12345"
-            ]
-
-        }
+//        xiaomi {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "0",
+//                    UMENG_APPKEY : "12345"
+//            ]
+//
+//        }
 
         release {
             buildConfigField "boolean", "isDebug", "false"
@@ -92,6 +97,10 @@ android {
         daoPackage 'library.lanshifu.com.myapplication.greendao'
         targetGenDir 'src/main/java'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -104,6 +113,7 @@ dependencies {
     compile project(':fileprovdider7')
     compile project(':luban')
     compile project(':shell_library')
+    compile project(':matisse')
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
     //腾讯浏览doc/excel/pdf/ppt sdk
@@ -134,14 +144,13 @@ dependencies {
     //jsoup
     compile 'org.jsoup:jsoup:1.10.1'
     //知乎图库
-    compile 'com.zhihu.android:matisse:0.4.3'
-
+//    compile 'com.zhihu.android:matisse:0.4.3'
     //okhttp日志拦截
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-
     //https://github.com/JessYanCoding/ProgressManager 文件上传下载监听
     compile 'me.jessyan:progressmanager:1.5.0'
+
 
 }
 

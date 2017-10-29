@@ -142,6 +142,7 @@
         <activity android:name=".ui.FileDisplayActivity" />
         <activity android:name=".ui.ZhiHuPictureActivity" />
         <activity android:name=".ui.WechatImageActivity" />
+        <activity android:name=".ui.AidlActivity" />
 
         <receiver android:name=".network_into.receiver.NetworkReceiver">
             <intent-filter>

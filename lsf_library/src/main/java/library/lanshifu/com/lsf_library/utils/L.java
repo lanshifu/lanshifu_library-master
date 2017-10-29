@@ -3,6 +3,8 @@ package library.lanshifu.com.lsf_library.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +30,8 @@ public class L
 
 
 	public static void d(String msg, Object... params) {
-		d(null, msg, params);
+		Logger.d(msg);
+//		d(null, msg, params);
 	}
 
 	public static void d(String tag, String msg, Object[] params) {
@@ -38,7 +41,8 @@ public class L
 
 
 	public static void e(String msg, Object... params) {
-		e(null, msg, params);
+		Logger.e(msg);
+//		e(null, msg, params);
 	}
 
 	public static void e(String tag, String msg, Object[] params) {

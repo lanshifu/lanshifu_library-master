@@ -130,7 +130,7 @@ public class SongListFragment extends BaseFragment {
                         recyclerView.finishLoadmore(true);
                         recyclerView.finishRefresh(true);
                         List<WrapperSongListInfo.SongListInfo> songListInfos = wrapperSongListInfo.getContent();
-                        if (songListInfos.size() != 0) {
+                        if (songListInfos != null && songListInfos.size() != 0) {
                             if (startPage == 1) {
                                 //第一次加载
                                 adapter.replaceData(songListInfos);

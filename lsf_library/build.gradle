@@ -5,7 +5,7 @@ group='com.github.lanshifu'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 15
@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0.0"
 
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
 
     }
     buildTypes {
@@ -46,7 +47,10 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
+//    annotationProcessor  'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor  'com.jakewharton:butterknife-compiler:8.8.1'
     //view注解
     //动画库
     compile 'com.facebook.rebound:rebound:0.3.8'
+    compile 'com.orhanobut:logger:2.1.1'
 }
