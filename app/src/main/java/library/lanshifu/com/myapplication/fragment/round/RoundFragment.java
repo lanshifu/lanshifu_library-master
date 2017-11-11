@@ -86,8 +86,9 @@ public class RoundFragment extends BaseFragment {
         menuFragments.add(new Menu1Fragment());
         menuFragments.add(new Menu2Fragment());
         fragmentManager = getFragmentManager();
-        menu_viewpager.setAdapter(new MenuPagerAdapter(fragmentManager, menuFragments));
 
+
+        menu_viewpager.setAdapter(new MenuPagerAdapter(fragmentManager, menuFragments));
         menu_viewpager.addOnPageChangeListener(new ViewPagerListener(menu_indicator));
 
         antoScroll();

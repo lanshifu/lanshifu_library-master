@@ -14,18 +14,20 @@ import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
 
 
-public class ChatImageView extends android.support.v7.widget.AppCompatImageView{
+public class ChatImageView extends android.support.v7.widget.AppCompatImageView {
 
     private Paint paint;
     private Path muskPath;
-    private int roundRadius;//圆角半径
-    private int angleWidth;//下角高度
-    private float percent=0.3f;//下角在底部的左边占据百分比
+    private int angleWidth = 30;//下角高度
     private Bitmap mRectMask;
     private Xfermode mXfermode;
+    private float percent = 0.3f;//下角在底部的左边占据百分比
+    private int roundRadius = 30;//圆角半径
     private int angleTop = 100;
 
     private int mOrientation; //方向
@@ -47,7 +49,7 @@ public class ChatImageView extends android.support.v7.widget.AppCompatImageView{
     }
 
     private void init(AttributeSet attrs) {
-        paint=new Paint();
+        paint = new Paint();
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.ChatImageView1);
@@ -87,7 +89,7 @@ public class ChatImageView extends android.support.v7.widget.AppCompatImageView{
         maskWidth = getMeasuredWidth();
         maskHeight = getMeasuredHeight();
 
-        if (getWidth() > 0 && getHeight() > 0 ) {
+        if (getWidth() > 0 && getHeight() > 0) {
             maskWidth = getWidth();
             maskHeight = getHeight();
 
@@ -99,40 +101,45 @@ public class ChatImageView extends android.support.v7.widget.AppCompatImageView{
      */
     private void createMask() {
 
-            maskWidth = getMeasuredWidth();
-            maskHeight = getMeasuredHeight();
 
-            mRectMask = Bitmap.createBitmap(maskWidth, maskHeight, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(mRectMask);
+        maskWidth = getMeasuredWidth();
+        maskHeight = getMeasuredHeight();
+        int left = this.getLeft();
+        L.d("maskWidth "+maskWidth);
+        L.d("maskHeight "+maskHeight);
+        L.d("left  "+left);
+        mRectMask = Bitmap.createBitmap(maskWidth, maskHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(mRectMask);
 
-            muskPath=new Path();
-            muskPath.moveTo(roundRadius,0); //起点
-            muskPath.lineTo(maskWidth -roundRadius,0); //拐点
-            //右上角用当前端点、端点1(x1,y1)和端点2(x2,y2)这三个点所形成的夹角，然后绘制一段与夹角的两边相切并且半径为radius的圆上的弧线
-            muskPath.arcTo(new RectF(maskWidth -roundRadius*2 - angleWidth,0, maskWidth - angleWidth,roundRadius*2),270,90);
 
-            muskPath.lineTo(maskWidth - angleWidth, maskHeight * percent);
-            muskPath.lineTo(maskWidth, maskHeight * percent + angleWidth);
-            muskPath.lineTo(maskWidth - angleWidth, maskHeight * percent + angleWidth *2);
-            muskPath.lineTo(maskWidth - angleWidth, maskHeight - roundRadius);
+        muskPath = new Path();
+        muskPath.moveTo(roundRadius, 0); //起点
+        muskPath.lineTo(maskWidth - roundRadius, 0); //拐点
+        //右上角用当前端点、端点1(x1,y1)和端点2(x2,y2)这三个点所形成的夹角，然后绘制一段与夹角的两边相切并且半径为radius的圆上的弧线
+        RectF rectF1 = new RectF(maskWidth - roundRadius * 2 - angleWidth, 0, maskWidth - angleWidth, roundRadius * 2);
+        muskPath.arcTo(rectF1, 270, 90);
 
-            //右下角
-            muskPath.arcTo(new RectF(maskWidth - angleWidth -roundRadius*2, maskHeight -roundRadius*2,
-                    maskWidth - angleWidth, maskHeight),0,90);
-            muskPath.lineTo(roundRadius, maskHeight);
-            //箭头
-//            muskPath.lineTo(maskWidth*percent,maskHeight);
-//            muskPath.lineTo(maskWidth*percent-angleWidth,maskHeight-angleWidth);
-//            muskPath.lineTo(roundRadius,maskHeight);
+        muskPath.lineTo(maskWidth - angleWidth, maskHeight * percent);
+        muskPath.lineTo(maskWidth, maskHeight * percent + angleWidth);
+        muskPath.lineTo(maskWidth - angleWidth, maskHeight * percent + angleWidth * 2);
+        muskPath.lineTo(maskWidth - angleWidth, maskHeight - roundRadius);
 
-            //左下角
-            muskPath.arcTo(new RectF(0, maskHeight -roundRadius*2,roundRadius*2, maskHeight),90,90);
-            muskPath.lineTo(0,roundRadius);
-            //左上角
-            muskPath.arcTo(new RectF(0,0,roundRadius*2,roundRadius*2),180,90);
+        //右下角
+        RectF rectF2 = new RectF(maskWidth - angleWidth - roundRadius * 2, maskHeight - roundRadius * 2,
+                maskWidth - angleWidth, maskHeight);
+        muskPath.arcTo(rectF2, 0, 90);
+        muskPath.lineTo(roundRadius, maskHeight);
+        //左下角
+        RectF ova3 = new RectF(0, maskHeight - roundRadius * 2, roundRadius * 2, maskHeight);
+        muskPath.arcTo(ova3, 90, 90);
+        muskPath.lineTo(0, roundRadius);
+        //左上角
+        RectF ova4 = new RectF(0, 0, roundRadius * 2, roundRadius * 2);
+        muskPath.arcTo(ova4, 180, 90);
 
-            canvas.drawPath(muskPath,paint);
+        canvas.drawPath(muskPath, paint);
 
     }
+
 
 }

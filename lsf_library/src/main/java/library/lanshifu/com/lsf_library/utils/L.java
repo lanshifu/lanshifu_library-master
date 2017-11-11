@@ -30,8 +30,8 @@ public class L
 
 
 	public static void d(String msg, Object... params) {
-		Logger.d(msg);
-//		d(null, msg, params);
+//		Logger.d(msg);
+		d(null, msg, params);
 	}
 
 	public static void d(String tag, String msg, Object[] params) {

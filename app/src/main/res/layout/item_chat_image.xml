@@ -2,16 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
 
     <library.lanshifu.com.myapplication.widget.ChatImageView
         android:id="@+id/iv_img"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         app:borderColor="@color/colorPrimaryDark"
         app:orientation="left" />
 

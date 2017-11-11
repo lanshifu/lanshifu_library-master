@@ -1,6 +1,5 @@
 package library.lanshifu.com.myapplication.viewpager;
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,23 +10,21 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
-import library.lanshifu.com.myapplication.model.LiveCategory;
 import library.lanshifu.com.myapplication.net.MyObserver;
 import library.lanshifu.com.myapplication.net.RetrofitHelper;
 import library.lanshifu.com.myapplication.net.RxSchedulerHelper;
+import library.lanshifu.com.myapplication.net.progress.ProgressListener;
+import library.lanshifu.com.myapplication.net.progress.ProgressManager;
+import library.lanshifu.com.myapplication.net.progress.body.ProgressInfo;
 import library.lanshifu.com.myapplication.viewpager.adapter.ImagePagerAdapter;
 import library.lanshifu.com.myapplication.viewpager.transformer.CardTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.DepthPageTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.RotateDownPageTransformer;
 import library.lanshifu.com.myapplication.viewpager.transformer.ZoomOutPageTransformer;
-import me.jessyan.progressmanager.ProgressListener;
-import me.jessyan.progressmanager.ProgressManager;
-import me.jessyan.progressmanager.body.ProgressInfo;
 import okhttp3.ResponseBody;
 
 public class ViewPagerDemoActivity extends BaseToolBarActivity {
@@ -121,7 +118,7 @@ public class ViewPagerDemoActivity extends BaseToolBarActivity {
     @Override
     protected void onViewCreate() {
         String url = imageArray[0];
-        ProgressManager.getInstance().addResponseListener(url, new ProgressListener() {
+        ProgressManager.getInstance().addDownLoadListener(url, new ProgressListener() {
             @Override
             public void onProgress(ProgressInfo progressInfo) {
                 L.d("进度："+progressInfo.getPercent());

@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import library.lanshifu.com.lsf_library.utils.SystemManage;
 import library.lanshifu.com.myapplication.MyApp;
 import library.lanshifu.com.myapplication.net.api.ApiConstant;
+import library.lanshifu.com.myapplication.net.api.DownlodApi;
 import library.lanshifu.com.myapplication.net.api.GaoKaoAPI;
 import library.lanshifu.com.myapplication.net.api.JsoupApi;
 import library.lanshifu.com.myapplication.net.api.LiveApi;
@@ -16,7 +17,7 @@ import library.lanshifu.com.myapplication.net.api.MusicApi;
 import library.lanshifu.com.myapplication.net.api.OtherApi;
 import library.lanshifu.com.myapplication.net.api.WeatherApi;
 import library.lanshifu.com.myapplication.net.api.WechatApi;
-import me.jessyan.progressmanager.ProgressManager;
+import library.lanshifu.com.myapplication.net.progress.ProgressManager;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -206,6 +207,10 @@ public class RetrofitHelper {
 
     public static OtherApi getOtherApi() {
         return createApi(OtherApi.class, "https://ss1.bdstatic.com/");
+    }
+
+    public static DownlodApi getDownloadApi(){
+        return createApi(DownlodApi.class, "http://121.29.10.1");
     }
 
 }

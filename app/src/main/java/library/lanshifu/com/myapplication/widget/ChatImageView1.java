@@ -148,7 +148,7 @@ public class ChatImageView1 extends ImageView {
         path.arcTo(oval, 0, 90, false);
 
         path.lineTo(40, height);
-        oval = new RectF(20, height - 40, 60, height);
+        oval = new RectF(20, height - 40, 60, height);///
         path.arcTo(oval, 90, 90, false);
 
         path.lineTo(20, 60);
