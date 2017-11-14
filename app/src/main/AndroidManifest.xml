@@ -144,6 +144,7 @@
         <activity android:name=".ui.WechatImageActivity" />
         <activity android:name=".ui.AidlActivity" />
         <activity android:name=".ui.DownloadActivity" />
+        <activity android:name=".ui.PhotosDetailActivity" />
 
         <receiver android:name=".network_into.receiver.NetworkReceiver">
             <intent-filter>

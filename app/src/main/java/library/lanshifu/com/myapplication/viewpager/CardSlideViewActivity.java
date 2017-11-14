@@ -14,6 +14,7 @@ import java.util.Arrays;
 
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.ui.PhotosDetailActivity;
 import library.lanshifu.com.myapplication.widget.cardslideview.CardHandler;
 import library.lanshifu.com.myapplication.widget.cardslideview.CardViewPager;
 
@@ -108,6 +109,12 @@ public class CardSlideViewActivity extends BaseToolBarActivity {
         public View onBind(final Context context, final String data, final int position) {
             View view = View.inflate(context, R.layout.item, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.image);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(PhotosDetailActivity.class);
+                }
+            });
             Glide.with(context).load(data).into(imageView);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

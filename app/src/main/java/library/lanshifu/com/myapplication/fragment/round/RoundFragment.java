@@ -189,6 +189,11 @@ public class RoundFragment extends BaseFragment {
 
     private void setNewDataAddList(WechatItem wechatItem) {
         mPageMark++;
+        WechatItem.ResultBean result = wechatItem.getResult();
+        if(result == null){
+            showErrorToast(wechatItem.getReason());
+            return;
+        }
         List<WechatItem.ResultBean.ListBean> newData = wechatItem.getResult().getList();
 
         if (newData != null && newData.size() > 0) {

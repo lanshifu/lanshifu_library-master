@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+//apply plugin: 'com.tencent.tinker.patch'
 
 android {
     signingConfigs {
@@ -155,6 +156,10 @@ dependencies {
 
     //
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+
+    provided('com.tencent.tinker:tinker-android-anno:1.7.5')
+    //tinker的核心库
+    compile('com.tencent.tinker:tinker-android-lib:1.7.5')
 
 
 }

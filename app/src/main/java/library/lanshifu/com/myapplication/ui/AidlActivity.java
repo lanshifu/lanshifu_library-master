@@ -4,13 +4,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.widget.Button;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lanshifu.myapp3.BookManager;
 import lanshifu.myapp3.IDemandListener;
@@ -20,6 +18,7 @@ import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.myapplication.R;
 
 /**
+ *
  * Created by lanshifu on 2017/10/29.
  */
 

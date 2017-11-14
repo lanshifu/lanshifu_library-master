@@ -202,6 +202,7 @@
                 android:layout_height="wrap_content"
                 android:text="网络渗透"
                 android:textAllCaps="false" />
+
             <Button
                 android:id="@+id/btn_music"
                 android:layout_width="wrap_content"
@@ -223,17 +224,24 @@
                 android:text="聊天图片"
                 android:textAllCaps="false" />
 
-        <Button
+            <Button
                 android:id="@+id/btn_aidl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="aidl"
                 android:textAllCaps="false" />
-   <Button
+
+            <Button
                 android:id="@+id/btn_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="下载"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btn_bigpic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大图"
                 android:textAllCaps="false" />
 
         </com.google.android.flexbox.FlexboxLayout>
