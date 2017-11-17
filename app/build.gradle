@@ -4,12 +4,7 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     signingConfigs {
-//        debug {
-//            keyAlias '123456'
-//            keyPassword '123456'
-//            storeFile file('D:/git_clone/lanshifu_library-master/key.jks')
-//            storePassword '123456'
-//        }
+
         release {
             keyAlias '123456'
             keyPassword '123456'
@@ -147,21 +142,18 @@ dependencies {
     //jsoup
     compile 'org.jsoup:jsoup:1.10.1'
     //知乎图库
-//    compile 'com.zhihu.android:matisse:0.4.3'
+    //    compile 'com.zhihu.android:matisse:0.4.3'
     //okhttp日志拦截
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     //https://github.com/JessYanCoding/ProgressManager 文件上传下载监听
-//    compile 'me.jessyan:progressmanager:1.5.0'
-
+    //    compile 'me.jessyan:progressmanager:1.5.0'
     //
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
-
-    provided('com.tencent.tinker:tinker-android-anno:1.7.5')
+    provided 'com.tencent.tinker:tinker-android-anno:1.7.5'
     //tinker的核心库
-    compile('com.tencent.tinker:tinker-android-lib:1.7.5')
-
-
+    compile 'com.tencent.tinker:tinker-android-lib:1.7.5'
+    compile files('src/main/libs/BaiduLBS_Android.jar')
 }
 
 
