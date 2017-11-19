@@ -44,6 +44,9 @@
         android:theme="@style/DayTheme"
         android:supportsRtl="true">
         <meta-data
+            android:name="library.lanshifu.com.myapplication.glide.MyGlideModule"
+            android:value="GlideModule" />
+        <meta-data
             android:name="UMENG_CHANNEL"
             android:value="UMENG_APPKEY" />
         <meta-data
