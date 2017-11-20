@@ -123,9 +123,10 @@ android {
 //            workingDir './'
 //            def process =commandLine "python","upToFir.py", "$upUrl", "$appName", "$bundleId", "$verName", "$apiToken", "$iconPath", "$apkPath", "$buildNumber", "$changeLog"
             //执行cmd 命令
-            def process = "python upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
-            println("开始上传至fir")
-            println(process)
+            println("开始上传apk")
+           def process = "python upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
+//            def process = "python upToFir.py".execute(){
+
             //获取Python脚本日志，便于出错调试
             ByteArrayOutputStream result = new ByteArrayOutputStream()
             def inputStream = process.getInputStream()
