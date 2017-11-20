@@ -146,7 +146,7 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
 
     private void openPicSelect() {
         Matisse.from(this)
-                .choose(MimeType.ofImage())
+                .choose(MimeType.ofAll())
                 .showSingleMediaType(true)
                 .countable(true)
                 .capture(true)
