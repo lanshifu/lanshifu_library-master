@@ -185,4 +185,6 @@
 
     <string name="button_apply_default">发送</string>
     <string name="button_apply">发送(%1$d)</string>
+
+    <string name="string_count">%1$s/%2$s</string>
 </resources>

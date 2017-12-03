@@ -192,7 +192,7 @@ public class RxNetSpeedView extends FrameLayout {
     private Runnable task = new Runnable() {
         public void run() {
             // TODOAuto-generated method stub
-            handler.postDelayed(this, timeInterval);//设置延迟时间，此处是5秒
+            handler.postDelayed(this, timeInterval);//设置延迟时间，此处是0.5秒
             updateViewData();
             //需要执行的代码
         }

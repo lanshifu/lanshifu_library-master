@@ -48,6 +48,7 @@ import library.lanshifu.com.myapplication.imagepicker.PhotoPickerActivity;
 import library.lanshifu.com.myapplication.music.activity.NetMusicActivity;
 import library.lanshifu.com.myapplication.network_into.activity.NetWorkMainActivity;
 import library.lanshifu.com.myapplication.popu.PopuDemoActivity;
+import library.lanshifu.com.myapplication.preview.PhotoListActivity;
 import library.lanshifu.com.myapplication.shell.FileManagerActivity;
 import library.lanshifu.com.myapplication.smartrefresh.SmartRefreshDemoActivity;
 import library.lanshifu.com.myapplication.surfaceview.SurfaceViewActivity;
@@ -179,8 +180,8 @@ public class MainFragment extends BaseFragment {
             , R.id.btn_twolist, R.id.btn_face, R.id.btn_cardstack, R.id.btn_surefaceview
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
             , R.id.btn_sms, R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool
-            , R.id.btn_music, R.id.btn_zhihu_pic,R.id.btn_chatimage,R.id.btn_aidl
-            ,R.id.btn_download,R.id.btn_bigpic})
+            , R.id.btn_music, R.id.btn_zhihu_pic, R.id.btn_chatimage, R.id.btn_aidl
+            , R.id.btn_download, R.id.btn_bigpic, R.id.btn_preview})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -332,17 +333,20 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_zhihu_pic:
                 startActivity(new Intent(getContext(), ZhiHuPictureActivity.class));
                 break;
-          case R.id.btn_chatimage:
+            case R.id.btn_chatimage:
                 startActivity(new Intent(getContext(), WechatImageActivity.class));
                 break;
-          case R.id.btn_aidl:
+            case R.id.btn_aidl:
                 startActivity(new Intent(getContext(), AidlActivity.class));
                 break;
-         case R.id.btn_download:
+            case R.id.btn_download:
                 startActivity(new Intent(getContext(), DownloadActivity.class));
                 break;
-         case R.id.btn_bigpic:
+            case R.id.btn_bigpic:
                 startActivity(new Intent(getContext(), PhotosDetailActivity.class));
+                break;
+            case R.id.btn_preview:
+                startActivity(new Intent(getContext(), PhotoListActivity.class));
                 break;
         }
 
