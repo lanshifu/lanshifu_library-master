@@ -57,10 +57,9 @@
         android:label="@string/app_name"
         android:theme="@style/DayTheme"
         android:supportsRtl="true">
-
-        <meta-data
-            android:name="library.lanshifu.com.myapplication.glide.MyGlideModule"
-            android:value="GlideModule" />
+        <!--<meta-data-->
+            <!--android:name="library.lanshifu.com.myapplication.glide.MyGlideModule"-->
+            <!--android:value="GlideModule" />-->
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="UMENG_APPKEY" />
@@ -162,6 +161,8 @@
         <activity android:name=".ui.WechatImageActivity" />
         <activity android:name=".ui.AidlActivity" />
         <activity android:name=".ui.DownloadActivity" />
+        <activity android:name=".preview.PhotoListActivity" />
+        <activity android:name=".preview.GPreviewActivity" />
         <activity android:name=".ui.PhotosDetailActivity" />
 
         <receiver android:name=".network_into.receiver.NetworkReceiver">
