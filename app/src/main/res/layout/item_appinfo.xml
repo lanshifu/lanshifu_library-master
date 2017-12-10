@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@color/black"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgApp"
+            android:layout_width="60.0dp"
+            android:layout_height="80.0dp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dp"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/apkName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="appname"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/pkgName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pkg.name"
+            android:textColor="#ffffd700" />
+
+        <TextView
+            android:id="@+id/first_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动页"
+            android:textColor="#ffffd700" />
+
+        <TextView
+            android:id="@+id/apkSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="size"
+            android:textColor="#ffffd700" />
+
+        <TextView
+            android:id="@+id/apkVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="version"
+            android:textColor="#ffffd700" />
+
+        <TextView
+            android:id="@+id/sigmd5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签名"
+            android:textColor="#ffffd700" />
+    </LinearLayout>
+</LinearLayout>

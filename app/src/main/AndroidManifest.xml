@@ -150,6 +150,7 @@
         <activity android:name=".preview.PhotoListActivity" />
         <activity android:name=".preview.GPreviewActivity" />
         <activity android:name=".ui.PhotosDetailActivity" />
+        <activity android:name=".ui.AppListActivity" />
 
         <receiver android:name=".network_into.receiver.NetworkReceiver">
             <intent-filter>

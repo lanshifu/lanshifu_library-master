@@ -250,6 +250,13 @@
                 android:text="微信图片效果"
                 android:textAllCaps="false" />
 
+              <Button
+                android:id="@+id/btn_appinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用信息"
+                android:textAllCaps="false" />
+
         </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>
 
