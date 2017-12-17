@@ -396,10 +396,7 @@ public class FileUtils {
         if(filePath == null || filePath.equals("")){
             return false;
         }
-        if(filePath.lastIndexOf(FileInfo.EXTEND_APK) > 0){
-            return true;
-        }
-        return false;
+        return filePath.lastIndexOf(FileInfo.EXTEND_APK) > 0;
     }
 
     /**
@@ -411,10 +408,7 @@ public class FileUtils {
         if(filePath == null || filePath.equals("")){
             return false;
         }
-        if(filePath.lastIndexOf(FileInfo.EXTEND_JPG) > 0 || filePath.lastIndexOf(FileInfo.EXTEND_JPEG) > 0){
-            return true;
-        }
-        return false;
+        return filePath.lastIndexOf(FileInfo.EXTEND_JPG) > 0 || filePath.lastIndexOf(FileInfo.EXTEND_JPEG) > 0;
     }
 
     /**
@@ -426,10 +420,7 @@ public class FileUtils {
         if(filePath == null || filePath.equals("")){
             return false;
         }
-        if(filePath.lastIndexOf(FileInfo.EXTEND_PNG) > 0 ){
-            return true;
-        }
-        return false;
+        return filePath.lastIndexOf(FileInfo.EXTEND_PNG) > 0;
     }
 
     /**
@@ -441,10 +432,7 @@ public class FileUtils {
         if(filePath == null || filePath.equals("")){
             return false;
         }
-        if(filePath.lastIndexOf(FileInfo.EXTEND_MP3) > 0){
-            return true;
-        }
-        return false;
+        return filePath.lastIndexOf(FileInfo.EXTEND_MP3) > 0;
     }
 
     /**
@@ -456,10 +444,7 @@ public class FileUtils {
         if(filePath == null || filePath.equals("")){
             return false;
         }
-        if(filePath.lastIndexOf(FileInfo.EXTEND_MP4) > 0){
-            return true;
-        }
-        return false;
+        return filePath.lastIndexOf(FileInfo.EXTEND_MP4) > 0;
     }
 
     /**
@@ -844,10 +829,7 @@ public class FileUtils {
      */
     public static boolean isExistScreenShot(String fileName){
         File file = new File(FileUtils.getScreenShotDirPath() + fileName);
-        if(file.exists()){
-            return true;
-        }
-        return false;
+        return file.exists();
     }
 
     /**

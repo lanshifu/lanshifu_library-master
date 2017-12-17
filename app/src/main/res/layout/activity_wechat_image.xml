@@ -10,14 +10,11 @@
 
 
     <library.lanshifu.com.myapplication.widget.ChatImageView1
-        android:layout_margin="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:id="@+id/chatimageview"
         android:src="@mipmap/banner02"
         app:borderColor="@color/colorPrimaryDark"
         app:orientation="left"
-        />
+        style="@style/style_chatimageview" />
 
     <library.lanshifu.com.myapplication.widget.ChatImageView1
         android:layout_margin="16dp"

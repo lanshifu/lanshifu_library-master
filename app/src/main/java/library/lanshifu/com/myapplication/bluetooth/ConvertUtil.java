@@ -136,7 +136,7 @@ public class ConvertUtil {
             return value;
         }
         for(int i = 0; i < bytes.length; i++){
-            value += (int) ((bytes[i] & 0xFF) << (8 * (bytes.length - i - 1)));
+            value += (bytes[i] & 0xFF) << (8 * (bytes.length - i - 1));
         }
         return value;
     }
@@ -153,7 +153,7 @@ public class ConvertUtil {
             return value;
         }
         for(int i = 0; i < bytes.length; i++){
-            value += (int) ((bytes[i] & 0xFF) << (8 * i));
+            value += (bytes[i] & 0xFF) << (8 * i);
         }
         return value;
     }

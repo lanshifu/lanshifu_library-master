@@ -127,10 +127,7 @@ public class AppContext {
      * @return 有返回true， 反之
      */
     public boolean isFileInfoMapExist(){
-        if(mFileInfoMap == null || mFileInfoMap.size() <= 0){
-            return false;
-        }
-        return true;
+        return !(mFileInfoMap == null || mFileInfoMap.size() <= 0);
     }
 
     /**

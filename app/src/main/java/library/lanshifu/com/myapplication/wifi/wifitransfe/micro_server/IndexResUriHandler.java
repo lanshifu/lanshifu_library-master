@@ -48,10 +48,7 @@ public class IndexResUriHandler implements ResUriHandler {
     @Override
     public boolean matches(String uri) {
 
-        if(uri == null || uri.equals("") || uri.equals("/")){
-            return true;
-        }
-        return false;
+        return uri == null || uri.equals("") || uri.equals("/");
     }
 
     @Override

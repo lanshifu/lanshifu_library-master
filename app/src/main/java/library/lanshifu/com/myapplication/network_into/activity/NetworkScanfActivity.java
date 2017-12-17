@@ -146,7 +146,7 @@ public class NetworkScanfActivity extends BaseToolBarActivity {
                     public void onClick(View v) {
                         // 功能
                         Intent intent = new Intent(NetworkScanfActivity.this, NetworkFunctionActivity.class);
-                        intent.putExtra("host", (Serializable) host);
+                        intent.putExtra("host", host);
                         startActivity(intent);
                         NetworkHelper.setTarget(host);
                     }

@@ -81,7 +81,7 @@ public class MediaPlayService extends Service {
             Class<?> iSubtitleControllerAnchor = Class.forName("android.media.SubtitleController$Anchor");
             Class<?> iSubtitleControllerListener = Class.forName("android.media.SubtitleController$Listener");
 
-            Constructor constructor = cSubtitleController.getConstructor(new Class[]{Context.class, cMediaTimeProvider, iSubtitleControllerListener});
+            Constructor constructor = cSubtitleController.getConstructor(Context.class, cMediaTimeProvider, iSubtitleControllerListener);
 
             Object subtitleInstance = constructor.newInstance(context, null, null);
 
