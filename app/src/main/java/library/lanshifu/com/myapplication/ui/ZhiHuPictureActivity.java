@@ -56,7 +56,10 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    int position = 0;
+
     private BaseQuickAdapter<Uri, BaseViewHolder> adapter;
+    private int mPo;
 
     @Override
     protected int getLayoutid() {
@@ -65,7 +68,7 @@ public class ZhiHuPictureActivity extends BaseToolBarActivity {
 
     @Override
     protected void onViewCreate() {
-
+        mPo = 0;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BaseQuickAdapter<Uri, BaseViewHolder>(R.layout.item_chat_image,
                 new ArrayList<Uri>()) {

@@ -125,7 +125,7 @@ public class BluetoothChatHelper {
     }
 
     public BluetoothChatHelper setConnectThread(ConnectThread mConnectThread) {
-        this.mConnectThread = mConnectThread;
+        BluetoothChatHelper.mConnectThread = mConnectThread;
         return this;
     }
 
@@ -134,7 +134,7 @@ public class BluetoothChatHelper {
     }
 
     public BluetoothChatHelper setConnectedThread(ConnectedThread mConnectedThread) {
-        this.mConnectedThread = mConnectedThread;
+        BluetoothChatHelper.mConnectedThread = mConnectedThread;
         return this;
     }
 

@@ -63,14 +63,14 @@ public class AcceptThread extends Thread {
 
         Method listenMethod = null;
         try {
-            listenMethod = mBluetoothAdapter.getClass().getMethod("listenUsingRfcommOn", new Class[]{int.class});
+            listenMethod = mBluetoothAdapter.getClass().getMethod("listenUsingRfcommOn", int.class);
         } catch (SecurityException e) {
             L.e("SecurityException :" + e.getMessage());
         } catch (NoSuchMethodException e) {
             L.e("NoSuchMethodException :" + e.getMessage());
         }
         try {
-            return (BluetoothServerSocket) listenMethod.invoke(mBluetoothAdapter, new Object[]{29});
+            return (BluetoothServerSocket) listenMethod.invoke(mBluetoothAdapter, 29);
         } catch (IllegalArgumentException e) {
             L.e("IllegalArgumentException :" + e.getMessage());
         } catch (IllegalAccessException e) {
@@ -141,7 +141,7 @@ public class AcceptThread extends Thread {
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
         try {
-            final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[]{UUID.class});
+            final Method m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", UUID.class);
             return (BluetoothSocket) m.invoke(device, UUID_INSECURE);
         } catch (Exception e) {
             L.e("createBluetoothSocket 出错:" + e.getMessage());

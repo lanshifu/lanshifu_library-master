@@ -39,14 +39,14 @@ public class ColorPickerView extends View {
     private int CenterX = 100;
     private int CenterY = 100;
     private int CenterRadius = 30;
-    private String strColor = "";;
+    private String strColor = "";
 
     private OnColorBackListener l;
 
     public ColorPickerView(Context context) {
         super(context);
         float density = getContext().getResources().getDisplayMetrics().density;
-        double Zoom = (double) (density / 2.0 + 0.5);
+        double Zoom = density / 2.0 + 0.5;
         int color = Color.parseColor("#FFFFFF");
         init(color, Zoom);
     }
@@ -347,6 +347,6 @@ public class ColorPickerView extends View {
     }
 
     public interface OnColorBackListener {
-        public void onColorBack(int a, int r, int g, int b);
+        void onColorBack(int a, int r, int g, int b);
     }
 }

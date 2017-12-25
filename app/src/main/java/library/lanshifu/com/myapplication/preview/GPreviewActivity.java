@@ -63,7 +63,6 @@ public class GPreviewActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        ZoomMediaLoader.getInstance().getLoader().clearMemory(this);
         if (viewPager != null) {
             viewPager.setAdapter(null);
             viewPager.clearOnPageChangeListeners();

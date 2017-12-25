@@ -142,18 +142,12 @@ public class WindowService extends Service {
 
 
     private boolean needIntercept() {
-        if (Math.abs(mStartX - mEndX) > 30 || Math.abs(mStartY - mEndY) > 30) {
-            return true;
-        }
-        return false;
+        return Math.abs(mStartX - mEndX) > 30 || Math.abs(mStartY - mEndY) > 30;
     }
 
 
     private boolean needInterceptUp() {
-        if (Math.abs(mStartX - mEndX) > 100 || Math.abs(mStartY - mEndY) > 100) {
-            return true;
-        }
-        return false;
+        return Math.abs(mStartX - mEndX) > 100 || Math.abs(mStartY - mEndY) > 100;
     }
 
 

@@ -29,7 +29,7 @@ public class ApMgr {
 
     //check whether wifi hotspot on or off
     public static boolean isApOn(Context context) {
-        WifiManager wifimanager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         try {
             Method method = wifimanager.getClass().getDeclaredMethod("isWifiApEnabled");
             method.setAccessible(true);
@@ -41,7 +41,7 @@ public class ApMgr {
 
     //close wifi hotspot
     public static void disableAp(Context context) {
-        WifiManager wifimanager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         try {
             Method method = wifimanager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
             method.invoke(wifimanager, null, false);
@@ -52,7 +52,7 @@ public class ApMgr {
 
     // toggle wifi hotspot on or off
     public static boolean configApState(Context context) {
-        WifiManager wifimanager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiConfiguration wificonfiguration = null;
         try {
             // if WiFi is on, turn it off
@@ -74,7 +74,7 @@ public class ApMgr {
 
     // toggle wifi hotspot on or off, and specify the hotspot name
     public static boolean configApState(Context context, String apName) {
-        WifiManager wifimanager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
+        WifiManager wifimanager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiConfiguration wificonfiguration = null;
         try {
             wificonfiguration = new WifiConfiguration();

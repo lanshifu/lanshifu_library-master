@@ -77,7 +77,7 @@ public class WifiMgr {
      * @return
      */
     public boolean isWifiEnable(){
-        return mWifiManager == null ? false : mWifiManager.isWifiEnabled();
+        return mWifiManager != null && mWifiManager.isWifiEnabled();
     }
 
 

@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.view.accessibility.AccessibilityEvent;
 
 import library.lanshifu.com.lsf_library.baserx.RxManager;
+import library.lanshifu.com.lsf_library.utils.L;
 import library.lanshifu.com.lsf_library.utils.T;
 import library.lanshifu.com.myapplication.window.WindowService;
 
@@ -33,6 +34,7 @@ public class MyAccessServices extends AccessibilityService{
         if(mRxManager ==null){
             mRxManager = new RxManager();
         }
+        L.d("packagename",""+pkgName+"\n类名："+className);
         mRxManager.post("packagename",""+pkgName+"\n类名："+className);
 
     }

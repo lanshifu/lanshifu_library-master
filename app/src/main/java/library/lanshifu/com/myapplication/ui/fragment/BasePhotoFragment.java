@@ -1,8 +1,6 @@
 package library.lanshifu.com.myapplication.ui.fragment;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -12,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
+
 import library.lanshifu.com.myapplication.R;
 import library.lanshifu.com.myapplication.preview.GPreviewActivity;
-import library.lanshifu.com.myapplication.preview.ZoomMediaLoader;
 import library.lanshifu.com.myapplication.preview.enitity.IThumbViewInfo;
-import library.lanshifu.com.myapplication.preview.loader.MySimpleTarget;
 import library.lanshifu.com.myapplication.preview.wight.SmoothImageView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -38,7 +36,6 @@ public class BasePhotoFragment extends Fragment {
     protected SmoothImageView imageView;
     private View rootView;
     private ProgressBar loading;
-    private MySimpleTarget mySimpleTarget;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,38 +66,6 @@ public class BasePhotoFragment extends Fragment {
         initDate();
     }
 
-    @CallSuper
-    @Override
-    public void onStop() {
-        ZoomMediaLoader.getInstance().getLoader().onStop(this);
-        super.onStop();
-    }
-
-    @CallSuper
-    @Override
-    public void onDestroyView() {
-        ZoomMediaLoader.getInstance().getLoader().clearMemory(getActivity());
-        release();
-        super.onDestroyView();
-    }
-
-    public void release() {
-        mySimpleTarget = null;
-        if (imageView != null) {
-            imageView.setImageBitmap(null);
-            imageView.setOnViewTapListener(null);
-            imageView.setOnPhotoTapListener(null);
-            imageView.setAlphaChangeListener(null);
-            imageView.setTransformOutListener(null);
-            imageView.transformIn(null);
-            imageView.transformOut(null);
-            imageView.setOnLongClickListener(null);
-            imageView = null;
-            rootView = null;
-            isTransPhoto = false;
-        }
-    }
-
     /**
      * 初始化控件
      */
@@ -110,28 +75,8 @@ public class BasePhotoFragment extends Fragment {
         rootView = view.findViewById(R.id.rootView);
         rootView.setDrawingCacheEnabled(false);
         imageView.setDrawingCacheEnabled(false);
-        mySimpleTarget = new MySimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap bitmap) {
-                if (imageView.getTag().toString().equals(beanViewInfo.getUrl())) {
-                    imageView.setImageBitmap(bitmap);
-                    loading.setVisibility(View.GONE);
-                }
-            }
 
-            @Override
-            public void onLoadFailed(Drawable errorDrawable) {
-                loading.setVisibility(View.GONE);
-                if (errorDrawable != null) {
-                    imageView.setImageDrawable(errorDrawable);
-                }
-            }
 
-            @Override
-            public void onLoadStarted() {
-
-            }
-        };
     }
 
     /**
@@ -152,7 +97,10 @@ public class BasePhotoFragment extends Fragment {
             //是否展示动画
             isTransPhoto = bundle.getBoolean(KEY_TRANS_PHOTO, false);
             //加载原图
-            ZoomMediaLoader.getInstance().getLoader().displayImage(this, beanViewInfo.getUrl(), mySimpleTarget);
+            Glide.with(getActivity())
+                    .load(beanViewInfo.getUrl())
+                    .error(R.mipmap.ic_launcher)
+                    .into(imageView);
         }
         // 非动画进入的Fragment，默认背景为黑色
         if (!isTransPhoto) {
