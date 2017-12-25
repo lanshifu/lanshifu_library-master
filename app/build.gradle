@@ -45,6 +45,8 @@ android {
         }
     }
 
+
+
     buildTypes {
 
         debug {
@@ -92,6 +94,12 @@ android {
         }
     }
 
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
     greendao {
         schemaVersion 1
         daoPackage 'library.lanshifu.com.myapplication.greendao'
@@ -106,6 +114,11 @@ android {
     task debugToFir {
         dependsOn 'assembleDebug'
         println("doLast")
+        //执行cmd 命令
+        String cmd = 'gradle.bat'
+        def cmdResult = cmd.execute()
+        println cmdResult
+
         doLast {
             def upUrl = "http://api.fir.im/apps"
             def appName = "Python2"
@@ -118,11 +131,9 @@ android {
             def changeLog = "版本更新日志,修复crash"
             //执行Python脚本
 //            workingDir './'
-//            def process =commandLine "python","upToFir.py", "$upUrl", "$appName", "$bundleId", "$verName", "$apiToken", "$iconPath", "$apkPath", "$buildNumber", "$changeLog"
-            //执行cmd 命令
+            def process = "python upToFir.py $upUrl $appName $bundleId $verName $apiToken $iconPath $apkPath $buildNumber $changeLog".execute()
             println("开始上传apk")
-           def process = "python upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
-//            def process = "python upToFir.py".execute(){
+
 
             //获取Python脚本日志，便于出错调试
             ByteArrayOutputStream result = new ByteArrayOutputStream()
@@ -143,12 +154,22 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile project(':lsf_library')
     compile project(':imagepicker')
     compile project(':fileprovdider7')
     compile project(':luban')
     compile project(':shell_library')
     compile project(':matisse')
+
+//    compile(name:'luban-debug', ext:'aar')
+//    compile(name:'shell_library-debug', ext:'aar')
+//    compile(name:'imagepicker-debug', ext:'aar')
+//    compile(name:'matisse-release', ext:'aar')
+//    compile(name:'fileprovdider7-debug', ext:'aar')
+//    compile(name:'lsf_library-debug', ext:'aar')
+
+
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
     //腾讯浏览doc/excel/pdf/ppt sdk
@@ -157,7 +178,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.2-alpha-7'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.2-alpha-7'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.9'
     compile 'com.google.android:flexbox:0.3.0'

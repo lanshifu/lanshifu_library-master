@@ -64,25 +64,29 @@ def upToFir():
 def upToPGY():
     # 蒲公英
     print('蒲公英上传')
+    print (sys.getdefaultencoding())
+
     try:
         print("上传apk")
-        apk_path = 'E:/python/demo1/app-debug.apk'
-        file = {'file': open(apk_path, 'rb')}
+        apk_path = 'D:/git_clone/201711/ThinkerDemo/app/build/outputs/apk/app-debug.apk'
+        # file = {'file': open(apk_path, encoding ='gb18030',errors='ignore')}
+        # file = {'file': open(apk_path,errors='ignore')}
+        file = {"file": open(apk_path, 'rb')}
         param = {
-            "_api_key": '2d50542713698bffb0a4eb8d6ac93608',
+            "_api_key": "2d50542713698bffb0a4eb8d6ac93608",
             "installType": 1,
             "password": "",
-            "updateDescription": '更新日志:修复了某个bug'}
-        req = requests.post('https://www.pgyer.com/apiv2/app/upload', files=file, data=param, verify=False)
-        print('success:' + req.content)
+            "updateDescription": "更新日志:修复了某个bug"
+        }
+        req = requests.post("https://www.pgyer.com/apiv2/app/upload",files = file, data=param)
+        print('success:' + req.text)
         json = req.json()
         print('下载地址')
         print(json["data"]["buildQRCodeURL"])
     except Exception as e:
         print('error:', e)
-    pass
 
 if __name__ == '__main__':
     print("__main__")
-    # upToFir()
-    upToPGY()
+    upToFir()
+    #upToPGY()

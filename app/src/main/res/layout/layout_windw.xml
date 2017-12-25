@@ -12,11 +12,19 @@
         android:layout_centerInParent="true"/>
 
     <TextView
+        android:id="@+id/tv_append"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/red"
+        android:text="收起包名"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
         android:alpha="0.5"
         android:background="@color/green"
         android:padding="8dp"
         android:id="@+id/percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="50"/>
+        android:text="123456789"/>
+
 </LinearLayout>

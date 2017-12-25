@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.scwang.smartrefresh.header.CircleHeader;
-import com.scwang.smartrefresh.header.DeliveryHeader;
-import com.scwang.smartrefresh.header.MaterialHeader;
-import com.scwang.smartrefresh.header.WaterDropHeader;
-import com.scwang.smartrefresh.header.WaveSwipeHeader;
+//import com.scwang.smartrefresh.header.CircleHeader;
+//import com.scwang.smartrefresh.header.DeliveryHeader;
+//import com.scwang.smartrefresh.header.MaterialHeader;
+//import com.scwang.smartrefresh.header.WaterDropHeader;
+//import com.scwang.smartrefresh.header.WaveSwipeHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
@@ -121,19 +121,19 @@ public class SmartRefreshDemoActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         String title = item.getTitle().toString();
-        if ("样式1".equals(title)) {
-            refreshLayout.setRefreshHeader(new MaterialHeader(this));
-            refreshLayout.setRefreshFooter(new BallPulseFooter(this));
-        } else if ("样式2".equals(title)) {
-            refreshLayout.setRefreshHeader(new WaterDropHeader(this));
-            refreshLayout.setRefreshFooter(new BallPulseFooter(this));
-        } else if ("样式3".equals(title)) {
-            refreshLayout.setRefreshHeader(new CircleHeader(this));
-        } else if ("样式4".equals(title)) {
-            refreshLayout.setRefreshHeader(new DeliveryHeader(this));
-        } else if ("样式5".equals(title)) {
-            refreshLayout.setRefreshHeader(new WaveSwipeHeader(this));
-        }
+//        if ("样式1".equals(title)) {
+//            refreshLayout.setRefreshHeader(new MaterialHeader(this));
+//            refreshLayout.setRefreshFooter(new BallPulseFooter(this));
+//        } else if ("样式2".equals(title)) {
+//            refreshLayout.setRefreshHeader(new WaterDropHeader(this));
+//            refreshLayout.setRefreshFooter(new BallPulseFooter(this));
+//        } else if ("样式3".equals(title)) {
+//            refreshLayout.setRefreshHeader(new CircleHeader(this));
+//        } else if ("样式4".equals(title)) {
+//            refreshLayout.setRefreshHeader(new DeliveryHeader(this));
+//        } else if ("样式5".equals(title)) {
+//            refreshLayout.setRefreshHeader(new WaveSwipeHeader(this));
+//        }
 
         return super.onOptionsItemSelected(item);
     }

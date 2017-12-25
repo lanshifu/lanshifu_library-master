@@ -1,2 +1,8 @@
-include ':app', ':lsf_library',':imagepicker',':fileprovdider7',':luban',':shell_library',':matisse'
+include ':app',
+        ':lsf_library',
+        ':imagepicker',
+        ':fileprovdider7',
+        ':luban',
+        ':shell_library',
+        ':matisse'
 

@@ -1,5 +1,6 @@
 package library.lanshifu.com.myapplication;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.util.Log;
@@ -11,9 +12,13 @@ import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import library.lanshifu.com.lsf_library.base.BaseActivity;
 import library.lanshifu.com.lsf_library.commwidget.IDrawerLayout;
+import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.myapplication.alive.ScreenManager;
+import library.lanshifu.com.myapplication.alive.ScreenReceiverUtil;
 import library.lanshifu.com.myapplication.bluetooth.BluetoothChatHelper;
 import library.lanshifu.com.myapplication.fragment.HomeFragment;
 import library.lanshifu.com.myapplication.model.UserInfo;
+import library.lanshifu.com.myapplication.service.DaemonService;
 
 public class MainActivity extends BaseActivity {
 
@@ -61,6 +66,8 @@ public class MainActivity extends BaseActivity {
         iDrawerLayout.switchContentFragment(new HomeFragment());
 
 //        initUserInfo();
+
+        keepAlive();
 
     }
 
@@ -136,4 +143,52 @@ public class MainActivity extends BaseActivity {
             this.finish();
         }
     }
+
+
+    //保活
+    private void keepAlive(){
+        //1前台services
+        startDaemonService();
+        //2 锁屏1像素惨案
+        mScreenListener = new ScreenReceiverUtil(this);
+        mScreenManager = ScreenManager.getScreenManagerInstance(this);
+        mScreenListener.setScreenReceiverListener(mScreenListenerer);
+
+    }
+
+    private void startDaemonService() {
+        Intent intent = new Intent(this, DaemonService.class);
+        startService(intent);
+    }
+
+    // 动态注册锁屏等广播
+    private ScreenReceiverUtil mScreenListener;
+    // 1像素Activity管理类
+    private ScreenManager mScreenManager;
+    // 代码省略...
+    private ScreenReceiverUtil.SreenStateListener
+            mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
+        @Override
+        public void onSreenOn() {
+            // 移除"1像素"
+            L.d("屏幕开启,结束1像素activity");
+            mScreenManager.finishActivity();
+        }
+        @Override
+        public void onSreenOff() {
+            // 接到锁屏广播，将SportsActivity切换到可见模式
+            // "咕咚"、"乐动力"、"悦动圈"就是这么做滴
+            // Intent intent =
+            //new Intent(SportsActivity.this,SportsActivity.class);
+            // startActivity(intent);
+            // 如果你觉得，直接跳出SportActivity很不爽
+            // 那么，我们就制造个"1像素"惨案
+            mScreenManager.startActivity();
+        }
+        @Override
+        public void onUserPresent() {
+            // 解锁，暂不用，保留
+        }
+    };
+
 }

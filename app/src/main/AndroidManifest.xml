@@ -76,6 +76,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -165,6 +166,12 @@
         <activity android:name=".preview.GPreviewActivity" />
         <activity android:name=".ui.PhotosDetailActivity" />
         <activity android:name=".ui.AppListActivity" />
+        <activity android:name=".alive.SinglePixelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="false"
+            android:launchMode="singleInstance"
+            android:theme="@style/SingleActivityStyle"/>
 
         <receiver android:name=".network_into.receiver.NetworkReceiver">
             <intent-filter>
@@ -175,6 +182,8 @@
         <service android:name=".network_into.service.HttpService" />
         <service android:name=".network_into.service.ArpService" />
         <service android:name=".music.service.MediaPlayService" />
+        <service android:name=".service.DaemonService" />
+        <service android:name=".service.CancelNoticeService" />
     </application>
 
 </manifest>

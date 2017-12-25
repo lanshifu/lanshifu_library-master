@@ -28,12 +28,13 @@ public class WindowService extends Service {
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams wmParams;
     private View mWindowView;
-    private TextView mPercenTv;
+    private TextView mTvName;
     private int mStartX;
     private int mStartY;
     private int mEndX;
     private int mEndY;
     private RxManager mRxManager;
+    private TextView mTvAppend;
 
     @Override
     public void onCreate() {
@@ -47,8 +48,8 @@ public class WindowService extends Service {
         mRxManager.on("packagename", new Consumer<String>() {
             @Override
             public void accept(String s) {
-                if (mPercenTv != null) {
-                    mPercenTv.setText(s);
+                if (mTvName != null) {
+                    mTvName.setText(s);
                 }
             }
         });
@@ -62,7 +63,20 @@ public class WindowService extends Service {
     private void initView() {
 
         mWindowView = LayoutInflater.from(this).inflate(R.layout.layout_windw, null);
-        mPercenTv = (TextView) mWindowView.findViewById(R.id.percent);
+        mTvName = (TextView) mWindowView.findViewById(R.id.percent);
+        mTvAppend = (TextView) mWindowView.findViewById(R.id.tv_append);
+        mTvAppend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mTvName.getVisibility() == View.VISIBLE){
+                    mTvName.setVisibility(View.GONE);
+                    mTvAppend.setText("展开包名");
+                }else {
+                    mTvName.setVisibility(View.VISIBLE);
+                    mTvAppend.setText("收起包名");
+                }
+            }
+        });
 
     }
 
@@ -96,7 +110,8 @@ public class WindowService extends Service {
     }
 
     void initClick() {
-        mWindowView.setOnTouchListener(new View.OnTouchListener() {
+
+        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -126,14 +141,16 @@ public class WindowService extends Service {
 
                 return false;
             }
-        });
+        };
+        mWindowView.setOnTouchListener(onTouchListener);
+//        mTvAppend.setOnTouchListener(onTouchListener);
 
         mWindowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Random random = new Random();
                 int rgb = Color.rgb(random.nextInt(250), random.nextInt(250), random.nextInt(250));
-                mPercenTv.setBackgroundColor(rgb);
+                mTvName.setBackgroundColor(rgb);
             }
         });
 
