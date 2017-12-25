@@ -154,22 +154,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile project(':lsf_library')
     compile project(':imagepicker')
     compile project(':fileprovdider7')
     compile project(':luban')
     compile project(':shell_library')
     compile project(':matisse')
-
-//    compile(name:'luban-debug', ext:'aar')
-//    compile(name:'shell_library-debug', ext:'aar')
-//    compile(name:'imagepicker-debug', ext:'aar')
-//    compile(name:'matisse-release', ext:'aar')
-//    compile(name:'fileprovdider7-debug', ext:'aar')
-//    compile(name:'lsf_library-debug', ext:'aar')
-
-
+    //    compile(name:'luban-debug', ext:'aar')
+    //    compile(name:'shell_library-debug', ext:'aar')
+    //    compile(name:'imagepicker-debug', ext:'aar')
+    //    compile(name:'matisse-release', ext:'aar')
+    //    compile(name:'fileprovdider7-debug', ext:'aar')
+    //    compile(name:'lsf_library-debug', ext:'aar')
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile files('src/main/libs/BmobSDK_V3.4.6_0415.jar')
     //腾讯浏览doc/excel/pdf/ppt sdk
@@ -211,6 +207,7 @@ dependencies {
     //tinker的核心库
     compile 'com.tencent.tinker:tinker-android-lib:1.7.5'
     compile files('src/main/libs/BaiduLBS_Android.jar')
+    compile files('src/main/libs/jaudiotagger-2.0.2.jar')
 }
 
 

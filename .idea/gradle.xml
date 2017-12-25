@@ -6,6 +6,18 @@
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="C:/Program Files/Android/Android Studio3.0/gradle/gradle-4.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/fileprovdider7" />
+            <option value="$PROJECT_DIR$/imagepicker" />
+            <option value="$PROJECT_DIR$/lsf_library" />
+            <option value="$PROJECT_DIR$/luban" />
+            <option value="$PROJECT_DIR$/matisse" />
+            <option value="$PROJECT_DIR$/shell_library" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>

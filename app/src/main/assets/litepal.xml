@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="new" ></dbname>
-    <version value="8" ></version>
+    <version value="9" ></version>
 
     <list>
         <mapping class="library.lanshifu.com.myapplication.model.NewBean" />
         <mapping class="library.lanshifu.com.myapplication.model.UserInfo" />
         <mapping class="library.lanshifu.com.myapplication.bluetooth.bean.ChatInfo" />
+        <mapping class="library.lanshifu.com.myapplication.model.MusicInfo" />
     </list>
 </litepal>

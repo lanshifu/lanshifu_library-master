@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:rangeseekbar="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_player_voice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_player_min_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@mipmap/volume_min"/>
+
+        <ImageView
+            android:id="@+id/iv_player_max_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/volume_max"/>
+
+        <SeekBar
+            android:id="@+id/seekbar_voice"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_player_max_voice"
+            android:layout_toRightOf="@id/iv_player_min_voice"/>
+
+    </RelativeLayout>
+
+    <library.lanshifu.com.myapplication.widget.CustomRangeSeekBar
+        android:layout_marginTop="100dp"
+        android:id="@+id/range_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        rangeseekbar:progressBarBg="@mipmap/seekbar_bg"
+        rangeseekbar:progressBarSelBg="@mipmap/seekbar_sel_bg"
+        rangeseekbar:progressTextFormat="timeFormat"
+        rangeseekbar:progressTextSize="16dp"
+        rangeseekbar:startMaxPercent="0.8"
+        rangeseekbar:startMinPercent="0"
+        rangeseekbar:thumbImage="@mipmap/btn_seekbar_normal"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_choose_audio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择音频"/>
+        <Button
+            android:id="@+id/btn_play_pause"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="播放"/>
+
+        <Button
+            android:id="@+id/btn_translate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="切换"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="保存"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -98,9 +98,10 @@ public class FileUtils {
             while (cursor.moveToNext()){
                 try{
                     String data = cursor.getString(0);
+                    String title = cursor.getString(1);
                     FileInfo fileInfo = new FileInfo();
                     fileInfo.setFilePath(data);
-
+                    fileInfo.setName(title);
                     long size = 0;
                     try{
                         File file = new File(data);

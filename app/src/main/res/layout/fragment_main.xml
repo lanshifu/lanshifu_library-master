@@ -256,6 +256,12 @@
                 android:layout_height="wrap_content"
                 android:text="应用信息"
                 android:textAllCaps="false" />
+         <Button
+                android:id="@+id/btn_audio_cut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="音频裁剪"
+                android:textAllCaps="false" />
 
         </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>

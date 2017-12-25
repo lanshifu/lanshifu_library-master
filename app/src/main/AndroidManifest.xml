@@ -166,6 +166,8 @@
         <activity android:name=".preview.GPreviewActivity" />
         <activity android:name=".ui.PhotosDetailActivity" />
         <activity android:name=".ui.AppListActivity" />
+        <activity android:name=".ui.AudioCutActivity" />
+        <activity android:name=".ui.AudioListActivity" />
         <activity android:name=".alive.SinglePixelActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
             android:excludeFromRecents="true"

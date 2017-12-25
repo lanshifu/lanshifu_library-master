@@ -55,6 +55,7 @@ import library.lanshifu.com.myapplication.surfaceview.SurfaceViewActivity;
 import library.lanshifu.com.myapplication.twolist.TwoListActivity;
 import library.lanshifu.com.myapplication.ui.AidlActivity;
 import library.lanshifu.com.myapplication.ui.AppListActivity;
+import library.lanshifu.com.myapplication.ui.AudioCutActivity;
 import library.lanshifu.com.myapplication.ui.DownloadActivity;
 import library.lanshifu.com.myapplication.ui.ExpendActivity;
 import library.lanshifu.com.myapplication.ui.GaoKaoSearchActivity;
@@ -182,7 +183,7 @@ public class MainFragment extends BaseFragment {
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
             , R.id.btn_sms, R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool
             , R.id.btn_music, R.id.btn_zhihu_pic, R.id.btn_chatimage, R.id.btn_aidl
-            , R.id.btn_download, R.id.btn_bigpic, R.id.btn_preview, R.id.btn_appinfo})
+            , R.id.btn_download, R.id.btn_bigpic, R.id.btn_preview, R.id.btn_appinfo, R.id.btn_audio_cut})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -349,8 +350,11 @@ public class MainFragment extends BaseFragment {
             case R.id.btn_preview:
                 startActivity(new Intent(getContext(), PhotoListActivity.class));
                 break;
-          case R.id.btn_appinfo:
+            case R.id.btn_appinfo:
                 startActivity(new Intent(getContext(), AppListActivity.class));
+                break;
+            case R.id.btn_audio_cut:
+                startActivity(new Intent(getContext(), AudioCutActivity.class));
                 break;
         }
 

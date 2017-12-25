@@ -3,53 +3,53 @@
 
     <declare-styleable name="voiceView">
         <!--中间线的颜色，就是波形的时候，大家可以看到，中间有一条直线，就是那个-->
-        <attr name="middleLine" format="color" />
+        <attr name="middleLine" format="color"/>
         <!--中间线的高度，因为宽度是充满的-->
-        <attr name="middleLineHeight" format="dimension" />
+        <attr name="middleLineHeight" format="dimension"/>
         <!--波动的线的颜色，如果是距形样式的话，刚是距形的颜色-->
-        <attr name="voiceLine" format="color" />
+        <attr name="voiceLine" format="color"/>
         <!--波动线的横向移动速度，线的速度的反比，即这个值越小，线横向移动越快，越大线移动越慢，默认90-->
-        <attr name="lineSpeed" format="integer" />
+        <attr name="lineSpeed" format="integer"/>
         <!--矩形的宽度-->
-        <attr name="rectWidth" format="dimension" />
+        <attr name="rectWidth" format="dimension"/>
         <!--矩形之间的间隔-->
-        <attr name="rectSpace" format="dimension" />
+        <attr name="rectSpace" format="dimension"/>
         <!--矩形的初始高度，就是没有声音的时候，矩形的高度-->
-        <attr name="rectInitHeight" format="dimension" />
+        <attr name="rectInitHeight" format="dimension"/>
         <!--所输入音量的最大值-->
-        <attr name="maxVolume" format="float" />
+        <attr name="maxVolume" format="float"/>
         <!--控件的样式，一共有两种，波形或者矩形-->
         <attr name="viewMode">
-            <enum name="line" value="0" />
-            <enum name="rect" value="1" />
+            <enum name="line" value="0"/>
+            <enum name="rect" value="1"/>
         </attr>
         <!--灵敏度，默认值是4-->
         <attr name="sensibility">
-            <enum name="one" value="1" />
-            <enum name="two" value="2" />
-            <enum name="three" value="3" />
-            <enum name="four" value="4" />
-            <enum name="five" value="5" />
+            <enum name="one" value="1"/>
+            <enum name="two" value="2"/>
+            <enum name="three" value="3"/>
+            <enum name="four" value="4"/>
+            <enum name="five" value="5"/>
         </attr>
         <!--精细度，绘制曲线的时候，每几个像素绘制一次，默认是1，一般，这个值越小，曲线越顺滑，
             但在一些旧手机上，会出现帧率过低的情况，可以把这个值调大一点，在图片的顺滑度与帧率之间做一个取舍-->
         <attr name="fineness">
-            <enum name="one" value="1" />
-            <enum name="two" value="2" />
-            <enum name="three" value="3" />
+            <enum name="one" value="1"/>
+            <enum name="two" value="2"/>
+            <enum name="three" value="3"/>
         </attr>
     </declare-styleable>
 
 
     <declare-styleable name="ElasticCardView">
-        <attr name="ratio" format="float" />
+        <attr name="ratio" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="CardViewPager">
-        <attr name="card_padding" format="dimension" />
-        <attr name="card_margin"  format="dimension" />
+        <attr name="card_padding" format="dimension"/>
+        <attr name="card_margin" format="dimension"/>
         <attr name="card_max_offset" format="dimension"/>
-        <attr name="card_loop" format="boolean" />
+        <attr name="card_loop" format="boolean"/>
     </declare-styleable>
 
     <string-array name="array_res">
@@ -97,7 +97,7 @@
             <enum name="left" value="0"></enum>
             <enum name="right" value="1"></enum>
         </attr>
-        <attr name="borderColor" format="color" />
+        <attr name="borderColor" format="color"/>
     </declare-styleable>
 
 
@@ -130,5 +130,21 @@
         <attr name="selectedRaduis" format="dimension"/>
         <attr name="unSelectedRaduis" format="dimension"/>
         <attr name="spacing" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomRangeSeekBar">
+        <attr name="absoluteMin" format="float"/>
+        <attr name="absolutemMax" format="float"/>
+        <attr name="startMinPercent" format="float"/>
+        <attr name="startMaxPercent" format="float"/>
+        <attr name="betweenAbsoluteValue" format="float"/>
+        <attr name="progressTextFormat" format="enum">
+            <enum name="numberFormat" value="0"/>
+            <enum name="timeFormat" value="1"/>
+        </attr>
+        <attr name="thumbImage" format="reference"/>
+        <attr name="progressBarBg" format="reference"/>
+        <attr name="progressBarSelBg" format="reference"/>
+        <attr name="progressTextSize" format="dimension"/>
     </declare-styleable>
 </resources>

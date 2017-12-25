@@ -795,5 +795,56 @@ public final class FileUtil {
         }
         return null;
     }
+    /**
+     * 格式化文件大小
+     * @param fileS
+     * @return
+     */
+    public static String formetFileSize(long fileS) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString = "";
+        if (fileS < 1024) {
+            fileSizeString = df.format((double) fileS) + "B";
+        } else if (fileS < 1048576) {
+            fileSizeString = df.format((double) fileS / 1024) + "K";
+        } else if (fileS < 1073741824) {
+            fileSizeString = df.format((double) fileS / 1048576) + "M";
+        } else {
+            fileSizeString = df.format((double) fileS / 1073741824) +"G";
+        }
+        return fileSizeString;
+    }
 
+    /**
+     * 获取文件大小 单位为字节
+     * @param f
+     * @return
+     * @throws Exception
+     */
+    public static long getFileSizes(File f) throws Exception {//取得文件大小
+        long s = 0;
+        if (f.exists()) {
+            FileInputStream fis = null;
+            fis = new FileInputStream(f);
+            s = fis.available();
+        } else {
+//            f.createNewFile();
+            System.out.println("文件不存在");
+        }
+        return s;
+    }
+
+    /**
+     * 格式化返回文件大小
+     * @param f
+     * @return
+     */
+    public static String getFormatFileSizeForFile(File f){
+        try {
+            return formetFileSize(getFileSizes(f));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
