@@ -847,4 +847,36 @@ public final class FileUtil {
         }
         return null;
     }
+
+
+    /**
+     * 检测是否有文件， 如果有则删除。
+     * @param file
+     */
+    public static void checkAndDelFile(File file){
+        if(file.exists()){
+            file.delete();//删除文件
+        }
+    }
+
+    /**
+     * 监测文件夹是否存在，不存在则创建
+     *
+     * @param strFolder
+     * @return
+     */
+    public static boolean bFolder(String strFolder) {
+        boolean btmp = false;
+        File f = new File(strFolder);
+        if (!f.exists()) {
+            if (f.mkdirs()) {
+                btmp = true;
+            } else {
+                btmp = false;
+            }
+        } else {
+            btmp = true;
+        }
+        return btmp;
+    }
 }

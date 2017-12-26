@@ -1,16 +1,24 @@
 package library.lanshifu.com.myapplication.ui;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
+
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,11 +31,17 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import library.lanshifu.com.lsf_library.base.BaseToolBarActivity;
+import library.lanshifu.com.lsf_library.utils.L;
+import library.lanshifu.com.lsf_library.utils.SystemManage;
 import library.lanshifu.com.myapplication.R;
+import library.lanshifu.com.myapplication.net.MyObserver;
+import library.lanshifu.com.myapplication.utils.Mp3CutLogic;
+import library.lanshifu.com.myapplication.utils.StorageUtil;
 import library.lanshifu.com.myapplication.widget.CustomRangeSeekBar;
 
 /**
@@ -36,6 +50,7 @@ import library.lanshifu.com.myapplication.widget.CustomRangeSeekBar;
 
 public class AudioCutActivity extends BaseToolBarActivity {
     private static final int REQUEST_CODE_AUDIL_LIST = 20;
+    private static final int REQUEST_CODE_ASK_WRITE_SETTINGS = 21;
     @Bind(R.id.iv_player_min_voice)
     ImageView mIvPlayerMinVoice;
     @Bind(R.id.iv_player_max_voice)
@@ -87,7 +102,28 @@ public class AudioCutActivity extends BaseToolBarActivity {
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mRangeSeekbar.setThumbListener(mThumbListener);
 
+        mSeekbarVoice.setMax(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+        mSeekbarVoice.setProgress(mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        mSeekbarVoice.setOnSeekBarChangeListener(mVoiceChangeListener);
     }
+
+    /**
+     * 声音滑块滑动事件
+     */
+    private SeekBar.OnSeekBarChangeListener mVoiceChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+        public void onStopTrackingTouch(SeekBar seekBar) {
+        }
+
+        public void onStartTrackingTouch(SeekBar seekBar) {
+        }
+
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // 设置音量
+                mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+        }
+    };
+
 
     // 音乐滑块事件
     private CustomRangeSeekBar.ThumbListener mThumbListener = new CustomRangeSeekBar.ThumbListener() {
@@ -158,15 +194,39 @@ public class AudioCutActivity extends BaseToolBarActivity {
                         showErrorToast("截取的文件长度必须大于0");
                         return;
                     }
+                    showInputNameDialog(minNumber.longValue(),maxNumber.longValue());
+
                 }
 
                 break;
         }
     }
 
+    private void showInputNameDialog(final long min, final long max) {
+        final EditText editText  = new EditText(this);
+        editText.setWidth(200);
+        new AlertDialog.Builder(this)
+                .setTitle("输入剪切后的名字")
+                .setView(editText)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = editText.getText().toString();
+                        if (TextUtils.isEmpty(name)){
+                            showErrorToast("名字不能为空");
+                            return;
+                        }
+                        doCutter(name,min,max);
+
+                    }
+                }).show();
+
+    }
+
+
     public boolean isSelectedMp3() {
         if (TextUtils.isEmpty(mSelMusicPath)) {
-           showErrorToast("请先选择音乐");
+            showErrorToast("请先选择音乐");
             return false;
         }
         return true;
@@ -238,22 +298,25 @@ public class AudioCutActivity extends BaseToolBarActivity {
         }
         if (requestCode == REQUEST_CODE_AUDIL_LIST) {
             mSelMusicPath = data.getStringExtra(AudioListActivity.EXTRA_FILE_CHOOSER);
-        }
-        try {
-            if (!TextUtils.isEmpty(mSelMusicPath)) {
-                resetSeekBarSelValue();
-                setPlayBtnWithStatus(false);
-                setSeekBarEnable(true);
-                pause();
-                reset();
-                setDataSource(mSelMusicPath);
-                prepare();
-                setSeekBarMaxValue(getDuration());
-                addBarGraphRenderers();
+            try {
+                if (!TextUtils.isEmpty(mSelMusicPath)) {
+                    resetSeekBarSelValue();
+                    setPlayBtnWithStatus(false);
+                    setSeekBarEnable(true);
+                    pause();
+                    reset();
+                    setDataSource(mSelMusicPath);
+                    prepare();
+                    setSeekBarMaxValue(getDuration());
+                    addBarGraphRenderers();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }else if (requestCode == REQUEST_CODE_ASK_WRITE_SETTINGS){
+
         }
+
     }
 
     private void addBarGraphRenderers() {
@@ -322,51 +385,68 @@ public class AudioCutActivity extends BaseToolBarActivity {
      * 剪切音乐
      */
     public void doCutter(final String fileName, final long minValue, final long maxValue) {
-//        Observable.create(new ObservableOnSubscribe() {
-//            @Override
-//            public void subscribe(ObservableEmitter e) throws Exception {
-//                Mp3CutLogic helper = new Mp3CutLogic(new File(mSelMusicPath));
-//                if (FileUtils.bFolder(RING_FOLDER)) {
-//                    if (!TextUtils.isEmpty(fileName)) {
-//                        String targetMp3FilePath = RING_FOLDER + "/" + fileName + RING_FORMAT;
-//
-//                        try {
-//                            helper.generateNewMp3ByTime(targetMp3FilePath, minValue, maxValue);
-//                            addMp3ToDb(targetMp3FilePath);
-//                            e.onNext(targetMp3FilePath);
-//                        } catch (Exception e1) {
-//                            e.onError(e1);
-//                        }
-//                    }
-//                }
-//            }
-//        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.newThread())
-//                .subscribe(new Observer<String>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(String value) {
-//                        String cutterPath = value;
-//                        if (mView != null) {
-//                            mView.doCutterSucc(cutterPath);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        if (mView != null) {
-//                            mView.doCutterFail();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
+        final String mp3_cutDir = StorageUtil.getDir("mp3_cut");
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter e) throws Exception {
+                if (!TextUtils.isEmpty(fileName)) {
+                    Mp3CutLogic helper = new Mp3CutLogic(new File(mSelMusicPath));
+                    String targetMp3FilePath = mp3_cutDir + "/" + fileName + ".mp3";
+                    try {
+                        helper.generateNewMp3ByTime(targetMp3FilePath, minValue, maxValue);
+                        addMp3ToDb(targetMp3FilePath);
+                        e.onNext(targetMp3FilePath);
+                    } catch (Exception e1) {
+                        e.onError(e1);
+                    }
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.newThread())
+                .subscribe(new MyObserver<String>() {
+                    @Override
+                    public void _onNext(String value) {
+                        String cutterPath = value;
+                        doCutterSuccess(cutterPath);
+                    }
+
+                    @Override
+                    public void _onError(String e) {
+                        showErrorToast("裁剪失败 " + e);
+                        L.d(e);
+                    }
+                });
+    }
+
+
+
+    private void doCutterSuccess(final String cutterPath) {
+        showShortToast("裁剪成功，保存在 "+cutterPath);
+        new AlertDialog.Builder(this)
+                .setTitle("是否设置为铃声")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkPermissionAndSettingVoice(cutterPath);
+                    }
+                }).show();
+
+    }
+
+    private void checkPermissionAndSettingVoice(final String cutterPath) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                        Uri.parse("package:" + getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(intent, REQUEST_CODE_ASK_WRITE_SETTINGS);
+            } else {
+                SystemManage.setMyRingtone(cutterPath, AudioCutActivity.this);
+            }
+        }
+    }
+
+    private void addMp3ToDb(String targetMp3FilePath) {
+
     }
 
 }

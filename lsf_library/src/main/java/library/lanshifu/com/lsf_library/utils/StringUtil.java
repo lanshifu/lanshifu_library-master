@@ -626,4 +626,25 @@ public final class StringUtil {
             return str.getBytes();
         }
     }
+
+    public static String convertEncode(String content, String oldEncode) {
+        try {
+            return new String(content.getBytes(oldEncode), "gbk");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
+
+    public static boolean isBlank(String value) {
+        boolean ret = false;
+        if ((value != null) && (value.equals(""))) {
+            ret = true;
+        }
+        return ret;
+    }
+
+    public static boolean isNull(String value) {
+        return value == null;
+    }
 }

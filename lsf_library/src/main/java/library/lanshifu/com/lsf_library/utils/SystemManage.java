@@ -2,6 +2,7 @@
 package library.lanshifu.com.lsf_library.utils;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
@@ -20,12 +22,15 @@ import android.os.Environment;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.StatFs;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -850,5 +855,38 @@ public final class SystemManage {
 
         Log.i(TAG, "md5=" + md5);
         return md5.contains("388f9d9a4a2973");
+    }
+
+    /**
+     * 设置来电铃声
+     *
+     * @param path
+     */
+    public static void setMyRingtone(String path, Context context) {
+        File sdfile = new File(path);
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.DATA, sdfile.getAbsolutePath());
+        values.put(MediaStore.MediaColumns.TITLE, sdfile.getName());
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/*");
+        values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+        values.put(MediaStore.Audio.Media.IS_NOTIFICATION, false);
+        values.put(MediaStore.Audio.Media.IS_ALARM, false);
+        values.put(MediaStore.Audio.Media.IS_MUSIC, false);
+        try {
+            Uri uri = MediaStore.Audio.Media.getContentUriForPath(sdfile
+                    .getAbsolutePath());
+            // Uri uri =
+            // MediaStore.Audio.Media.getContentUriForPath(_path[position]);
+            Uri newUri = context.getApplicationContext().getContentResolver().insert(uri, values);
+            RingtoneManager.setActualDefaultRingtoneUri(context,
+                    RingtoneManager.TYPE_RINGTONE, newUri);
+
+            Settings.System.putString(context.getContentResolver(),
+                    Settings.System.RINGTONE, newUri.toString());
+            T.showShort("操作成功");
+        } catch (Throwable t) {
+           T.showShort("操作失败");
+        }
+
     }
 }
