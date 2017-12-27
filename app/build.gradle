@@ -3,6 +3,7 @@ apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.antfortune.freeline'
 apply plugin: 'com.antfortune.freeline'
 //apply plugin: 'com.tencent.tinker.patch'
+apply plugin: 'com.didi.virtualapk.host'
 
 android {
     signingConfigs {
@@ -208,6 +209,7 @@ dependencies {
     compile 'com.tencent.tinker:tinker-android-lib:1.7.5'
     compile files('src/main/libs/BaiduLBS_Android.jar')
     compile files('src/main/libs/jaudiotagger-2.0.2.jar')
+    compile 'com.didi.virtualapk:core:0.9.0'
 }
 
 

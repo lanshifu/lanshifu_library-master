@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 import android.provider.Telephony;
 import android.support.v7.app.AlertDialog;
@@ -21,8 +22,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.didi.virtualapk.PluginManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
@@ -136,7 +139,7 @@ public class MainFragment extends BaseFragment {
 //        Parent child = new Child();
 //        child.say();
 //        child.sleep();
-
+        loadPlugin(getActivity());
     }
 
 
@@ -183,7 +186,8 @@ public class MainFragment extends BaseFragment {
             , R.id.btn_bluetooth, R.id.btn_wifi, R.id.btn_vr, R.id.btn_expend, R.id.btn_shell
             , R.id.btn_sms, R.id.btn_loading, R.id.btn_guide, R.id.btn_jsoup, R.id.btn_network_tool
             , R.id.btn_music, R.id.btn_zhihu_pic, R.id.btn_chatimage, R.id.btn_aidl
-            , R.id.btn_download, R.id.btn_bigpic, R.id.btn_preview, R.id.btn_appinfo, R.id.btn_audio_cut})
+            , R.id.btn_download, R.id.btn_bigpic, R.id.btn_preview, R.id.btn_appinfo, R.id.btn_audio_cut
+            , R.id.btn_virtualApk})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -355,6 +359,9 @@ public class MainFragment extends BaseFragment {
                 break;
             case R.id.btn_audio_cut:
                 startActivity(new Intent(getContext(), AudioCutActivity.class));
+                break;
+            case R.id.btn_virtualApk:
+                loadVirtualApk();
                 break;
         }
 
@@ -593,6 +600,38 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
 
+    private void loadVirtualApk(){
+        final String pkg = "com.lanshifu.myplugin";
+        if (PluginManager.getInstance(getActivity()).getLoadedPlugin(pkg) == null) {
+            showErrorToast("plugin ["+pkg+"] not loaded");
+            return;
+        }
+
+        L.d("loadVirtualApk");
+        // test Activity and Service
+        Intent intent = new Intent();
+        intent.setClassName("com.lanshifu.myplugin", "com.lanshifu.myplugin.MainActivity");
+        intent.putExtra("key","我是插件宿主，收到消息了没，哈哈哈");
+        startActivity(intent);
+    }
+
+    private void loadPlugin(Context base) {
+        PluginManager pluginManager = PluginManager.getInstance(base);
+        File apk = new File(Environment.getExternalStorageDirectory(), "plugin.apk");
+      if (apk.exists()) {
+            L.d("loadPlugin");
+            try {
+                pluginManager.loadPlugin(apk);
+                showShortToast("插件加载完成");
+            } catch (Exception e) {
+                showErrorToast("插件加载失败" +e.getMessage());
+                L.d("插件load 失败 "+e.getMessage());
+                e.printStackTrace();
+            }
+        }else {
+          showErrorToast("插件apk不存在");
+        }
     }
 }

@@ -3,6 +3,7 @@ package library.lanshifu.com.myapplication;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.didi.virtualapk.PluginManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.CsvFormatStrategy;
 import com.orhanobut.logger.DiskLogAdapter;
@@ -78,6 +79,7 @@ public class MyApp extends BaseApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        PluginManager.getInstance(base).init();
     }
 
     public static MyApp getInstance() {
